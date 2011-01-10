@@ -1,0 +1,24 @@
+#sidebar TableOfContents
+=Use with Release Plugin =
+
+== Plugin Configuration ==
+{{{
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-release-plugin</artifactId>
+  <version>2.1</version>
+  <configuration>
+  ....
+    <providerImplementations>
+      <svn>javasvn</svn>
+    </providerImplementations>
+  </configuration>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.code.maven-scm-provider-svnjava</groupId> 
+      <artifactId>maven-scm-provider-svnjava</artifactId> 
+      <version>1.12</version>
+    </dependency>
+  </dependencies>
+</plugin>
+}}}

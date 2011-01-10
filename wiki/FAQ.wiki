@@ -1,0 +1,11 @@
+#summary Some questions and answers
+#labels Featured
+
+= Why isn't this project a part of maven-scm-plugin proper? =
+For full details, see https://issues.apache.org/jira/browse/LEGAL-45
+
+SVNKit's license ([http://en.wikipedia.org/wiki/Sleepycat_License Sleepycat]) is simply not compatible with the ASF license.  So it's impossible to distribute a product under the ASF license with svnkit included.  But adding it as a maven dependency is different.
+
+
+= How do I address the "Change the default 'svn' provider implementation to 'javasvn' message?=
+No answer just yet.

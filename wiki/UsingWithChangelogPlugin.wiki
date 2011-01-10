@@ -1,0 +1,22 @@
+Using With Changelog Plugin
+
+= Scm Url =
+{{{
+  <scm>
+    <connection>scm:javasvn:http://xxxxx</connection>
+    <developerConnection>scm:javasvn:http://xxxxx</developerConnection>
+  </scm>
+}}}
+= Plugin Configuration =
+{{{
+      <plugin>
+        <artifactId>maven-changelog-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>com.google.scm.svnjava</groupId>
+            <artifactId>maven-scm-provider-svnjava</artifactId>
+            <version>1.9</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+}}}

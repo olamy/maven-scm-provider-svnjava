@@ -1,0 +1,30 @@
+#summary Using maven-scm-provider-svnjava with Maven
+#labels Featured,Phase-Support
+
+= Introduction =
+
+This is a quick guide to using the pure-java svn provider with maven.
+
+= Details =
+
+To use with maven, add this to your pom or a parent pom, in the {{{<build>/<plugins>}}}
+section:
+{{{
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-scm-plugin</artifactId>
+    <version>1.3</version>
+    <configuration>
+        <providerImplementations>
+            <svn>javasvn</svn>
+        </providerImplementations>
+    </configuration>
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.maven-scm-provider-svnjava</groupId>
+            <artifactId>maven-scm-provider-svnjava</artifactId>
+            <version>1.9</version>
+        </dependency>
+    </dependencies>
+</plugin>
+}}}

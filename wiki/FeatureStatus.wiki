@@ -1,0 +1,34 @@
+#summary A quick Summary of implementation
+#labels Featured,Phase-Support
+
+= Introduction =
+
+This document briefly describes maven-scm-provider-svnjava's integration status with regard to some core maven plugins
+
+= maven-scm-plugin =
+|| *goal* || *implemented?* ||
+|| scm:list || no ||
+|| scm:tag ||  ||
+|| scm:bootstrap ||  ||
+|| scm:export ||  ||
+|| scm:update ||  ||
+|| scm:status || yes ||
+|| scm:edit ||  ||
+|| scm:changelog ||  ||
+|| scm:add ||  ||
+|| scm:unedit ||  ||
+|| scm:validate ||  ||
+|| scm:branch ||  ||
+|| scm:checkin ||  ||
+|| scm:checkout ||  ||
+|| scm:update-subprojects ||  ||
+|| scm:diff || yes ||
+
+= maven-release-plugin =
+|| *goal* || *implemented?* ||
+|| release:clean || ||
+|| release:prepare || ||
+|| release:rollback || ||
+|| release:perform || ||
+|| release:stage || ||
+|| release:branch || ||
