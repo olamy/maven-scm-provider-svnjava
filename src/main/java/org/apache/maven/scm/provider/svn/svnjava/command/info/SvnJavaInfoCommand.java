@@ -14,7 +14,6 @@ import org.apache.maven.scm.command.info.InfoItem;
 import org.apache.maven.scm.command.info.InfoScmResult;
 import org.apache.maven.scm.provider.ScmProviderRepository;
 import org.apache.maven.scm.provider.svn.command.SvnCommand;
-import org.apache.maven.scm.provider.svn.command.info.SvnInfoItem;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.wc.SVNInfo;
