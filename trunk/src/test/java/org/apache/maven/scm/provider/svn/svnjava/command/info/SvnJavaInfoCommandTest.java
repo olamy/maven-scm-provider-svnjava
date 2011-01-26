@@ -3,9 +3,9 @@ package org.apache.maven.scm.provider.svn.svnjava.command.info;
 import java.io.File;
 
 import org.apache.maven.scm.ScmFileSet;
+import org.apache.maven.scm.command.info.InfoItem;
+import org.apache.maven.scm.command.info.InfoScmResult;
 import org.apache.maven.scm.manager.ScmManager;
-import org.apache.maven.scm.provider.svn.command.info.SvnInfoItem;
-import org.apache.maven.scm.provider.svn.command.info.SvnInfoScmResult;
 import org.apache.maven.scm.provider.svn.svnjava.SvnJavaScmProvider;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
 import org.codehaus.plexus.PlexusTestCase;
@@ -47,13 +47,13 @@ public class SvnJavaInfoCommandTest
 
         SvnJavaScmProvider provider = (SvnJavaScmProvider) scmManager.getProviderByUrl( scmUrl );
 
-        SvnInfoScmResult result = provider.info( repository, new ScmFileSet( new File( getBasedir() ) ), null );
-        SvnInfoItem item = (SvnInfoItem) result.getInfoItems().get( 0 );
+        InfoScmResult result = provider.info( repository, new ScmFileSet( new File( getBasedir() ) ), null );
+        InfoItem item = result.getInfoItems().get( 0 );
         assertTrue( item.getRevision() != null );
 
         SvnJavaInfoCommand command = new SvnJavaInfoCommand();
         result = command.executeInfoCommand( repository, new ScmFileSet( new File( getBasedir() ) ), null, true, null );
-        item = (SvnInfoItem) result.getInfoItems().get( 0 );
+        item = result.getInfoItems().get( 0 );
         assertTrue( item.getRevision() != null );
         System.out.println( item.getRevision() );
     }
@@ -69,13 +69,13 @@ public class SvnJavaInfoCommandTest
 
         SvnJavaScmProvider provider = (SvnJavaScmProvider) scmManager.getProviderByUrl( scmUrl );
 
-        SvnInfoScmResult result = provider.info( repository, new ScmFileSet( new File( getBasedir() ) ), null );
-        SvnInfoItem item = (SvnInfoItem) result.getInfoItems().get( 0 );
+        InfoScmResult result = provider.info( repository, new ScmFileSet( new File( getBasedir() ) ), null );
+        InfoItem item = result.getInfoItems().get( 0 );
         assertTrue( item.getRevision() != null );
 
         SvnJavaInfoCommand command = new SvnJavaInfoCommand();
         result = command.executeInfoCommand( repository, new ScmFileSet( new File( getBasedir() ) ), null, true, null );
-        item = (SvnInfoItem) result.getInfoItems().get( 0 );
+        item = result.getInfoItems().get( 0 );
         assertTrue( item.getRevision() != null );
         System.out.println( item.getRevision() );
     }    
