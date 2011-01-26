@@ -89,7 +89,7 @@ public class SvnJavaInfoCommand
             
             SVNInfo svnInfo = javaRepo.getClientManager().getWCClient().doInfo( f, svnRev );
 
-            SvnInfoItem currentItem = new SvnInfoItem();
+            InfoItem currentItem = new InfoItem();
 
             currentItem.setRevision( svnInfo.getRevision() != null ? Long.toString( svnInfo.getRevision().getNumber() )
                                                                   : null );
