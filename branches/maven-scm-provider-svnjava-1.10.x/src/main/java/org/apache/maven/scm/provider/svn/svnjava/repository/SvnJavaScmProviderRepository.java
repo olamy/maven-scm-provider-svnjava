@@ -19,8 +19,14 @@ package org.apache.maven.scm.provider.svn.svnjava.repository;
  * under the License.
  */
 
+import java.io.File;
+
 import org.apache.maven.scm.provider.svn.repository.SvnScmProviderRepository;
+import org.apache.maven.scm.provider.svn.util.SvnUtil;
 import org.tmatesoft.svn.core.SVNURL;
+import org.tmatesoft.svn.core.auth.BasicAuthenticationManager;
+import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
+import org.tmatesoft.svn.core.auth.SVNSSHAuthentication;
 import org.tmatesoft.svn.core.wc.ISVNOptions;
 import org.tmatesoft.svn.core.wc.SVNClientManager;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
@@ -134,7 +140,30 @@ public class SvnJavaScmProviderRepository
         *
         */
         ISVNOptions options = SVNWCUtil.createDefaultOptions( true );
-        
-        clientManager = SVNClientManager.newInstance( options, SVNWCUtil.createDefaultAuthenticationManager() );
+        clientManager = SVNClientManager.newInstance( options, getAuthManager() );
+
+    }
+
+    private ISVNAuthenticationManager getAuthManager()
+    {
+        if ( getPrivateKey() != null )
+        {
+            SVNSSHAuthentication[] auth = new SVNSSHAuthentication[1];
+            auth[0] = new SVNSSHAuthentication( getUser(), getPrivateKey().toCharArray(), getPassphrase(), -1, false );
+
+            return new BasicAuthenticationManager( auth );
+        }
+        else if ( getUser() != null )
+        {
+            return new BasicAuthenticationManager( getUser(), getPassword() );
+        }
+        else
+        {
+            String configDirectory = SvnUtil.getSettings().getConfigDirectory();
+
+            return SVNWCUtil.createDefaultAuthenticationManager( configDirectory == null ? null
+                                                                                 : new File( configDirectory ),
+                                                                 getUser(), getPassword(), false );
+        }
     }
 }
