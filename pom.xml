@@ -53,10 +53,8 @@
   
   <properties>
     <scmVersion>1.3</scmVersion>
-    <!--  distUrlReleaseRepo>dav:https://maven-scm-provider-svnjava.googlecode.com/svn/repository/release/</distUrlReleaseRepo-->
     <distUrlReleaseRepo>http://oss.sonatype.org/service/local/staging/deploy/maven2/</distUrlReleaseRepo>
-    <!--  distUrlSnapshotRepo>dav:https://maven-scm-provider-svnjava.googlecode.com/svn/repository/snapshots/</distUrlSnapshotRepo-->
-    <distUrlSnapshotRepo>http://oss.sonatype.org/content/repositories/googlecode-snapshots/</distUrlSnapshotRepo>
+    <distUrlSnapshotRepo>https://oss.sonatype.org/content/repositories/snapshots</distUrlSnapshotRepo>
     <siteUrlDis>dav:https://maven-scm-provider-svnjava.googlecode.com/svn/wiki/site</siteUrlDis>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!--    
