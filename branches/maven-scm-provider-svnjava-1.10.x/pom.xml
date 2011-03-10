@@ -37,8 +37,8 @@
   </licenses>
       
   <scm>
-    <connection>scm:svn:http://maven-scm-provider-svnjava.googlecode.com/svn/branches/maven-scm-provider-svnjava-1.10.x/</connection>
-    <developerConnection>scm:svn:https://maven-scm-provider-svnjava.googlecode.com/svn/branches/maven-scm-provider-svnjava-1.10.x/</developerConnection>
+    <connection>scm:svn: http://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/branches/maven-scm-provider-svnjava-1.10.x</connection>
+    <developerConnection>scm:svn: https://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/branches/maven-scm-provider-svnjava-1.10.x</developerConnection>
     <url>http://code.google.com/p/maven-scm-provider-svnjava/source/list</url>
   </scm>
   
