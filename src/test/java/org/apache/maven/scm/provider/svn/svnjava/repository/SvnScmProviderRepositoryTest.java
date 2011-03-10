@@ -31,7 +31,7 @@ import java.io.File;
 /**
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
  * @author <a href="mailto:dh-maven@famhq.com">David Hawkins</a>
- * @version $Id: SvnScmProviderRepositoryTest.java 3 2009-03-20 21:49:32Z oliver.lamy $
+ * @version $Id$
  */
 public class SvnScmProviderRepositoryTest
     extends ScmTestCase

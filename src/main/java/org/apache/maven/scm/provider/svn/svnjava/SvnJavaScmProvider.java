@@ -28,7 +28,6 @@ import org.apache.maven.scm.provider.ScmProviderRepository;
 import org.apache.maven.scm.provider.svn.AbstractSvnScmProvider;
 import org.apache.maven.scm.provider.svn.command.SvnCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.add.SvnJavaAddCommand;
-import org.apache.maven.scm.provider.svn.svnjava.command.blame.SvnJavaBlameCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.branch.SvnJavaBranchCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.changelog.SvnJavaChangeLogCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.checkin.SvnJavaCheckInCommand;
@@ -36,7 +35,6 @@ import org.apache.maven.scm.provider.svn.svnjava.command.checkout.SvnJavaCheckOu
 import org.apache.maven.scm.provider.svn.svnjava.command.diff.SvnJavaDiffCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.export.SvnJavaExportCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.info.SvnJavaInfoCommand;
-import org.apache.maven.scm.provider.svn.svnjava.command.mkdir.SvnJavaMkdirCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.remove.SvnJavaRemoveCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.status.SvnJavaStatusCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.tag.SvnTagCommand;
@@ -52,7 +50,7 @@ import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
 
 /**
  * @author <a href="mailto:dh-maven@famhq.com">David Hawkins</a>
- * @version $Id: SvnJavaScmProvider.java 439 2010-06-19 17:21:10Z oliver.lamy $
+ * @version $Id$
  * @plexus.component role="org.apache.maven.scm.provider.ScmProvider" role-hint="javasvn"
  */
 public class SvnJavaScmProvider
@@ -193,12 +191,6 @@ public class SvnJavaScmProvider
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException( "getListCommand() is not implemented" );
     }
-    
-    @Override
-    protected SvnCommand getBlameCommand()
-    {
-        return new SvnJavaBlameCommand();
-    }    
 
     /** {@inheritDoc} */
     protected String getRepositoryURL( File path )
@@ -241,14 +233,4 @@ public class SvnJavaScmProvider
         FSRepositoryFactory.setup();
         initialized = true;
     }
-
-    @Override
-    protected SvnCommand getMkdirCommand()
-    {
-        return new SvnJavaMkdirCommand();
-    }
-
-    
-
-
 }

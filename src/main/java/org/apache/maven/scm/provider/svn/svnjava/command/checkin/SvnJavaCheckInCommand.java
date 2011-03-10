@@ -20,6 +20,7 @@ package org.apache.maven.scm.provider.svn.svnjava.command.checkin;
  */
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.maven.scm.ScmException;
@@ -43,8 +44,7 @@ import org.tmatesoft.svn.core.wc.SVNCommitItem;
 
 /**
  * @author <a href="mailto:trygvis@inamo.no">Trygve Laugst&oslash;l</a>
- * @author Olivier Lamy
- * @version $Id: SvnJavaCheckInCommand.java 486 2011-01-02 18:40:36Z oliver.lamy $
+ * @version $Id$
  */
 public class SvnJavaCheckInCommand
     extends AbstractCheckInCommand
@@ -70,36 +70,36 @@ public class SvnJavaCheckInCommand
 
         try
         {
-            List<File> tmpPaths = fileSet.getFileList();
-            List<File> paths;
-            if ( tmpPaths == null || tmpPaths.isEmpty() )
+            File[] tmpPaths = fileSet.getFiles();
+            File[] paths;
+            if ( tmpPaths == null || tmpPaths.length == 0 )
             {
-                paths = new ArrayList<File>( 1 );
-                paths.add( fileSet.getBasedir() );
+                paths = new File[] { fileSet.getBasedir() };
             }
             else
             {
-                paths = new ArrayList<File>(tmpPaths.size());
-                for ( File f : tmpPaths )
+                paths = new File[tmpPaths.length];
+                for ( int i = 0; i < tmpPaths.length; i++ )
                 {
-                    if ( f.isAbsolute() )
+                    if ( tmpPaths[i].isAbsolute() )
                     {
-                        paths.add( f );
+                        paths[i] = tmpPaths[i];
                     }
                     else
                     {
-                        paths.add( new File( fileSet.getBasedir(), f.toString() ) );
+                        paths[i] = new File( fileSet.getBasedir(), tmpPaths[i].toString() );
                     }
                 }
             }
 
-            SVNCommitInfo svnCommitInfo =
-                SvnJavaUtil.commit( svnCommitClient, paths.toArray( new File[paths.size()] ), false, message, true );
+            SVNCommitInfo svnCommitInfo = SvnJavaUtil.commit( svnCommitClient, paths, false, message, true );
 
-            List<ScmFile> files = new ArrayList<ScmFile>();
-            for ( String filePath : handler.getFiles() )
+            List files = new ArrayList();
+            for ( Iterator iter = handler.getFiles().iterator(); iter.hasNext(); )
             {
+                String filePath = (String) iter.next();
                 files.add( new ScmFile( filePath, ScmFileStatus.CHECKED_IN ) );
+
             }
 
             return new CheckInScmResult( SvnJavaScmProvider.COMMAND_LINE, files, Long.toString( svnCommitInfo
@@ -118,7 +118,7 @@ public class SvnJavaCheckInCommand
     public static class CommitHandler
         implements ISVNCommitHandler
     {
-        private List<String> files = new ArrayList<String>();
+        private List files = new ArrayList();
 
         public CommitHandler()
         {
@@ -148,7 +148,7 @@ public class SvnJavaCheckInCommand
             return svnProperties;
         }
 
-        public List<String> getFiles()
+        public List getFiles()
         {
             return files;
         }

@@ -43,7 +43,7 @@ import org.tmatesoft.svn.core.wc.SVNUpdateClient;
 
 /**
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
- * @version $Id: SvnJavaUpdateCommand.java 397 2010-01-14 21:11:48Z oliver.lamy@gmail.com $
+ * @version $Id$
  */
 public class SvnJavaUpdateCommand
     extends AbstractUpdateCommand

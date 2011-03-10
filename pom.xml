@@ -21,23 +21,13 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>5</version>
-    <relativePath></relativePath>
-  </parent>
-
   <groupId>com.google.code.maven-scm-provider-svnjava</groupId>
   <artifactId>maven-scm-provider-svnjava</artifactId>
-  <version>1.13-SNAPSHOT</version>
+  <version>1.10.2-SNAPSHOT</version>
   <name>Maven SCM Subversion Provider - Java Impl.</name>
   <description>This provider use a non ASL license compatible library (svnkit http://svnkit.com/).</description>
 
   <url>http://code.google.com/p/maven-scm-provider-svnjava/</url>
-
-
   
   <licenses>
     <license>
@@ -47,27 +37,18 @@
   </licenses>
       
   <scm>
-    <connection>scm:svn:http://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/trunk</connection>
-    <developerConnection>scm:svn:https://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/trunk</developerConnection>
-    <url>http://code.google.com/a/apache-extras.org/p/maven-scm-provider-svnjava/source/browse/</url>
+    <connection>scm:svn:http://maven-scm-provider-svnjava.googlecode.com/svn/branches/maven-scm-provider-svnjava-1.10.x/</connection>
+    <developerConnection>scm:svn:https://maven-scm-provider-svnjava.googlecode.com/svn/branches/maven-scm-provider-svnjava-1.10.x/</developerConnection>
+    <url>http://code.google.com/p/maven-scm-provider-svnjava/source/list</url>
   </scm>
-
-  <developers>
-    <developer>
-      <name>Olivier Lamy</name>
-      <id>olamy</id>
-      <email>olamy@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-  </developers>
   
   <properties>
-    <scmVersion>1.5-SNAPSHOT</scmVersion>
+    <scmVersion>1.3</scmVersion>
+    <!--  distUrlReleaseRepo>dav:https://maven-scm-provider-svnjava.googlecode.com/svn/repository/release/</distUrlReleaseRepo-->
     <distUrlReleaseRepo>http://oss.sonatype.org/service/local/staging/deploy/maven2/</distUrlReleaseRepo>
-    <distUrlSnapshotRepo>https://oss.sonatype.org/content/repositories/snapshots</distUrlSnapshotRepo>
-    <siteUrlDis>scm:svn:https://maven-scm-provider-svnjava.googlecode.com/svn/site/</siteUrlDis>
+    <!--  distUrlSnapshotRepo>dav:https://maven-scm-provider-svnjava.googlecode.com/svn/repository/snapshots/</distUrlSnapshotRepo-->
+    <distUrlSnapshotRepo>http://oss.sonatype.org/content/repositories/googlecode-snapshots/</distUrlSnapshotRepo>
+    <siteUrlDis>dav:https://maven-scm-provider-svnjava.googlecode.com/svn/wiki/site</siteUrlDis>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!--    
     <svnUserName></svnUserName>
@@ -84,7 +65,7 @@
     <dependency>
       <groupId>org.tmatesoft.svnkit</groupId>
       <artifactId>svnkit</artifactId>
-      <version>1.3.5</version>
+      <version>1.3.2-1</version>
     </dependency>
     <!--
         this allows us to use wincrypt encrypted passwords from
@@ -94,12 +75,6 @@
       <groupId>net.java.dev.jna</groupId>
       <artifactId>jna</artifactId>
       <version>3.2.2</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.codehaus.plexus</groupId>
-      <artifactId>plexus-utils</artifactId>
-      <version>2.0.5</version>
     </dependency>
      
     <!-- test -->
@@ -125,7 +100,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.7.2</version>
+        <version>2.5</version>
         <configuration>
           <!--excludes>
             <exclude>**/*TckTest.java</exclude>
@@ -142,7 +117,7 @@
       <plugin>
         <groupId>org.codehaus.plexus</groupId>
         <artifactId>plexus-component-metadata</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.2</version>
         <executions>
           <execution>
             <goals>
@@ -154,19 +129,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.1</version>
+        <version>2.0</version>
         <configuration>
           <useReleaseProfile>true</useReleaseProfile>
           <goals>deploy</goals>
-          <releaseProfiles>sonatype-release-profile</releaseProfiles>
+          <arguments>-Psign</arguments>
         </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>com.google.code.maven-scm-provider-svnjava</groupId> 
-            <artifactId>maven-scm-provider-svnjava</artifactId> 
-            <version>1.11</version>
-          </dependency>
-        </dependencies>
       </plugin>
 
     </plugins>
@@ -214,6 +182,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.0-alpha-4</version>
             <configuration>
               <passphrase>${gpg.passphrase}</passphrase>
             </configuration>
@@ -228,44 +197,6 @@
         </plugins>
       </build>
     </profile>
-    
-    <profile>
-      <id>maven-3</id>
-      <activation>
-        <file>
-          <!-- This employs that the basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
-          <exists>${basedir}</exists>
-        </file>
-      </activation>
-      <properties>
-        <sitePluginVersion>3.0-beta-3</sitePluginVersion>
-      </properties>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-site-plugin</artifactId>
-              <version>${sitePluginVersion}</version>
-            </plugin>          
-          </plugins>
-        </pluginManagement>
-      </build>
-    </profile>
-    
-    <profile>
-      <id>reporting</id>
-      <reporting>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.7</version>
-          </plugin>
-        </plugins>
-      </reporting>
-    </profile>    
-    
     <profile>
       <id>m2e</id>
       <activation>

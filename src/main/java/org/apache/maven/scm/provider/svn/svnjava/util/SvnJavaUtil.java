@@ -52,7 +52,7 @@ import org.tmatesoft.svn.core.wc.SVNUpdateClient;
  * 
  * @author <a href="mailto:dh-maven@famhq.com">David Hawkins</a>
  * 
- * @version $Id: SvnJavaUtil.java 491 2011-01-09 14:24:51Z oliver.lamy $
+ * @version $Id$
  */
 public final class SvnJavaUtil
 {
@@ -326,12 +326,12 @@ public final class SvnJavaUtil
      * dryRun - set to true not to delete an entry but to check if it can be deleted;
      * if false - then it's a deletion itself.
      */
-    public static void delete( SVNClientManager clientManager, List<File> files, boolean force )
+    public static void delete( SVNClientManager clientManager, File[] files, boolean force )
         throws SVNException
     {
-        for ( File file : files )
+        for ( int i = 0; i < files.length; i++ )
         {
-            clientManager.getWCClient().doDelete( file, force, false );
+            clientManager.getWCClient().doDelete( files[i], force, false );
         }
     }
 
@@ -466,13 +466,6 @@ public final class SvnJavaUtil
     {
         clientManager.getLogClient().doAnnotate( file, SVNRevision.UNDEFINED, SVNRevision.create( 1 ),
                                                  SVNRevision.HEAD, true, false, handler, null );
-    }
-    
-    public static SVNCommitInfo mkdir(SVNClientManager clientManager, SVNURL[] urls, String commitMessage)
-    throws SVNException
-    {
-        SVNCommitInfo commitInfo = clientManager.getCommitClient().doMkDir( urls, commitMessage );
-        return commitInfo;
     }
     
     /**

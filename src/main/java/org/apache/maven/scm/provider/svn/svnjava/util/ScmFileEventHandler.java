@@ -40,15 +40,14 @@ import java.util.List;
  * {@link org.tmatesoft.svn.core.wc.SVNEvent#getExpectedAction()}.
  *
  * @author <a href="mailto:dh-maven@famhq.com">David Hawkins</a>
- * @author Olivier Lamy
- * @version $Id: ScmFileEventHandler.java 487 2011-01-03 20:40:44Z oliver.lamy $
+ * @version $Id$
  */
 public class ScmFileEventHandler
     implements ISVNEventHandler
 {
     private final ScmLogger logger;
 
-    private final List<ScmFile> files = new ArrayList<ScmFile>();
+    private final List files = new ArrayList();
 
     private final File baseDirectory;
 
@@ -115,7 +114,7 @@ public class ScmFileEventHandler
      *
      * @return a list of {@link ScmFile} objects
      */
-    public List<ScmFile> getFiles()
+    public List getFiles()
     {
         return files;
     }

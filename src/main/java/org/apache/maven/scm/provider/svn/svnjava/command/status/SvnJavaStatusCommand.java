@@ -33,7 +33,7 @@ import org.tmatesoft.svn.core.SVNException;
 
 /**
  * @author <a href="mailto:brett@apache.org">Brett Porter</a>
- * @version $Id: SvnJavaStatusCommand.java 3 2009-03-20 21:49:32Z oliver.lamy $
+ * @version $Id$
  */
 public class SvnJavaStatusCommand
     extends AbstractStatusCommand

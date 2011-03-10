@@ -26,7 +26,7 @@ import org.apache.maven.scm.provider.svn.svnjava.SvnJavaScmTestUtils;
 
 /**
  * @author <a href="mailto:dh-maven@famhq.com">David Hawkins</a>
- * @version $Id: SvnJavaCheckInCommandTckTest.java 96 2009-03-25 23:17:29Z oliver.lamy $
+ * @version $Id$
  */
 public class SvnJavaCheckInCommandTckTest
     extends SvnCheckInCommandTckTest

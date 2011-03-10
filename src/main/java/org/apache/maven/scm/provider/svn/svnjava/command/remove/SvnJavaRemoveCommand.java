@@ -34,8 +34,7 @@ import org.tmatesoft.svn.core.SVNException;
 
 /**
  * @author <a href="mailto:brett@apache.org">Brett Porter</a>
- * @author Olivier Lamy
- * @version $Id: SvnJavaRemoveCommand.java 491 2011-01-09 14:24:51Z oliver.lamy $
+ * @version $Id$
  */
 public class SvnJavaRemoveCommand
     extends AbstractRemoveCommand
@@ -45,7 +44,7 @@ public class SvnJavaRemoveCommand
     protected ScmResult executeRemoveCommand( ScmProviderRepository repo, ScmFileSet fileSet, String message )
         throws ScmException
     {
-        if ( fileSet.getFileList().isEmpty() )
+        if ( fileSet.getFiles().length == 0 )
         {
             throw new ScmException( "You must provide at least one file/directory to remove" );
         }
@@ -63,7 +62,7 @@ public class SvnJavaRemoveCommand
 
         try
         {
-            SvnJavaUtil.delete( javaRepo.getClientManager(), fileSet.getFileList(), true );
+            SvnJavaUtil.delete( javaRepo.getClientManager(), fileSet.getFiles(), true );
 
             return new RemoveScmResult( SvnJavaScmProvider.COMMAND_LINE, handler.getFiles() );
         }

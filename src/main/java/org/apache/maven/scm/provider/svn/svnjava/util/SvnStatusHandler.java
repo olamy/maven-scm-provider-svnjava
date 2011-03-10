@@ -43,12 +43,12 @@ import java.util.List;
  * org.tmatesoft.svn.examples.wc.StatusHandler</a>
  *
  * @author <a href="mailto:dh-maven@famhq.com">David Hawkins</a>
- * @version $Id: SvnStatusHandler.java 493 2011-01-09 18:03:05Z oliver.lamy $
+ * @version $Id$
  */
 public class SvnStatusHandler
     implements ISVNStatusHandler, ISVNEventHandler
 {
-    private List<ScmFile> files = new ArrayList<ScmFile>();
+    private List files = new ArrayList();
 
     public SvnStatusHandler()
     {
@@ -205,26 +205,26 @@ public class SvnStatusHandler
         }
     }
 
-    /**
+    /*
      * This is an implementation for
      * ISVNEventHandler.handleEvent(SVNEvent event, double progress)
      */
     public void handleEvent( SVNEvent event, double progress )
     {
-        // no op
+
     }
 
-    /**
+    /*
      * Should be implemented to check if the current operation is cancelled. If
      * it is, this method should throw an SVNCancelException.
      */
     public void checkCancelled()
         throws SVNCancelException
     {
-        // no op
+
     }
 
-    public List<ScmFile> getFiles()
+    public List getFiles()
     {
         return files;
     }

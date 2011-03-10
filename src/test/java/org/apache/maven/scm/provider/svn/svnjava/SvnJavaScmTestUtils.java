@@ -38,7 +38,7 @@ import org.tmatesoft.svn.core.wc.admin.SVNAdminClient;
 
 /**
  * @author <a href="mailto:trygvis@inamo.no">Trygve Laugst&oslash;l</a>
- * @version $Id: SvnJavaScmTestUtils.java 405 2010-01-29 22:38:22Z oliver.lamy@gmail.com $
+ * @version $Id$
  */
 public final class SvnJavaScmTestUtils
 {

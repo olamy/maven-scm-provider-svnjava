@@ -19,16 +19,13 @@ package org.apache.maven.scm.provider.svn.svnjava.command.checkout;
  * under the License.
  */
 
-import org.apache.maven.scm.ScmBranch;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
-import org.apache.maven.scm.ScmRevision;
 import org.apache.maven.scm.ScmTag;
 import org.apache.maven.scm.ScmVersion;
 import org.apache.maven.scm.command.checkout.AbstractCheckOutCommand;
 import org.apache.maven.scm.command.checkout.CheckOutScmResult;
 import org.apache.maven.scm.provider.ScmProviderRepository;
-import org.apache.maven.scm.provider.svn.SvnCommandUtils;
 import org.apache.maven.scm.provider.svn.SvnTagBranchUtils;
 import org.apache.maven.scm.provider.svn.command.SvnCommand;
 import org.apache.maven.scm.provider.svn.repository.SvnScmProviderRepository;
@@ -36,7 +33,6 @@ import org.apache.maven.scm.provider.svn.svnjava.SvnJavaScmProvider;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
 import org.apache.maven.scm.provider.svn.svnjava.util.ScmFileEventHandler;
 import org.apache.maven.scm.provider.svn.svnjava.util.SvnJavaUtil;
-import org.codehaus.plexus.util.StringUtils;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.wc.SVNRevision;
@@ -44,8 +40,7 @@ import org.tmatesoft.svn.core.wc.SVNUpdateClient;
 
 /**
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
- * @author Olivier Lamy
- * @version $Id: SvnJavaCheckOutCommand.java 489 2011-01-05 20:55:21Z oliver.lamy $
+ * @version $Id$
  */
 public class SvnJavaCheckOutCommand
     extends AbstractCheckOutCommand
@@ -53,7 +48,7 @@ public class SvnJavaCheckOutCommand
 {
     /** {@inheritDoc} */
     protected CheckOutScmResult executeCheckOutCommand( ScmProviderRepository repo, ScmFileSet fileSet,
-                                                        ScmVersion version, boolean recursive )
+                                                        ScmVersion tag, boolean recursive )
         throws ScmException
     {
         if ( getLogger().isInfoEnabled() )
@@ -63,42 +58,21 @@ public class SvnJavaCheckOutCommand
 
         SvnScmProviderRepository repository = (SvnScmProviderRepository) repo;
 
-		String url = repository.getUrl();
-
-		SVNRevision revision = SVNRevision.HEAD;
-		
-		if (version != null && StringUtils.isNotEmpty(version.getName())) 
-		{
-			if (version instanceof ScmTag) 
-			{
-				url = SvnTagBranchUtils.resolveTagUrl(repository,(ScmTag) version);
-			} 
-			else if (version instanceof ScmBranch) 
-			{
-				url = SvnTagBranchUtils.resolveBranchUrl(repository,(ScmBranch) version);
-			} 
-			else if (version instanceof ScmRevision )
-			{
-				try
-				{
-					revision = SVNRevision.create( Long.parseLong(((ScmRevision)version).getName()));
-				} catch( NumberFormatException exc ) {
-					return new CheckOutScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN checkout failed. Wrong format of revision number.", null, false );
-				}
-			}
-		}
-
-        url = SvnCommandUtils.fixUrl( url, repository.getUser() );
+        String url = repository.getUrl();
+        if ( tag != null )
+        {
+            url = SvnTagBranchUtils.resolveTagUrl( repository, new ScmTag( tag.getName() ) );
+        }
 
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repo;
 
         ScmFileEventHandler handler = new ScmFileEventHandler( getLogger(), fileSet.getBasedir() );
         SVNUpdateClient updateClient = javaRepo.getClientManager().getUpdateClient(); 
         updateClient.setEventHandler( handler );
-        
+
         try
         {
-            SvnJavaUtil.checkout( updateClient, SVNURL.parseURIEncoded( url ), revision,
+            SvnJavaUtil.checkout( updateClient, SVNURL.parseURIEncoded( url ), SVNRevision.HEAD,
                                   fileSet.getBasedir(), true );
 
             return new CheckOutScmResult( SvnJavaScmProvider.COMMAND_LINE, handler.getFiles() );

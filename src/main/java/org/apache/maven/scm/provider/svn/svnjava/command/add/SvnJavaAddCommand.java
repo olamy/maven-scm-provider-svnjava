@@ -19,14 +19,8 @@ package org.apache.maven.scm.provider.svn.svnjava.command.add;
  * under the License.
  */
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.maven.scm.ScmException;
-import org.apache.maven.scm.ScmFile;
 import org.apache.maven.scm.ScmFileSet;
-import org.apache.maven.scm.ScmFileStatus;
 import org.apache.maven.scm.ScmResult;
 import org.apache.maven.scm.command.add.AbstractAddCommand;
 import org.apache.maven.scm.command.add.AddScmResult;
@@ -42,10 +36,14 @@ import org.tmatesoft.svn.core.wc.SVNClientManager;
 import org.tmatesoft.svn.core.wc.SVNEvent;
 import org.tmatesoft.svn.core.wc.SVNEventAction;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author <a href="mailto:brett@apache.org">Brett Porter</a>
  * @author <a href="mailto:dh-maven@famhq.com">David Hawkins</a>
- * @version $Id: SvnJavaAddCommand.java 481 2010-12-31 15:22:23Z oliver.lamy $
+ * @version $Id$
  */
 public class SvnJavaAddCommand
     extends AbstractAddCommand
@@ -56,12 +54,12 @@ public class SvnJavaAddCommand
                                            boolean binary )
         throws ScmException
     {
-        if ( fileSet.getFileList().isEmpty() )
+        if ( fileSet.getFiles().length == 0 )
         {
             throw new ScmException( "You must provide at least one file/directory to add" );
         }
 
-        final List<ScmFile> filesAdded = new ArrayList<ScmFile>();
+        final List filesAdded = new ArrayList();
 
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repository;
 
@@ -76,7 +74,7 @@ public class SvnJavaAddCommand
                 {
                     if ( event.getAction() == SVNEventAction.ADD )
                     {
-                        filesAdded.add( new ScmFile( event.getFile().getPath(), ScmFileStatus.ADDED ) );
+                        filesAdded.add( event.getFile() );
                     }
                 }
 
@@ -87,9 +85,11 @@ public class SvnJavaAddCommand
                 }
             } );
 
-            for ( File file : fileSet.getFileList() )
+            File[] files = fileSet.getFiles();
+
+            for ( int i = 0; i < files.length; i++ )
             {
-                File fileToAdd = new File( fileSet.getBasedir(), file.toString() );
+                File fileToAdd = new File( fileSet.getBasedir(), files[i].toString() );
 
                 if ( getLogger().isDebugEnabled() )
                 {

@@ -10,10 +10,10 @@ import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
 import org.apache.maven.scm.ScmResult;
 import org.apache.maven.scm.command.AbstractCommand;
-import org.apache.maven.scm.command.info.InfoItem;
-import org.apache.maven.scm.command.info.InfoScmResult;
 import org.apache.maven.scm.provider.ScmProviderRepository;
 import org.apache.maven.scm.provider.svn.command.SvnCommand;
+import org.apache.maven.scm.provider.svn.command.info.SvnInfoItem;
+import org.apache.maven.scm.provider.svn.command.info.SvnInfoScmResult;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.wc.SVNInfo;
@@ -48,34 +48,33 @@ public class SvnJavaInfoCommand
         return executeInfoCommand( repository, fileSet, parameters, false, "" );
     }
 
-    public InfoScmResult executeInfoCommand( ScmProviderRepository repository, ScmFileSet fileSet,
+    public SvnInfoScmResult executeInfoCommand( ScmProviderRepository repository, ScmFileSet fileSet,
                                                 CommandParameters parameters, boolean recursive, String revision )
         throws ScmException
     {
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repository;
-        List<InfoItem> infoItems = new ArrayList<InfoItem>();
-        InfoScmResult svnInfoScmResult = new InfoScmResult( null, infoItems );
+        List infoItems = new ArrayList();
+        SvnInfoScmResult svnInfoScmResult = new SvnInfoScmResult( null, infoItems );
 
-        @SuppressWarnings("rawtypes")
         Iterator i = fileSet.getFileList().iterator();
         if ( i.hasNext() )
         {
             while ( i.hasNext() )
             {
-                InfoItem currentItem = executeSingleInfoCommand( javaRepo, (File) ( i.next() ), revision );
+                SvnInfoItem currentItem = executeSingleInfoCommand( javaRepo, (File) ( i.next() ), revision );
                 infoItems.add( currentItem );
             }
         }
         else
         {
             // no files just a base directory
-            InfoItem currentItem = executeSingleInfoCommand( javaRepo, fileSet.getBasedir(), revision );
+            SvnInfoItem currentItem = executeSingleInfoCommand( javaRepo, fileSet.getBasedir(), revision );
             infoItems.add( currentItem );
         }
         return svnInfoScmResult;
     }
 
-    private InfoItem executeSingleInfoCommand( SvnJavaScmProviderRepository javaRepo, File f, String revision )
+    private SvnInfoItem executeSingleInfoCommand( SvnJavaScmProviderRepository javaRepo, File f, String revision )
         throws ScmException
     {
         try
@@ -85,10 +84,10 @@ public class SvnJavaInfoCommand
             {
                 svnRev = SVNRevision.parse( revision );
             }
-            
+
             SVNInfo svnInfo = javaRepo.getClientManager().getWCClient().doInfo( f, svnRev );
 
-            InfoItem currentItem = new InfoItem();
+            SvnInfoItem currentItem = new SvnInfoItem();
 
             currentItem.setRevision( svnInfo.getRevision() != null ? Long.toString( svnInfo.getRevision().getNumber() )
                                                                   : null );
@@ -97,8 +96,6 @@ public class SvnJavaInfoCommand
                 .getCommittedRevision().getNumber() ) : null );
             currentItem.setLastChangedDate( svnInfo.getCommittedDate() != null ? svnInfo.getCommittedDate().toString()
                                                                               : null );
-            
-           
             currentItem.setURL( svnInfo.getURL() != null ? svnInfo.getURL().toString() : null );
             currentItem.setRepositoryUUID( svnInfo.getRepositoryUUID() );
             currentItem.setRepositoryRoot( svnInfo.getRepositoryRootURL() != null ? svnInfo.getRepositoryRootURL()

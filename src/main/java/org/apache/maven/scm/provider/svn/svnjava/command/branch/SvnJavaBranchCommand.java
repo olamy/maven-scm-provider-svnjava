@@ -3,6 +3,7 @@ package org.apache.maven.scm.provider.svn.svnjava.command.branch;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.maven.scm.ScmBranch;
@@ -66,7 +67,7 @@ public class SvnJavaBranchCommand
             throw new ScmException( "branch name must be specified" );
         }
 
-        if ( fileSet.getFileList().isEmpty() )
+        if ( fileSet.getFiles().length != 0 )
         {
             throw new ScmException( "This provider doesn't support branching subsets of a directory" );
         }
@@ -82,28 +83,28 @@ public class SvnJavaBranchCommand
             SVNCommitInfo info = SvnJavaUtil.copy( javaRepo.getClientManager(), javaRepo.getSvnUrl(), destURL, false,
                                                    message, null );
 
-            if ( info.getErrorMessage() != null )
+            if ( info.getError() != null )
             {
-                return new TagScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN tag failed.", info.getErrorMessage()
+                return new TagScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN tag failed.", info.getError()
                     .getMessage(), false );
             }
-            List<ScmFile> fileList = new ArrayList<ScmFile>();
+            List fileList = new ArrayList();
 
-            List<File> files = null;
+            List files = null;
 
             try
             {
-                @SuppressWarnings( "unchecked" )
-                List<File> listFiles = FileUtils.getFiles( fileSet.getBasedir(), "**", "**/.svn/**", false );
-                files = listFiles;
+                files = FileUtils.getFiles( fileSet.getBasedir(), "**", "**/.svn/**", false );
             }
             catch ( IOException e )
             {
                 throw new ScmException( "Error while executing command.", e );
             }
 
-            for ( File f : files )
+            for ( Iterator i = files.iterator(); i.hasNext(); )
             {
+                File f = (File) i.next();
+
                 fileList.add( new ScmFile( f.getPath(), ScmFileStatus.TAGGED ) );
             }
             return new BranchScmResult( SvnJavaScmProvider.COMMAND_LINE, fileList );

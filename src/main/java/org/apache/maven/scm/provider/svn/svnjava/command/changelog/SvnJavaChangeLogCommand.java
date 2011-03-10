@@ -19,13 +19,7 @@ package org.apache.maven.scm.provider.svn.svnjava.command.changelog;
  * under the License.
  */
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.maven.scm.ChangeFile;
-import org.apache.maven.scm.ChangeSet;
 import org.apache.maven.scm.ScmBranch;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
@@ -46,10 +40,14 @@ import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.wc.SVNRevision;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
- * @author Olivier Lamy
- * @version $Id: SvnJavaChangeLogCommand.java 485 2011-01-02 14:05:47Z oliver.lamy $
+ * @version $Id$
  */
 public class SvnJavaChangeLogCommand
     extends AbstractChangeLogCommand
@@ -111,7 +109,7 @@ public class SvnJavaChangeLogCommand
     {
         private ChangeLogSet changeLogSet;
 
-        private List<ChangeSet> changeSets = new ArrayList<ChangeSet>();
+        private List changeSets = new ArrayList();
 
         public ChangeLogHandler( Date startDate, Date endDate )
         {
@@ -121,10 +119,9 @@ public class SvnJavaChangeLogCommand
         public void handleLogEntry( SVNLogEntry logEntry )
             throws SVNException
         {
-            List<ChangeFile> changedFiles = new ArrayList<ChangeFile>();
+            List changedFiles = new ArrayList();
 
-            for ( @SuppressWarnings( "unchecked" )
-            Iterator<String> i = logEntry.getChangedPaths().keySet().iterator(); i.hasNext(); )
+            for ( Iterator i = logEntry.getChangedPaths().keySet().iterator(); i.hasNext(); )
             {
                 changedFiles.add( new ChangeFile( (String) i.next() ) );
             }
