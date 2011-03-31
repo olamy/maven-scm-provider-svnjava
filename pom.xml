@@ -64,7 +64,7 @@
   </developers>
   
   <properties>
-    <scmVersion>1.5-SNAPSHOT</scmVersion>
+    <scmVersion>1.5</scmVersion>
     <distUrlReleaseRepo>http://oss.sonatype.org/service/local/staging/deploy/maven2/</distUrlReleaseRepo>
     <distUrlSnapshotRepo>https://oss.sonatype.org/content/repositories/snapshots</distUrlSnapshotRepo>
     <siteUrlDis>scm:svn:https://maven-scm-provider-svnjava.googlecode.com/svn/site/</siteUrlDis>
