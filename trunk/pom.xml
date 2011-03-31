@@ -26,12 +26,12 @@
     <groupId>org.sonatype.oss</groupId>
     <artifactId>oss-parent</artifactId>
     <version>5</version>
-    <relativePath></relativePath>
+    <relativePath />
   </parent>
 
   <groupId>com.google.code.maven-scm-provider-svnjava</groupId>
   <artifactId>maven-scm-provider-svnjava</artifactId>
-  <version>1.13-SNAPSHOT</version>
+  <version>1.13</version>
   <name>Maven SCM Subversion Provider - Java Impl.</name>
   <description>This provider use a non ASL license compatible library (svnkit http://svnkit.com/).</description>
 
@@ -47,9 +47,9 @@
   </licenses>
       
   <scm>
-    <connection>scm:svn:http://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/trunk</connection>
-    <developerConnection>scm:svn:https://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/trunk</developerConnection>
-    <url>http://code.google.com/a/apache-extras.org/p/maven-scm-provider-svnjava/source/browse/</url>
+    <connection>scm:svn:http://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/tags/maven-scm-provider-svnjava-1.13</connection>
+    <developerConnection>scm:svn:https://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/tags/maven-scm-provider-svnjava-1.13</developerConnection>
+    <url>http://code.google.com/a/apache-extras.org/p/maven-scm-provider-svnjava/source/browse/tags/maven-scm-provider-svnjava-1.13</url>
   </scm>
 
   <developers>
