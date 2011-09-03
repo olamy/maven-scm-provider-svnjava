@@ -126,11 +126,13 @@ public class SvnJavaChangeLogCommand
             for ( @SuppressWarnings( "unchecked" )
             Iterator<String> i = logEntry.getChangedPaths().keySet().iterator(); i.hasNext(); )
             {
-                changedFiles.add( new ChangeFile( (String) i.next() ) );
+                changedFiles.add( new ChangeFile( (String) i.next() , Long.toString( logEntry.getRevision() ) ) );
             }
 
-            changeSets.add( new SvnChangeSet( logEntry.getDate(), logEntry.getMessage(), logEntry.getAuthor(),
-                                              changedFiles ) );
+            SvnChangeSet changeSet = new SvnChangeSet( logEntry.getDate(), logEntry.getMessage(), logEntry.getAuthor(),
+                    changedFiles );
+            changeSet.setRevision( Long.toString( logEntry.getRevision() ) );
+            changeSets.add( changeSet );
         }
 
         public ChangeLogSet getChangeSets()
