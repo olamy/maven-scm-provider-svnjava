@@ -1,5 +1,6 @@
 == 1.13 : in trunk ==
   * upgrade to Apache Maven scm 1.5
+  * include SVN revision information when executing the changelog command (http://code.google.com/a/apache-extras.org/p/maven-scm-provider-svnjava/issues/detail?id=7)
 == 1.12 : 5 November 2010 ==
 
   * upgrade to last svnkit 1.3.4
