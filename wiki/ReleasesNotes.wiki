@@ -1,4 +1,5 @@
-== 1.14 : in trunk ==
+== 1.15 : in trunk ==
+== 1.14 : October 28th 2011 ==
   * upgrade to Apache Maven scm 1.5
   * include SVN revision information when executing the changelog command (http://code.google.com/a/apache-extras.org/p/maven-scm-provider-svnjava/issues/detail?id=7)
   * Unable to use release:branch with svnjava provider http://code.google.com/a/apache-extras.org/p/maven-scm-provider-svnjava/issues/detail?id=8
