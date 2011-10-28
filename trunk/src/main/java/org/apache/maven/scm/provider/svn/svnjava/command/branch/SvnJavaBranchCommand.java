@@ -1,10 +1,5 @@
 package org.apache.maven.scm.provider.svn.svnjava.command.branch;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.maven.scm.ScmBranch;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFile;
@@ -26,6 +21,11 @@ import org.codehaus.plexus.util.StringUtils;
 import org.tmatesoft.svn.core.SVNCommitInfo;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -54,7 +54,7 @@ public class SvnJavaBranchCommand
     implements SvnCommand
 {
 
-    /** 
+    /**
      * @see org.apache.maven.scm.command.branch.AbstractBranchCommand#executeBranchCommand(org.apache.maven.scm.provider.ScmProviderRepository, org.apache.maven.scm.ScmFileSet, java.lang.String, java.lang.String)
      */
     protected ScmResult executeBranchCommand( ScmProviderRepository repo, ScmFileSet fileSet, String branch,
@@ -66,7 +66,7 @@ public class SvnJavaBranchCommand
             throw new ScmException( "branch name must be specified" );
         }
 
-        if ( fileSet.getFileList().isEmpty() )
+        if ( !fileSet.getFileList().isEmpty() )
         {
             throw new ScmException( "This provider doesn't support branching subsets of a directory" );
         }
@@ -76,16 +76,16 @@ public class SvnJavaBranchCommand
         try
         {
 
-            SVNURL destURL = SVNURL.parseURIEncoded( SvnTagBranchUtils.resolveBranchUrl( repository,
-                                                                                         new ScmBranch( branch ) ) );
+            SVNURL destURL =
+                SVNURL.parseURIEncoded( SvnTagBranchUtils.resolveBranchUrl( repository, new ScmBranch( branch ) ) );
 
-            SVNCommitInfo info = SvnJavaUtil.copy( javaRepo.getClientManager(), javaRepo.getSvnUrl(), destURL, false,
-                                                   message, null );
+            SVNCommitInfo info =
+                SvnJavaUtil.copy( javaRepo.getClientManager(), javaRepo.getSvnUrl(), destURL, false, message, null );
 
             if ( info.getErrorMessage() != null )
             {
-                return new TagScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN tag failed.", info.getErrorMessage()
-                    .getMessage(), false );
+                return new TagScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN tag failed.",
+                                         info.getErrorMessage().getMessage(), false );
             }
             List<ScmFile> fileList = new ArrayList<ScmFile>();
 
@@ -93,8 +93,8 @@ public class SvnJavaBranchCommand
 
             try
             {
-                @SuppressWarnings( "unchecked" )
-                List<File> listFiles = FileUtils.getFiles( fileSet.getBasedir(), "**", "**/.svn/**", false );
+                @SuppressWarnings( "unchecked" ) List<File> listFiles =
+                    FileUtils.getFiles( fileSet.getBasedir(), "**", "**/.svn/**", false );
                 files = listFiles;
             }
             catch ( IOException e )
