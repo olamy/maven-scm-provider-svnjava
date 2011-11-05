@@ -19,11 +19,6 @@ package org.apache.maven.scm.provider.svn.svnjava.command.mkdir;
  * under the License.
  */
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
 import org.apache.maven.scm.ScmResult;
@@ -39,21 +34,27 @@ import org.tmatesoft.svn.core.SVNCommitInfo;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * @author <a href="mailto:olamy@apache.org">olamy</a>
- * @since 1.11
  * @version $Id: SvnJavaMkdirCommand.java 490 2011-01-09 14:16:20Z oliver.lamy $
+ * @since 1.11
  */
 public class SvnJavaMkdirCommand
     extends AbstractMkdirCommand
     implements SvnCommand
 {
 
-    /** 
+    /**
      * @see org.apache.maven.scm.command.mkdir.AbstractMkdirCommand#executeMkdirCommand(org.apache.maven.scm.provider.ScmProviderRepository, org.apache.maven.scm.ScmFileSet, java.lang.String)
      */
     @Override
-    protected MkdirScmResult executeMkdirCommand( ScmProviderRepository repository, ScmFileSet fileSet, String message, boolean createInLocal )
+    protected MkdirScmResult executeMkdirCommand( ScmProviderRepository repository, ScmFileSet fileSet, String message,
+                                                  boolean createInLocal )
         throws ScmException
     {
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repository;
@@ -65,7 +66,7 @@ public class SvnJavaMkdirCommand
             dirPath = StringUtils.replace( dirPath, "\\", "/" );
         }
         String url = javaRepo.getUrl() + "/" + dirPath;
-        if (createInLocal)
+        if ( createInLocal )
         {
             url = dirPath;
         }
@@ -74,8 +75,9 @@ public class SvnJavaMkdirCommand
         {
             svnurls.add( SVNURL.parseURIEncoded( url ) );
 
-            SVNCommitInfo commitInfo = SvnJavaUtil.mkdir( javaRepo.getClientManager(),
-                                                          svnurls.toArray( new SVNURL[svnurls.size()] ), message );
+            SVNCommitInfo commitInfo =
+                SvnJavaUtil.mkdir( javaRepo.getClientManager(), svnurls.toArray( new SVNURL[svnurls.size()] ),
+                                   message );
             ScmResult scmResult = new ScmResult( null, null, null, true );
 
             return new MkdirScmResult( Long.toString( commitInfo.getNewRevision() ), scmResult );

@@ -19,11 +19,6 @@ package org.apache.maven.scm.provider.svn.svnjava.command.changelog;
  * under the License.
  */
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.maven.scm.ChangeFile;
 import org.apache.maven.scm.ChangeSet;
 import org.apache.maven.scm.ScmBranch;
@@ -46,6 +41,11 @@ import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.wc.SVNRevision;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
  * @author Olivier Lamy
@@ -55,18 +55,22 @@ public class SvnJavaChangeLogCommand
     extends AbstractChangeLogCommand
     implements SvnCommand
 {
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected ChangeLogScmResult executeChangeLogCommand( ScmProviderRepository repository, ScmFileSet fileSet,
                                                           ScmVersion startVersion, ScmVersion endVersion,
                                                           String datePattern )
         throws ScmException
     {
         throw new UnsupportedOperationException( "executeChangeLogCommand( ScmProviderRepository repository, "
-            + "ScmFileSet fileSet, ScmVersion startVersion, ScmVersion endVersion, String datePattern ) is not "
-            + "implemented" );
+                                                     + "ScmFileSet fileSet, ScmVersion startVersion, ScmVersion endVersion, String datePattern ) is not "
+                                                     + "implemented" );
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected ChangeLogScmResult executeChangeLogCommand( ScmProviderRepository repo, ScmFileSet fileSet,
                                                           Date startDate, Date endDate, ScmBranch branch,
                                                           String datePattern )
@@ -74,8 +78,7 @@ public class SvnJavaChangeLogCommand
     {
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repo;
 
-        SVNRevision startRevision =
-            ( startDate != null ) ? SVNRevision.create( startDate ) : SVNRevision.UNDEFINED;
+        SVNRevision startRevision = ( startDate != null ) ? SVNRevision.create( startDate ) : SVNRevision.UNDEFINED;
         SVNRevision endRevision = ( endDate != null ) ? SVNRevision.create( endDate ) : SVNRevision.HEAD;
 
         try
@@ -97,8 +100,8 @@ public class SvnJavaChangeLogCommand
         }
         catch ( SVNException e )
         {
-            return new ChangeLogScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN Changelog failed.",
-                                           e.getMessage(), false );
+            return new ChangeLogScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN Changelog failed.", e.getMessage(),
+                                           false );
         }
     }
 
@@ -123,14 +126,14 @@ public class SvnJavaChangeLogCommand
         {
             List<ChangeFile> changedFiles = new ArrayList<ChangeFile>();
 
-            for ( @SuppressWarnings( "unchecked" )
-            Iterator<String> i = logEntry.getChangedPaths().keySet().iterator(); i.hasNext(); )
+            for ( @SuppressWarnings( "unchecked" ) Iterator<String> i = logEntry.getChangedPaths().keySet().iterator();
+                  i.hasNext(); )
             {
-                changedFiles.add( new ChangeFile( (String) i.next() , Long.toString( logEntry.getRevision() ) ) );
+                changedFiles.add( new ChangeFile( (String) i.next(), Long.toString( logEntry.getRevision() ) ) );
             }
 
-            SvnChangeSet changeSet = new SvnChangeSet( logEntry.getDate(), logEntry.getMessage(), logEntry.getAuthor(),
-                    changedFiles );
+            SvnChangeSet changeSet =
+                new SvnChangeSet( logEntry.getDate(), logEntry.getMessage(), logEntry.getAuthor(), changedFiles );
             changeSet.setRevision( Long.toString( logEntry.getRevision() ) );
             changeSets.add( changeSet );
         }

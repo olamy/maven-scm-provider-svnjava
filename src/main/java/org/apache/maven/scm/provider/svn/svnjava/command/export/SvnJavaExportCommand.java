@@ -47,7 +47,7 @@ public class SvnJavaExportCommand
     implements SvnCommand
 {
 
-    /** 
+    /**
      * @see org.apache.maven.scm.command.export.AbstractExportCommand#executeExportCommand(org.apache.maven.scm.provider.ScmProviderRepository, org.apache.maven.scm.ScmFileSet, org.apache.maven.scm.ScmVersion, java.lang.String)
      */
     protected ExportScmResult executeExportCommand( ScmProviderRepository repo, ScmFileSet fileSet, ScmVersion version,
@@ -76,14 +76,15 @@ public class SvnJavaExportCommand
         url = SvnCommandUtils.fixUrl( url, javaRepo.getUser() );
         try
         {
-            SvnJavaUtil.export( javaRepo.getClientManager(), SVNURL.parseURIEncoded( url ), SVNRevision.HEAD, fileSet
-                .getBasedir(), true );
+            SvnJavaUtil.export( javaRepo.getClientManager(), SVNURL.parseURIEncoded( url ), SVNRevision.HEAD,
+                                fileSet.getBasedir(), true );
 
             return new ExportScmResult( SvnJavaScmProvider.COMMAND_LINE, handler.getFiles() );
         }
         catch ( SVNException e )
         {
-            return new ExportScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN checkout failed.", e.getMessage(), false );
+            return new ExportScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN checkout failed.", e.getMessage(),
+                                        false );
         }
         finally
         {

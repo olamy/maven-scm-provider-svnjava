@@ -51,7 +51,9 @@ public class SvnJavaCheckOutCommand
     extends AbstractCheckOutCommand
     implements SvnCommand
 {
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected CheckOutScmResult executeCheckOutCommand( ScmProviderRepository repo, ScmFileSet fileSet,
                                                         ScmVersion version, boolean recursive )
         throws ScmException
@@ -63,43 +65,46 @@ public class SvnJavaCheckOutCommand
 
         SvnScmProviderRepository repository = (SvnScmProviderRepository) repo;
 
-		String url = repository.getUrl();
+        String url = repository.getUrl();
 
-		SVNRevision revision = SVNRevision.HEAD;
-		
-		if (version != null && StringUtils.isNotEmpty(version.getName())) 
-		{
-			if (version instanceof ScmTag) 
-			{
-				url = SvnTagBranchUtils.resolveTagUrl(repository,(ScmTag) version);
-			} 
-			else if (version instanceof ScmBranch) 
-			{
-				url = SvnTagBranchUtils.resolveBranchUrl(repository,(ScmBranch) version);
-			} 
-			else if (version instanceof ScmRevision )
-			{
-				try
-				{
-					revision = SVNRevision.create( Long.parseLong(((ScmRevision)version).getName()));
-				} catch( NumberFormatException exc ) {
-					return new CheckOutScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN checkout failed. Wrong format of revision number.", null, false );
-				}
-			}
-		}
+        SVNRevision revision = SVNRevision.HEAD;
+
+        if ( version != null && StringUtils.isNotEmpty( version.getName() ) )
+        {
+            if ( version instanceof ScmTag )
+            {
+                url = SvnTagBranchUtils.resolveTagUrl( repository, (ScmTag) version );
+            }
+            else if ( version instanceof ScmBranch )
+            {
+                url = SvnTagBranchUtils.resolveBranchUrl( repository, (ScmBranch) version );
+            }
+            else if ( version instanceof ScmRevision )
+            {
+                try
+                {
+                    revision = SVNRevision.create( Long.parseLong( ( (ScmRevision) version ).getName() ) );
+                }
+                catch ( NumberFormatException exc )
+                {
+                    return new CheckOutScmResult( SvnJavaScmProvider.COMMAND_LINE,
+                                                  "SVN checkout failed. Wrong format of revision number.", null,
+                                                  false );
+                }
+            }
+        }
 
         url = SvnCommandUtils.fixUrl( url, repository.getUser() );
 
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repo;
 
         ScmFileEventHandler handler = new ScmFileEventHandler( getLogger(), fileSet.getBasedir() );
-        SVNUpdateClient updateClient = javaRepo.getClientManager().getUpdateClient(); 
+        SVNUpdateClient updateClient = javaRepo.getClientManager().getUpdateClient();
         updateClient.setEventHandler( handler );
-        
+
         try
         {
-            SvnJavaUtil.checkout( updateClient, SVNURL.parseURIEncoded( url ), revision,
-                                  fileSet.getBasedir(), true );
+            SvnJavaUtil.checkout( updateClient, SVNURL.parseURIEncoded( url ), revision, fileSet.getBasedir(), true );
 
             return new CheckOutScmResult( SvnJavaScmProvider.COMMAND_LINE, handler.getFiles() );
         }

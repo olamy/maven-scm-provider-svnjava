@@ -19,12 +19,6 @@ package org.apache.maven.scm.provider.svn.svnjava.command.tag;
  * under the License.
  */
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFile;
 import org.apache.maven.scm.ScmFileSet;
@@ -47,6 +41,12 @@ import org.tmatesoft.svn.core.SVNCommitInfo;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * @author <a href="mailto:brett@apache.org">Brett Porter</a>
  * @author Olivier Lamy
@@ -57,12 +57,13 @@ public class SvnTagCommand
     extends AbstractTagCommand
     implements SvnCommand
 {
-    /** {@inheritDoc} */
-    protected ScmResult executeTagCommand( ScmProviderRepository repo, ScmFileSet fileSet, String tag,
-                                           String message )
+    /**
+     * {@inheritDoc}
+     */
+    protected ScmResult executeTagCommand( ScmProviderRepository repo, ScmFileSet fileSet, String tag, String message )
         throws ScmException
     {
-        return executeTagCommand( repo, fileSet, tag, new ScmTagParameters(message) );
+        return executeTagCommand( repo, fileSet, tag, new ScmTagParameters( message ) );
     }
 
     protected ScmResult executeTagCommand( ScmProviderRepository repo, ScmFileSet fileSet, String tag,
@@ -102,19 +103,19 @@ public class SvnTagCommand
             SVNCommitInfo info;
             if ( scmTagParameters != null && scmTagParameters.isRemoteTagging() )
             {
-                info = SvnJavaUtil.copy( javaRepo.getClientManager(), javaRepo.getSvnUrl(), destURL, false,
-                                         message, scmTagParameters.getScmRevision() );
+                info = SvnJavaUtil.copy( javaRepo.getClientManager(), javaRepo.getSvnUrl(), destURL, false, message,
+                                         scmTagParameters.getScmRevision() );
             }
             else
             {
-                info = SvnJavaUtil.copy( javaRepo.getClientManager(), fileSet.getBasedir(), destURL, false,
-                                         message, scmTagParameters.getScmRevision() );
+                info = SvnJavaUtil.copy( javaRepo.getClientManager(), fileSet.getBasedir(), destURL, false, message,
+                                         scmTagParameters.getScmRevision() );
             }
 
             if ( info.getErrorMessage() != null )
             {
-                return new TagScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN tag failed.", info.getErrorMessage()
-                    .getMessage(), false );
+                return new TagScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN tag failed.",
+                                         info.getErrorMessage().getMessage(), false );
             }
 
             // The copy command doesn't return a list of files that were tagged,
@@ -123,8 +124,8 @@ public class SvnTagCommand
             List<File> files = null;
             try
             {
-                @SuppressWarnings( "unchecked" )
-                List<File> list = FileUtils.getFiles( fileSet.getBasedir(), "**", "**/.svn/**", false );
+                @SuppressWarnings( "unchecked" ) List<File> list =
+                    FileUtils.getFiles( fileSet.getBasedir(), "**", "**/.svn/**", false );
                 files = list;
             }
             catch ( IOException e )
@@ -145,5 +146,5 @@ public class SvnTagCommand
             return new TagScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN tag failed.", e.getMessage(), false );
         }
     }
-   
+
 }

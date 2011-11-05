@@ -19,11 +19,6 @@ package org.apache.maven.scm.provider.svn.svnjava.util;
  * under the License.
  */
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.maven.scm.ScmFileStatus;
 import org.codehaus.plexus.util.StringUtils;
 import org.tmatesoft.svn.core.ISVNLogEntryHandler;
@@ -43,15 +38,19 @@ import org.tmatesoft.svn.core.wc.SVNLogClient;
 import org.tmatesoft.svn.core.wc.SVNRevision;
 import org.tmatesoft.svn.core.wc.SVNUpdateClient;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * * Static helper library to consolidate calls to the {@link
  * org.tmatesoft.svn.core.wc.SVNWCClient}. The procedure comments were taken from the tmate.org
- * example file: 
+ * example file:
  * <a href="http://svn.tmate.org/repos/jsvn/trunk/doc/examples/src/org/tmatesoft/svn/examples/wc/WorkingCopy.java">
  * org.tmatesoft.svn.examples.wc.WorkingCopy.java</a>
- * 
+ *
  * @author <a href="mailto:dh-maven@famhq.com">David Hawkins</a>
- * 
  * @version $Id: SvnJavaUtil.java 491 2011-01-09 14:24:51Z oliver.lamy $
  */
 public final class SvnJavaUtil
@@ -439,12 +438,12 @@ public final class SvnJavaUtil
                                                      new SVNProperties() );
         //return clientManager.getCopyClient().doCopy( srcURL, svnRevision, dstURL, isMove, commitMessage, new SVNProperties() );
     }
-    
+
     /*
-     * Copy srcPath from local working copy to dstURL (File->URL) remembering history.
-     * Like 'svn copy srcPath dstURL -m "some comment"' command.
-     * 
-     */
+    * Copy srcPath from local working copy to dstURL (File->URL) remembering history.
+    * Like 'svn copy srcPath dstURL -m "some comment"' command.
+    *
+    */
     public static SVNCommitInfo copy( SVNClientManager clientManager, File srcPath, SVNURL dstURL, boolean isMove,
                                       String commitMessage, String revision )
         throws SVNException
@@ -470,7 +469,7 @@ public final class SvnJavaUtil
         return clientManager.getCopyClient().doCopy( svnCopySources, dstURL, false, true, true, commitMessage,
                                                      new SVNProperties() );
     }
-    
+
     public static ByteArrayOutputStream diff( SVNClientManager clientManager, File baseDir, SVNRevision startRevision,
                                               SVNRevision endRevision )
         throws SVNException
@@ -488,24 +487,24 @@ public final class SvnJavaUtil
     }
 
     /**
-     * @since 1.10
      * @param clientManager
      * @param file
+     * @since 1.10
      */
     public static void blame( SVNClientManager clientManager, File file, ISVNAnnotateHandler handler )
         throws SVNException
     {
-        clientManager.getLogClient().doAnnotate( file, SVNRevision.UNDEFINED, SVNRevision.create( 1 ),
-                                                 SVNRevision.HEAD, true, false, handler, null );
+        clientManager.getLogClient().doAnnotate( file, SVNRevision.UNDEFINED, SVNRevision.create( 1 ), SVNRevision.HEAD,
+                                                 true, false, handler, null );
     }
-    
-    public static SVNCommitInfo mkdir(SVNClientManager clientManager, SVNURL[] urls, String commitMessage)
-    throws SVNException
+
+    public static SVNCommitInfo mkdir( SVNClientManager clientManager, SVNURL[] urls, String commitMessage )
+        throws SVNException
     {
         SVNCommitInfo commitInfo = clientManager.getCommitClient().doMkDir( urls, commitMessage );
         return commitInfo;
     }
-    
+
     /**
      * Generic event handler that collects all events internally and will return them with a call to
      * {@link #getEvents()}
@@ -534,12 +533,12 @@ public final class SvnJavaUtil
         {
             return events;
         }
-        
+
         public void clearEvents()
         {
             events = new ArrayList();
         }
     }
-    
-    
+
+
 }

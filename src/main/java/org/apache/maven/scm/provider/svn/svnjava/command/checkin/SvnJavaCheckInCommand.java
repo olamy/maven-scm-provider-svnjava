@@ -18,9 +18,6 @@ package org.apache.maven.scm.provider.svn.svnjava.command.checkin;
  * specific language governing permissions and limitations
  * under the License.
  */
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFile;
@@ -41,6 +38,10 @@ import org.tmatesoft.svn.core.wc.ISVNCommitHandler;
 import org.tmatesoft.svn.core.wc.SVNCommitClient;
 import org.tmatesoft.svn.core.wc.SVNCommitItem;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author <a href="mailto:trygvis@inamo.no">Trygve Laugst&oslash;l</a>
  * @author Olivier Lamy
@@ -50,7 +51,9 @@ public class SvnJavaCheckInCommand
     extends AbstractCheckInCommand
     implements SvnCommand
 {
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected CheckInScmResult executeCheckInCommand( ScmProviderRepository repo, ScmFileSet fileSet, String message,
                                                       ScmVersion tag )
         throws ScmException
@@ -79,7 +82,7 @@ public class SvnJavaCheckInCommand
             }
             else
             {
-                paths = new ArrayList<File>(tmpPaths.size());
+                paths = new ArrayList<File>( tmpPaths.size() );
                 for ( File f : tmpPaths )
                 {
                     if ( f.isAbsolute() )
@@ -102,8 +105,8 @@ public class SvnJavaCheckInCommand
                 files.add( new ScmFile( filePath, ScmFileStatus.CHECKED_IN ) );
             }
 
-            return new CheckInScmResult( SvnJavaScmProvider.COMMAND_LINE, files, Long.toString( svnCommitInfo
-                .getNewRevision() ) );
+            return new CheckInScmResult( SvnJavaScmProvider.COMMAND_LINE, files,
+                                         Long.toString( svnCommitInfo.getNewRevision() ) );
         }
         catch ( SVNException e )
         {
@@ -133,7 +136,7 @@ public class SvnJavaCheckInCommand
                 for ( int i = 0, size = commitItems.length; i < size; i++ )
                 {
                     SVNCommitItem commitItem = commitItems[i];
-                    if (commitItem.getFile().isFile())
+                    if ( commitItem.getFile().isFile() )
                     {
                         files.add( commitItem.getPath() );
                     }

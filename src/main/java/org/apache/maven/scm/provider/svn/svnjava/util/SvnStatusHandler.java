@@ -52,6 +52,7 @@ public class SvnStatusHandler
 
     public SvnStatusHandler()
     {
+        // no op
     }
 
     /**
@@ -124,8 +125,7 @@ public class SvnStatusHandler
             // We don't care about files that are ignored.
             scmStatus = null;
         }
-        else if ( contentsStatus == SVNStatusType.STATUS_MISSING
-            || contentsStatus == SVNStatusType.STATUS_INCOMPLETE )
+        else if ( contentsStatus == SVNStatusType.STATUS_MISSING || contentsStatus == SVNStatusType.STATUS_INCOMPLETE )
         {
             /* The file, directory or  symbolic  link  item  is  under  version
              * control but is missing or somehow incomplete. The  item  can  be

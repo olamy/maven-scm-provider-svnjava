@@ -72,8 +72,7 @@ public class ScmFileEventHandler
 
         // Do nothing for events without files
         if ( event.getFile() == null || event.getExpectedAction() == SVNEventAction.COMMIT_DELTA_SENT
-            || event.getExpectedAction() == SVNEventAction.COMMIT_COMPLETED
-            || event.getNodeKind() != SVNNodeKind.FILE )
+            || event.getExpectedAction() == SVNEventAction.COMMIT_COMPLETED || event.getNodeKind() != SVNNodeKind.FILE )
         {
             return;
         }
@@ -83,7 +82,7 @@ public class ScmFileEventHandler
             if ( logger.isInfoEnabled() )
             {
                 logger.info( "Unknown SVN file status: '" + event.getExpectedAction() + "' for file: "
-                    + event.getFile().getAbsolutePath() );
+                                 + event.getFile().getAbsolutePath() );
             }
 
             status = ScmFileStatus.UNKNOWN;
@@ -92,7 +91,7 @@ public class ScmFileEventHandler
         if ( logger.isDebugEnabled() )
         {
             logger.debug( StringUtils.defaultString( status, event.getContentsStatus().toString() ) + " - "
-                + event.getFile().getAbsolutePath() );
+                              + event.getFile().getAbsolutePath() );
         }
 
         String currentFile = event.getFile().getAbsolutePath();
