@@ -1,5 +1,7 @@
 package org.apache.maven.scm.provider.svn.svnjava.command.branch;
 
+import org.apache.maven.scm.ScmBranchParameters;
+
 import org.apache.maven.scm.ScmBranch;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFile;
@@ -58,7 +60,7 @@ public class SvnJavaBranchCommand
      * @see org.apache.maven.scm.command.branch.AbstractBranchCommand#executeBranchCommand(org.apache.maven.scm.provider.ScmProviderRepository, org.apache.maven.scm.ScmFileSet, java.lang.String, java.lang.String)
      */
     protected ScmResult executeBranchCommand( ScmProviderRepository repo, ScmFileSet fileSet, String branch,
-                                              String message )
+                                              ScmBranchParameters scmBranchParameters )
         throws ScmException
     {
         if ( branch == null || StringUtils.isEmpty( branch.trim() ) )
@@ -79,8 +81,23 @@ public class SvnJavaBranchCommand
             SVNURL destURL =
                 SVNURL.parseURIEncoded( SvnTagBranchUtils.resolveBranchUrl( repository, new ScmBranch( branch ) ) );
 
-            SVNCommitInfo info =
-                SvnJavaUtil.copy( javaRepo.getClientManager(), javaRepo.getSvnUrl(), destURL, false, message, null );
+            String message = "[maven-scm] copy for branch " + branch;
+            if ( scmBranchParameters != null )
+            {
+                message = scmBranchParameters.getMessage();
+            }            
+            
+            SVNCommitInfo info;
+            if ( scmBranchParameters != null && scmBranchParameters.isRemoteBranching() )
+            {
+                info = SvnJavaUtil.copy( javaRepo.getClientManager(), javaRepo.getSvnUrl(), 
+                                         destURL, false, message, null );
+            }
+            else
+            {
+                info = SvnJavaUtil.copy( javaRepo.getClientManager(), fileSet.getBasedir(), 
+                                         destURL, false, message, null );
+            }
 
             if ( info.getErrorMessage() != null )
             {
@@ -113,5 +130,13 @@ public class SvnJavaBranchCommand
             return new BranchScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN tag failed.", e.getMessage(), false );
         }
     }
-
+    
+    /** {@inheritDoc} */
+    public ScmResult executeBranchCommand( ScmProviderRepository repo, ScmFileSet fileSet, String branch,
+                                           String message )
+         throws ScmException
+    {
+         ScmBranchParameters scmBranchParameters = new ScmBranchParameters( message );
+         return executeBranchCommand( repo, fileSet, branch, scmBranchParameters );
+    }
 }

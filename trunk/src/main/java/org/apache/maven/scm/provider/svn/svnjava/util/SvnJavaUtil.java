@@ -440,6 +440,37 @@ public final class SvnJavaUtil
         //return clientManager.getCopyClient().doCopy( srcURL, svnRevision, dstURL, isMove, commitMessage, new SVNProperties() );
     }
     
+    /*
+     * Copy srcPath from local working copy to dstURL (File->URL) remembering history.
+     * Like 'svn copy srcPath dstURL -m "some comment"' command.
+     * 
+     */
+    public static SVNCommitInfo copy( SVNClientManager clientManager, File srcPath, SVNURL dstURL, boolean isMove,
+                                      String commitMessage, String revision )
+        throws SVNException
+    {
+
+        SVNRevision svnRevision = null;
+        if ( StringUtils.isEmpty( revision ) )
+        {
+            svnRevision = SVNRevision.WORKING;
+        }
+        else
+        {
+            svnRevision = SVNRevision.create( Long.parseLong( revision ) );
+        }
+        /*
+         * SVNRevision.WORKING means working (current) revision.
+         * Returns SVNCommitInfo containing information on the new revision committed
+         * (revision number, etc.)
+         */
+        SVNCopySource[] svnCopySources = new SVNCopySource[1];
+        svnCopySources[0] = new SVNCopySource( svnRevision, svnRevision, srcPath );
+
+        return clientManager.getCopyClient().doCopy( svnCopySources, dstURL, false, true, true, commitMessage,
+                                                     new SVNProperties() );
+    }
+    
     public static ByteArrayOutputStream diff( SVNClientManager clientManager, File baseDir, SVNRevision startRevision,
                                               SVNRevision endRevision )
         throws SVNException

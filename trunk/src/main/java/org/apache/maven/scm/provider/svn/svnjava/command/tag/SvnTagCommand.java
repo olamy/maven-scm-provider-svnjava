@@ -99,8 +99,17 @@ public class SvnTagCommand
                 message = scmTagParameters.getMessage();
             }
 
-            SVNCommitInfo info = SvnJavaUtil.copy( javaRepo.getClientManager(), javaRepo.getSvnUrl(), destURL, false,
-                                                   message, scmTagParameters.getScmRevision() );
+            SVNCommitInfo info;
+            if ( scmTagParameters != null && scmTagParameters.isRemoteTagging() )
+            {
+                info = SvnJavaUtil.copy( javaRepo.getClientManager(), javaRepo.getSvnUrl(), destURL, false,
+                                         message, scmTagParameters.getScmRevision() );
+            }
+            else
+            {
+                info = SvnJavaUtil.copy( javaRepo.getClientManager(), fileSet.getBasedir(), destURL, false,
+                                         message, scmTagParameters.getScmRevision() );
+            }
 
             if ( info.getErrorMessage() != null )
             {
