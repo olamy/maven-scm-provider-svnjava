@@ -39,7 +39,9 @@ public class SvnJavaStatusCommand
     extends AbstractStatusCommand
     implements SvnCommand
 {
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected StatusScmResult executeStatusCommand( ScmProviderRepository repo, ScmFileSet fileSet )
         throws ScmException
     {
@@ -62,8 +64,7 @@ public class SvnJavaStatusCommand
         }
         catch ( SVNException e )
         {
-            return new StatusScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN status failed.", e.getMessage(),
-                                        false );
+            return new StatusScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN status failed.", e.getMessage(), false );
         }
     }
 }

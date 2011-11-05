@@ -49,7 +49,9 @@ public class SvnJavaUpdateCommand
     extends AbstractUpdateCommand
     implements SvnCommand
 {
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected UpdateScmResult executeUpdateCommand( ScmProviderRepository repo, ScmFileSet fileSet, ScmVersion tag )
         throws ScmException
     {
@@ -81,18 +83,20 @@ public class SvnJavaUpdateCommand
             {
                 // The tag specified does not appear to be numeric, so assume it refers
                 // to a branch/tag url and perform a switch operation rather than update
-                revision = SvnJavaUtil.switchToURL( javaRepo.getClientManager(), fileSet.getBasedir(), SVNURL
-                    .parseURIEncoded( SvnTagBranchUtils.resolveTagUrl( repository, new ScmTag( tag.getName() ) ) ),
+                revision = SvnJavaUtil.switchToURL( javaRepo.getClientManager(), fileSet.getBasedir(),
+                                                    SVNURL.parseURIEncoded( SvnTagBranchUtils.resolveTagUrl( repository,
+                                                                                                             new ScmTag(
+                                                                                                                 tag.getName() ) ) ),
                                                     SVNRevision.HEAD, true );
             }
 
-            return new UpdateScmResultWithRevision( SvnJavaScmProvider.COMMAND_LINE, handler.getFiles(), Long
-                .toString( revision ) );
+            return new UpdateScmResultWithRevision( SvnJavaScmProvider.COMMAND_LINE, handler.getFiles(),
+                                                    Long.toString( revision ) );
         }
         catch ( SVNException e )
         {
-            return new UpdateScmResultWithRevision( SvnJavaScmProvider.COMMAND_LINE, "SVN update failed.", e
-                .getMessage(), Long.toString( -1 ), false );
+            return new UpdateScmResultWithRevision( SvnJavaScmProvider.COMMAND_LINE, "SVN update failed.",
+                                                    e.getMessage(), Long.toString( -1 ), false );
         }
         finally
         {
@@ -100,7 +104,9 @@ public class SvnJavaUpdateCommand
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected ChangeLogCommand getChangeLogCommand()
     {
         SvnJavaChangeLogCommand command = new SvnJavaChangeLogCommand();

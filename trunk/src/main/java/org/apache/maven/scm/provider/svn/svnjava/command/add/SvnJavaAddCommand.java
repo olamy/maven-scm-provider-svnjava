@@ -19,10 +19,6 @@ package org.apache.maven.scm.provider.svn.svnjava.command.add;
  * under the License.
  */
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFile;
 import org.apache.maven.scm.ScmFileSet;
@@ -42,6 +38,10 @@ import org.tmatesoft.svn.core.wc.SVNClientManager;
 import org.tmatesoft.svn.core.wc.SVNEvent;
 import org.tmatesoft.svn.core.wc.SVNEventAction;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author <a href="mailto:brett@apache.org">Brett Porter</a>
  * @author <a href="mailto:dh-maven@famhq.com">David Hawkins</a>
@@ -51,7 +51,9 @@ public class SvnJavaAddCommand
     extends AbstractAddCommand
     implements SvnCommand
 {
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected ScmResult executeAddCommand( ScmProviderRepository repository, ScmFileSet fileSet, String message,
                                            boolean binary )
         throws ScmException

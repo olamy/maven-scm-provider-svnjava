@@ -41,7 +41,9 @@ public class SvnJavaRemoveCommand
     extends AbstractRemoveCommand
     implements SvnCommand
 {
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected ScmResult executeRemoveCommand( ScmProviderRepository repo, ScmFileSet fileSet, String message )
         throws ScmException
     {
@@ -69,8 +71,7 @@ public class SvnJavaRemoveCommand
         }
         catch ( SVNException e )
         {
-            return new RemoveScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN remove failed.", e.getMessage(),
-                                        false );
+            return new RemoveScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN remove failed.", e.getMessage(), false );
         }
         finally
         {

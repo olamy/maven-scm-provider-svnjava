@@ -18,11 +18,6 @@
  */
 package org.apache.maven.scm.provider.svn.svnjava.command.blame;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
 import org.apache.maven.scm.command.blame.AbstractBlameCommand;
@@ -35,10 +30,15 @@ import org.apache.maven.scm.provider.svn.svnjava.util.SvnJavaUtil;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.wc.ISVNAnnotateHandler;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
  * @author <a href="mailto:olamy@apache.org">olamy</a>
- * @since 1.11
  * @version $Id: SvnJavaBlameCommand.java 483 2011-01-02 09:01:59Z oliver.lamy $
+ * @since 1.11
  */
 public class SvnJavaBlameCommand
     extends AbstractBlameCommand
@@ -50,7 +50,8 @@ public class SvnJavaBlameCommand
      *      org.apache.maven.scm.ScmFileSet, java.lang.String)
      */
     @Override
-    public BlameScmResult executeBlameCommand( ScmProviderRepository repo, ScmFileSet workingDirectory, String filename )
+    public BlameScmResult executeBlameCommand( ScmProviderRepository repo, ScmFileSet workingDirectory,
+                                               String filename )
         throws ScmException
     {
         try

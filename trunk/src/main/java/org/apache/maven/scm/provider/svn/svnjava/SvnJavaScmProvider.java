@@ -19,10 +19,6 @@ package org.apache.maven.scm.provider.svn.svnjava;
  * under the License.
  */
 
-import java.io.File;
-import java.net.URI;
-import java.util.Collections;
-
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.provider.ScmProviderRepository;
 import org.apache.maven.scm.provider.svn.AbstractSvnScmProvider;
@@ -50,6 +46,10 @@ import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
 
+import java.io.File;
+import java.net.URI;
+import java.util.Collections;
+
 /**
  * @author <a href="mailto:dh-maven@famhq.com">David Hawkins</a>
  * @version $Id: SvnJavaScmProvider.java 439 2010-06-19 17:21:10Z oliver.lamy $
@@ -62,7 +62,9 @@ public class SvnJavaScmProvider
 
     private static boolean initialized = false;
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public ScmProviderRepository makeProviderScmRepository( String scmSpecificUrl, char delimiter )
         throws ScmRepositoryException
     {
@@ -115,92 +117,120 @@ public class SvnJavaScmProvider
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected SvnCommand getAddCommand()
     {
         return new SvnJavaAddCommand();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected SvnCommand getChangeLogCommand()
     {
         return new SvnJavaChangeLogCommand();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected SvnCommand getCheckInCommand()
     {
         return new SvnJavaCheckInCommand();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected SvnCommand getCheckOutCommand()
     {
         return new SvnJavaCheckOutCommand();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected SvnCommand getDiffCommand()
     {
         return new SvnJavaDiffCommand();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected SvnCommand getRemoveCommand()
     {
         return new SvnJavaRemoveCommand();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected SvnCommand getStatusCommand()
     {
         return new SvnJavaStatusCommand();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected SvnCommand getTagCommand()
     {
         return new SvnTagCommand();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected SvnCommand getUpdateCommand()
     {
         return new SvnJavaUpdateCommand();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected SvnCommand getBranchCommand()
     {
         return new SvnJavaBranchCommand();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected SvnCommand getExportCommand()
     {
         return new SvnJavaExportCommand();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected SvnCommand getInfoCommand()
     {
         return new SvnJavaInfoCommand();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected SvnCommand getListCommand()
     {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException( "getListCommand() is not implemented" );
     }
-    
+
     @Override
     protected SvnCommand getBlameCommand()
     {
         return new SvnJavaBlameCommand();
-    }    
+    }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     protected String getRepositoryURL( File path )
         throws ScmException
     {
@@ -247,8 +277,6 @@ public class SvnJavaScmProvider
     {
         return new SvnJavaMkdirCommand();
     }
-
-    
 
 
 }

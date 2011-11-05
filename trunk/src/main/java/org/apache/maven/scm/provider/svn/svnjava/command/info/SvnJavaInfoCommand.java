@@ -1,10 +1,5 @@
 package org.apache.maven.scm.provider.svn.svnjava.command.info;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.maven.scm.CommandParameters;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
@@ -18,6 +13,11 @@ import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRe
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.wc.SVNInfo;
 import org.tmatesoft.svn.core.wc.SVNRevision;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more contributor license
@@ -49,15 +49,14 @@ public class SvnJavaInfoCommand
     }
 
     public InfoScmResult executeInfoCommand( ScmProviderRepository repository, ScmFileSet fileSet,
-                                                CommandParameters parameters, boolean recursive, String revision )
+                                             CommandParameters parameters, boolean recursive, String revision )
         throws ScmException
     {
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repository;
         List<InfoItem> infoItems = new ArrayList<InfoItem>();
         InfoScmResult svnInfoScmResult = new InfoScmResult( null, infoItems );
 
-        @SuppressWarnings("rawtypes")
-        Iterator i = fileSet.getFileList().iterator();
+        @SuppressWarnings( "rawtypes" ) Iterator i = fileSet.getFileList().iterator();
         if ( i.hasNext() )
         {
             while ( i.hasNext() )
@@ -85,24 +84,24 @@ public class SvnJavaInfoCommand
             {
                 svnRev = SVNRevision.parse( revision );
             }
-            
+
             SVNInfo svnInfo = javaRepo.getClientManager().getWCClient().doInfo( f, svnRev );
 
             InfoItem currentItem = new InfoItem();
 
-            currentItem.setRevision( svnInfo.getRevision() != null ? Long.toString( svnInfo.getRevision().getNumber() )
-                                                                  : null );
+            currentItem.setRevision(
+                svnInfo.getRevision() != null ? Long.toString( svnInfo.getRevision().getNumber() ) : null );
             currentItem.setLastChangedAuthor( svnInfo.getAuthor() );
-            currentItem.setLastChangedRevision( svnInfo.getCommittedRevision() != null ? Long.toString( svnInfo
-                .getCommittedRevision().getNumber() ) : null );
-            currentItem.setLastChangedDate( svnInfo.getCommittedDate() != null ? svnInfo.getCommittedDate().toString()
-                                                                              : null );
-            
-           
+            currentItem.setLastChangedRevision( svnInfo.getCommittedRevision() != null
+                                                    ? Long.toString( svnInfo.getCommittedRevision().getNumber() )
+                                                    : null );
+            currentItem.setLastChangedDate(
+                svnInfo.getCommittedDate() != null ? svnInfo.getCommittedDate().toString() : null );
+
             currentItem.setURL( svnInfo.getURL() != null ? svnInfo.getURL().toString() : null );
             currentItem.setRepositoryUUID( svnInfo.getRepositoryUUID() );
-            currentItem.setRepositoryRoot( svnInfo.getRepositoryRootURL() != null ? svnInfo.getRepositoryRootURL()
-                .toString() : null );
+            currentItem.setRepositoryRoot(
+                svnInfo.getRepositoryRootURL() != null ? svnInfo.getRepositoryRootURL().toString() : null );
             currentItem.setNodeKind( svnInfo.getKind() != null ? svnInfo.getKind().toString() : null );
             return currentItem;
         }

@@ -19,8 +19,6 @@ package org.apache.maven.scm.provider.svn.svnjava.repository;
  * under the License.
  */
 
-import java.io.File;
-
 import org.apache.maven.scm.provider.svn.repository.SvnScmProviderRepository;
 import org.apache.maven.scm.provider.svn.util.SvnUtil;
 import org.tmatesoft.svn.core.SVNURL;
@@ -30,6 +28,8 @@ import org.tmatesoft.svn.core.auth.SVNSSHAuthentication;
 import org.tmatesoft.svn.core.wc.ISVNOptions;
 import org.tmatesoft.svn.core.wc.SVNClientManager;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
+
+import java.io.File;
 
 /**
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
@@ -79,11 +79,11 @@ public class SvnJavaScmProviderRepository
             SVNWCUtil.createDefaultAuthenticationManager( configDirectory == null ? null : new File( configDirectory ),
                                                           getUser(), getPassword(),
                                                           SvnUtil.getSettings().isUseAuthCache() );
-        
+
         SVNClientManager svnClientManager = SVNClientManager.newInstance( options, isvnAuthenticationManager );
 
         return svnClientManager;
-        
+
     }
 
     public void setPrivateKey( String privateKey )
@@ -169,10 +169,9 @@ public class SvnJavaScmProviderRepository
         {
             String configDirectory = SvnUtil.getSettings().getConfigDirectory();
 
-            return SVNWCUtil.createDefaultAuthenticationManager( configDirectory == null ? null
-                                                                                 : new File( configDirectory ),
-                                                                 getUser(), getPassword(),
-                                                                 SvnUtil.getSettings().isUseAuthCache() );
+            return SVNWCUtil.createDefaultAuthenticationManager(
+                configDirectory == null ? null : new File( configDirectory ), getUser(), getPassword(),
+                SvnUtil.getSettings().isUseAuthCache() );
         }
     }
 }

@@ -1,8 +1,7 @@
 package org.apache.maven.scm.provider.svn.svnjava.command.branch;
 
-import org.apache.maven.scm.ScmBranchParameters;
-
 import org.apache.maven.scm.ScmBranch;
+import org.apache.maven.scm.ScmBranchParameters;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFile;
 import org.apache.maven.scm.ScmFileSet;
@@ -85,18 +84,18 @@ public class SvnJavaBranchCommand
             if ( scmBranchParameters != null )
             {
                 message = scmBranchParameters.getMessage();
-            }            
-            
+            }
+
             SVNCommitInfo info;
             if ( scmBranchParameters != null && scmBranchParameters.isRemoteBranching() )
             {
-                info = SvnJavaUtil.copy( javaRepo.getClientManager(), javaRepo.getSvnUrl(), 
-                                         destURL, false, message, null );
+                info = SvnJavaUtil.copy( javaRepo.getClientManager(), javaRepo.getSvnUrl(), destURL, false, message,
+                                         null );
             }
             else
             {
-                info = SvnJavaUtil.copy( javaRepo.getClientManager(), fileSet.getBasedir(), 
-                                         destURL, false, message, null );
+                info = SvnJavaUtil.copy( javaRepo.getClientManager(), fileSet.getBasedir(), destURL, false, message,
+                                         null );
             }
 
             if ( info.getErrorMessage() != null )
@@ -130,13 +129,15 @@ public class SvnJavaBranchCommand
             return new BranchScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN tag failed.", e.getMessage(), false );
         }
     }
-    
-    /** {@inheritDoc} */
+
+    /**
+     * {@inheritDoc}
+     */
     public ScmResult executeBranchCommand( ScmProviderRepository repo, ScmFileSet fileSet, String branch,
                                            String message )
-         throws ScmException
+        throws ScmException
     {
-         ScmBranchParameters scmBranchParameters = new ScmBranchParameters( message );
-         return executeBranchCommand( repo, fileSet, branch, scmBranchParameters );
+        ScmBranchParameters scmBranchParameters = new ScmBranchParameters( message );
+        return executeBranchCommand( repo, fileSet, branch, scmBranchParameters );
     }
 }
