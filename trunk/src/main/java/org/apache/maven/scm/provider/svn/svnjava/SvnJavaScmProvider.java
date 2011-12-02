@@ -218,7 +218,6 @@ public class SvnJavaScmProvider
      */
     protected SvnCommand getListCommand()
     {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException( "getListCommand() is not implemented" );
     }
 
