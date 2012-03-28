@@ -19,6 +19,8 @@ package org.apache.maven.scm.provider.svn.svnjava.command.checkin;
  * under the License.
  */
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFile;
 import org.apache.maven.scm.ScmFileSet;
@@ -65,7 +67,7 @@ public class SvnJavaCheckInCommand
 
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repo;
 
-        CommitHandler handler = new CommitHandler();
+        CommitHandler handler = new CommitHandler( fileSet.getBasedir().getAbsolutePath() );
 
         SVNCommitClient svnCommitClient = javaRepo.getClientManager().getCommitClient();
 
@@ -123,9 +125,15 @@ public class SvnJavaCheckInCommand
     {
         private List<String> files = new ArrayList<String>();
 
-        public CommitHandler()
+        private String baseDirectory;
+
+        public CommitHandler( String baseDirectory )
         {
-            // no op
+            this.baseDirectory = FilenameUtils.separatorsToUnix( baseDirectory );
+            if ( !StringUtils.endsWith( this.baseDirectory, "/" ) )
+            {
+                this.baseDirectory += "/";
+            }
         }
 
         public String getCommitMessage( String message, SVNCommitItem[] commitItems )
@@ -133,12 +141,17 @@ public class SvnJavaCheckInCommand
         {
             if ( commitItems != null )
             {
-                for ( int i = 0, size = commitItems.length; i < size; i++ )
+
                 {
-                    SVNCommitItem commitItem = commitItems[i];
-                    if ( commitItem.getFile().isFile() )
+                    for ( SVNCommitItem commitItem : commitItems )
                     {
-                        files.add( commitItem.getPath() );
+                        if ( commitItem.getFile().isFile() )
+                        {
+                            String path =
+                                StringUtils.removeStartIgnoreCase( commitItem.getFile().getPath(), baseDirectory );
+
+                            files.add( path );
+                        }
                     }
                 }
             }
