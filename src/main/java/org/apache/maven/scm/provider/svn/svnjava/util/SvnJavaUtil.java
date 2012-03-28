@@ -24,6 +24,7 @@ import org.codehaus.plexus.util.StringUtils;
 import org.tmatesoft.svn.core.ISVNLogEntryHandler;
 import org.tmatesoft.svn.core.SVNCancelException;
 import org.tmatesoft.svn.core.SVNCommitInfo;
+import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNProperties;
 import org.tmatesoft.svn.core.SVNURL;
@@ -117,6 +118,13 @@ public final class SvnJavaUtil
         }
     }
 
+
+    public static void add( SVNClientManager clientManager, File wcPath, boolean recursive )
+        throws SVNException
+    {
+        add( clientManager, wcPath, recursive, false );
+    }
+
     /**
      * Puts directories and files under version control scheduling them for addition
      * to a repository. They will be added in a next commit. Like 'svn add PATH'
@@ -141,13 +149,12 @@ public final class SvnJavaUtil
      * recursive - if true and an entry is a directory then doAdd(..) recursively
      * schedules all its inner dir entries for addition as well.
      */
-    public static void add( SVNClientManager clientManager, File wcPath, boolean recursive )
+    public static void add( SVNClientManager clientManager, File wcPath, boolean recursive, boolean force )
         throws SVNException
     {
-        clientManager.getWCClient().doAdd( wcPath, false, // force
-                                           false, // mkdir
-                                           false, // climbUnversionedParents
-                                           recursive );
+        clientManager.getWCClient().doAdd( wcPath, force, false, true, recursive ? SVNDepth.INFINITY : SVNDepth.EMPTY,
+                                           true, false );
+
     }
 
     /**
