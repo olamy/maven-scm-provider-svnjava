@@ -1,3 +1,6 @@
+== 2.0 :? ==
+  *  svn 1.7 support
+
 == 1.15 :December 2nd 2011 ==
   *  SvnTagCommand performs copies from remote rather than working copy (http://code.google.com/a/apache-extras.org/p/maven-scm-provider-svnjava/issues/detail?id=6)
   * Apache Maven Scm 1.6 upgrade.
