@@ -19,6 +19,8 @@ package org.apache.maven.scm.provider.svn.svnjava.command.add;
  * under the License.
  */
 
+import org.apache.maven.scm.CommandParameter;
+import org.apache.maven.scm.CommandParameters;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFile;
 import org.apache.maven.scm.ScmFileSet;
@@ -51,11 +53,10 @@ public class SvnJavaAddCommand
     extends AbstractAddCommand
     implements SvnCommand
 {
-    /**
-     * {@inheritDoc}
-     */
-    protected ScmResult executeAddCommand( ScmProviderRepository repository, ScmFileSet fileSet, String message,
-                                           boolean binary )
+
+    @Override
+    protected ScmResult executeCommand( ScmProviderRepository repository, ScmFileSet fileSet,
+                                        CommandParameters parameters )
         throws ScmException
     {
         if ( fileSet.getFileList().isEmpty() )
@@ -98,7 +99,8 @@ public class SvnJavaAddCommand
                     getLogger().debug( "SVN adding file: " + fileToAdd.getAbsolutePath() );
                 }
 
-                SvnJavaUtil.add( clientManager, fileToAdd, false );
+                boolean forceAdd = parameters.getBoolean( CommandParameter.FORCE_ADD, false );
+                SvnJavaUtil.add( clientManager, fileToAdd, false, forceAdd );
             }
         }
         catch ( SVNException e )
@@ -112,5 +114,17 @@ public class SvnJavaAddCommand
         }
 
         return new AddScmResult( null, filesAdded );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected ScmResult executeAddCommand( ScmProviderRepository repository, ScmFileSet fileSet, String message,
+                                           boolean binary )
+        throws ScmException
+    {
+        CommandParameters commandParameters = new CommandParameters();
+        commandParameters.setString( CommandParameter.MESSAGE, message );
+        return executeCommand( repository, fileSet, commandParameters );
     }
 }
