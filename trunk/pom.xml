@@ -35,7 +35,7 @@
   <name>Maven SCM Subversion Provider - Java Impl.</name>
   <description>This provider use a non ASL license compatible library (svnkit http://svnkit.com/).</description>
 
-  <url>http://code.google.com/p/maven-scm-provider-svnjava/</url>
+  <url>http://code.google.com/a/apache-extras.org/p/maven-scm-provider-svnjava/</url>
 
 
   
