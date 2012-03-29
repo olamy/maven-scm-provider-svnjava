@@ -64,7 +64,8 @@ public class SvnStatusHandler
          * It is  SVNStatusType  who  contains  information on the state of  an
          * item.
          */
-        SVNStatusType contentsStatus = status.getContentsStatus();
+        SVNStatusType contentsStatus = status.getCombinedNodeAndContentsStatus();
+        //status.getContentsStatus();
 
         ScmFileStatus scmStatus = null;
 
