@@ -84,7 +84,7 @@
     <dependency>
       <groupId>org.tmatesoft.svnkit</groupId>
       <artifactId>svnkit</artifactId>
-      <version>1.7.4-rc3</version>
+      <version>1.7.4-rc4</version>
     </dependency>
     <!--
         this allows us to use wincrypt encrypted passwords from
