@@ -86,6 +86,14 @@
       <artifactId>svnkit</artifactId>
       <version>1.7.4-rc4</version>
     </dependency>
+
+   <dependency>
+     <groupId>de.regnis.q.sequence</groupId>
+     <artifactId>sequence-library</artifactId>
+     <version>1.0.0</version>
+     <scope>compile</scope>
+   </dependency>
+
     <!--
         this allows us to use wincrypt encrypted passwords from
         %APPDATA%\Subversion on windows
