@@ -43,7 +43,6 @@ import org.tmatesoft.svn.core.wc.SVNRevision;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -126,10 +125,9 @@ public class SvnJavaChangeLogCommand
         {
             List<ChangeFile> changedFiles = new ArrayList<ChangeFile>();
 
-            for ( @SuppressWarnings( "unchecked" ) Iterator<String> i = logEntry.getChangedPaths().keySet().iterator();
-                  i.hasNext(); )
+            for ( String changedPath : logEntry.getChangedPaths().keySet() )
             {
-                changedFiles.add( new ChangeFile( (String) i.next(), Long.toString( logEntry.getRevision() ) ) );
+                changedFiles.add( new ChangeFile( changedPath, Long.toString( logEntry.getRevision() ) ) );
             }
 
             SvnChangeSet changeSet =
