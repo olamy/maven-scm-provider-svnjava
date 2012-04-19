@@ -519,7 +519,7 @@ public final class SvnJavaUtil
     public static class GenericEventHandler
         implements ISVNEventHandler
     {
-        private List events = new ArrayList();
+        private List<SVNEvent> events = new ArrayList<SVNEvent>();
 
         public GenericEventHandler()
         {
@@ -536,14 +536,14 @@ public final class SvnJavaUtil
             // null
         }
 
-        public List getEvents()
+        public List<SVNEvent> getEvents()
         {
             return events;
         }
 
         public void clearEvents()
         {
-            events = new ArrayList();
+            events = new ArrayList<SVNEvent>();
         }
     }
 
