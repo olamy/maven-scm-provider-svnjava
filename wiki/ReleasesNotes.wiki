@@ -1,3 +1,6 @@
+== 2.0.1 :May 16th 2012 ==
+  * use svnkit version deployed in Maven central repository
+
 == 2.0 :April 30th 2012 ==
   *  svn 1.7 support
   * Apache Maven Scm 1.7 upgrade.
