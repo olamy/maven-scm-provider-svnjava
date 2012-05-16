@@ -167,7 +167,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.1</version>
+        <version>2.3</version>
         <configuration>
           <useReleaseProfile>true</useReleaseProfile>
           <goals>deploy</goals>
@@ -178,6 +178,11 @@
             <groupId>com.google.code.maven-scm-provider-svnjava</groupId> 
             <artifactId>maven-scm-provider-svnjava</artifactId> 
             <version>2.0</version>
+          </dependency>
+          <dependency>
+            <groupId>org.tmatesoft.svnkit</groupId>
+            <artifactId>svnkit</artifactId>
+            <version>1.7.4-v1</version>
           </dependency>
         </dependencies>
       </plugin>
