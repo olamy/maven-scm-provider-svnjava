@@ -84,7 +84,7 @@
     <dependency>
       <groupId>org.tmatesoft.svnkit</groupId>
       <artifactId>svnkit</artifactId>
-      <version>1.7.4-rc5</version>
+      <version>1.7.4-v1</version>
     </dependency>
 
     <!--
@@ -216,7 +216,7 @@
       </snapshots>
     </repository>
 
-    <repository>
+    <!--repository>
        <id>maven.tmatesoft.com.releases</id>
        <url>http://maven.tmatesoft.com/content/repositories/releases</url>
        <releases>
@@ -225,7 +225,7 @@
        <snapshots>
          <enabled>false</enabled>
        </snapshots>
-     </repository>
+     </repository-->
 
     <repository>
        <id>maven.tmatesoft.com.snapshots</id>
