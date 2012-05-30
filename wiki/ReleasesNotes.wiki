@@ -1,3 +1,6 @@
+== 2.0.2 :May 30th 2012 ==
+  * status command must return relative path rather than absolute.
+
 == 2.0.1 :May 16th 2012 ==
   * use svnkit version deployed in Maven central repository
 
