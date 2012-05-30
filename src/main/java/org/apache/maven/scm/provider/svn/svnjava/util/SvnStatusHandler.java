@@ -19,8 +19,10 @@ package org.apache.maven.scm.provider.svn.svnjava.util;
  * under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.scm.ScmFile;
 import org.apache.maven.scm.ScmFileStatus;
+import org.apache.maven.scm.util.FilenameUtils;
 import org.tmatesoft.svn.core.SVNCancelException;
 import org.tmatesoft.svn.core.SVNNodeKind;
 import org.tmatesoft.svn.core.wc.ISVNEventHandler;
@@ -29,6 +31,7 @@ import org.tmatesoft.svn.core.wc.SVNEvent;
 import org.tmatesoft.svn.core.wc.SVNStatus;
 import org.tmatesoft.svn.core.wc.SVNStatusType;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,9 +53,11 @@ public class SvnStatusHandler
 {
     private List<ScmFile> files = new ArrayList<ScmFile>();
 
-    public SvnStatusHandler()
+    private File baseDir;
+
+    public SvnStatusHandler( File baseDir )
     {
-        // no op
+        this.baseDir = baseDir;
     }
 
     /**
@@ -202,7 +207,10 @@ public class SvnStatusHandler
         // Only add files and not directories to our list.
         if ( scmStatus != null && status.getKind() != SVNNodeKind.DIR )
         {
-            files.add( new ScmFile( status.getFile().getAbsolutePath(), scmStatus ) );
+            String normalizedPath = FilenameUtils.normalizeFilename( status.getFile().getAbsolutePath() );
+            normalizedPath =
+                StringUtils.remove( normalizedPath, FilenameUtils.normalizeFilename( this.baseDir.getAbsolutePath() ) );
+            files.add( new ScmFile( normalizedPath, scmStatus ) );
         }
     }
 
