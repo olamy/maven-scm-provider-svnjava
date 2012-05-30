@@ -52,7 +52,7 @@ public class SvnJavaStatusCommand
 
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repo;
 
-        SvnStatusHandler handler = new SvnStatusHandler();
+        SvnStatusHandler handler = new SvnStatusHandler( fileSet.getBasedir() );
 
         try
         {

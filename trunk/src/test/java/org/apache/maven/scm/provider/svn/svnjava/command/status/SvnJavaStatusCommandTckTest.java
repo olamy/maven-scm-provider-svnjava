@@ -19,10 +19,15 @@ package org.apache.maven.scm.provider.svn.svnjava.command.status;
  * under the License.
  */
 
-import java.io.File;
-
+import org.apache.maven.scm.ScmFileSet;
+import org.apache.maven.scm.command.status.StatusScmResult;
+import org.apache.maven.scm.manager.ScmManager;
 import org.apache.maven.scm.provider.svn.command.status.SvnStatusCommandTckTest;
 import org.apache.maven.scm.provider.svn.svnjava.SvnJavaScmTestUtils;
+import org.apache.maven.scm.repository.ScmRepository;
+import org.codehaus.plexus.util.StringUtils;
+
+import java.io.File;
 
 /**
  * @author <a href="mailto:dh-maven@famhq.com">David Hawkins</a>
@@ -31,17 +36,52 @@ import org.apache.maven.scm.provider.svn.svnjava.SvnJavaScmTestUtils;
 public class SvnJavaStatusCommandTckTest
     extends SvnStatusCommandTckTest
 {
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public void initRepo()
         throws Exception
     {
         SvnJavaScmTestUtils.initializeRepository( getRepositoryRoot() );
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public String getScmUrl()
         throws Exception
     {
         return SvnJavaScmTestUtils.getScmUrl( new File( getRepositoryRoot(), "trunk" ) );
+    }
+
+
+    @Override
+    public void testStatusCommand()
+        throws Exception
+    {
+        super.testStatusCommand();
+
+        ScmRepository repository = makeScmRepository( getScmUrl() );
+
+        ScmManager scmManager = getScmManager();
+
+        // ----------------------------------------------------------------------
+        // Check status the project
+        // src/main/java/org/Foo.java is added
+        // /pom.xml is modified
+        // check that readme and project.xml are not updated/created
+        // ----------------------------------------------------------------------
+
+        StatusScmResult result =
+            scmManager.getProviderByUrl( getScmUrl() ).status( repository, new ScmFileSet( getUpdatingCopy() ) );
+
+        //assertEquals(  );
+
+    }
+
+    public void assertPath( String expectedPath, String actualPath )
+        throws Exception
+    {
+        assertEquals( StringUtils.replace( expectedPath, "\\", "/" ), StringUtils.replace( actualPath, "\\", "/" ) );
     }
 }
