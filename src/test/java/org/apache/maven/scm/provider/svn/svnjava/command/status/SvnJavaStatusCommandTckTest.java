@@ -55,30 +55,12 @@ public class SvnJavaStatusCommandTckTest
     }
 
 
-    @Override
-    public void testStatusCommand()
-        throws Exception
-    {
-        super.testStatusCommand();
-
-        ScmRepository repository = makeScmRepository( getScmUrl() );
-
-        ScmManager scmManager = getScmManager();
-
-        // ----------------------------------------------------------------------
-        // Check status the project
-        // src/main/java/org/Foo.java is added
-        // /pom.xml is modified
-        // check that readme and project.xml are not updated/created
-        // ----------------------------------------------------------------------
-
-        StatusScmResult result =
-            scmManager.getProviderByUrl( getScmUrl() ).status( repository, new ScmFileSet( getUpdatingCopy() ) );
-
-        //assertEquals(  );
-
-    }
-
+    /**
+     * method in parent class doesn't work
+     * @param expectedPath
+     * @param actualPath
+     * @throws Exception
+     */
     public void assertPath( String expectedPath, String actualPath )
         throws Exception
     {
