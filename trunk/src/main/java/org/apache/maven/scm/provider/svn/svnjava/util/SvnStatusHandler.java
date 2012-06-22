@@ -210,6 +210,8 @@ public class SvnStatusHandler
             String normalizedPath = FilenameUtils.normalizeFilename( status.getFile().getAbsolutePath() );
             normalizedPath =
                 StringUtils.remove( normalizedPath, FilenameUtils.normalizeFilename( this.baseDir.getAbsolutePath() ) );
+
+            normalizedPath = StringUtils.removeStart( normalizedPath, "/" );
             files.add( new ScmFile( normalizedPath, scmStatus ) );
         }
     }
