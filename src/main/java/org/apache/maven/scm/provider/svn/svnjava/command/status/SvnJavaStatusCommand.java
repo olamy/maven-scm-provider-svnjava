@@ -28,7 +28,6 @@ import org.apache.maven.scm.provider.svn.command.SvnCommand;
 import org.apache.maven.scm.provider.svn.svnjava.SvnJavaScmProvider;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
 import org.apache.maven.scm.provider.svn.svnjava.util.SvnJavaUtil;
-import org.apache.maven.scm.provider.svn.svnjava.util.SvnStatusHandler;
 import org.tmatesoft.svn.core.SVNException;
 
 /**
