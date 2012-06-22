@@ -20,6 +20,7 @@ package org.apache.maven.scm.provider.svn.svnjava.util;
  */
 
 import org.apache.maven.scm.ScmFileStatus;
+import org.apache.maven.scm.provider.svn.svnjava.command.status.SvnStatusHandler;
 import org.codehaus.plexus.util.StringUtils;
 import org.tmatesoft.svn.core.ISVNLogEntryHandler;
 import org.tmatesoft.svn.core.SVNCancelException;

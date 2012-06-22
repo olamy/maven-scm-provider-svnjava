@@ -1,4 +1,4 @@
-package org.apache.maven.scm.provider.svn.svnjava.util;
+package org.apache.maven.scm.provider.svn.svnjava.command.status;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
