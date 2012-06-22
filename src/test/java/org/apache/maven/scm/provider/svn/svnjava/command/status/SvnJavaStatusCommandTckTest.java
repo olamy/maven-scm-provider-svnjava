@@ -63,16 +63,15 @@ public class SvnJavaStatusCommandTckTest
 
 
     /**
-     * method in parent class doesn't work
      *
      * @param expectedPath
      * @param actualPath
      * @throws Exception
      */
-    public void assertPath( String expectedPath, String actualPath )
+    public void assertPathRelativePath( String expectedPath, String actualPath )
         throws Exception
     {
-        System.out.println( "actualPath:" + actualPath );
+        System.out.println( "expectedPath: " + expectedPath + ",actualPath:" + actualPath );
         assertEquals( StringUtils.replace( expectedPath, "\\", "/" ), StringUtils.replace( actualPath, "\\", "/" ) );
     }
 
@@ -151,14 +150,12 @@ public class SvnJavaStatusCommandTckTest
 
         ScmFile file = files.next();
 
-        assertPath( "/pom.xml", file.getPath() );
+        assertPathRelativePath( "pom.xml", file.getPath() );
         assertEquals( ScmFileStatus.MODIFIED, file.getStatus() );
 
         file = files.next();
-        assertPath( "/foo.xml", file.getPath() );
+        assertPathRelativePath( "foo.xml", file.getPath() );
         assertEquals( ScmFileStatus.UNKNOWN, file.getStatus() );
-
-
 
         assertFalse( "project.xml created incorrectly", new File( getUpdatingCopy(), "/project.xml" ).exists() );
     }
