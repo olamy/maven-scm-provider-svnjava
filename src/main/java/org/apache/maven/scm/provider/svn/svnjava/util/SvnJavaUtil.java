@@ -19,6 +19,7 @@ package org.apache.maven.scm.provider.svn.svnjava.util;
  * under the License.
  */
 
+import org.apache.maven.scm.ScmFileSet;
 import org.apache.maven.scm.ScmFileStatus;
 import org.apache.maven.scm.provider.svn.svnjava.command.status.SvnStatusHandler;
 import org.codehaus.plexus.util.StringUtils;
@@ -333,11 +334,19 @@ public final class SvnJavaUtil
      * dryRun - set to true not to delete an entry but to check if it can be deleted;
      * if false - then it's a deletion itself.
      */
-    public static void delete( SVNClientManager clientManager, List<File> files, boolean force )
+    public static void delete( SVNClientManager clientManager, ScmFileSet fileSet, boolean force )
         throws SVNException
     {
-        for ( File file : files )
+        if ( fileSet.getFileList() == null || fileSet.getFileList().isEmpty() )
         {
+            return;
+        }
+        for ( File file : fileSet.getFileList() )
+        {
+            if ( !file.isAbsolute() )
+            {
+                file = new File( fileSet.getBasedir().getAbsolutePath(), file.getPath() );
+            }
             clientManager.getWCClient().doDelete( file, force, false );
         }
     }
