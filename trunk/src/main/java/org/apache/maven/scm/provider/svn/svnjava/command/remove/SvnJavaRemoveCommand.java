@@ -65,7 +65,7 @@ public class SvnJavaRemoveCommand
 
         try
         {
-            SvnJavaUtil.delete( javaRepo.getClientManager(), fileSet.getFileList(), true );
+            SvnJavaUtil.delete( javaRepo.getClientManager(), fileSet, true );
 
             return new RemoveScmResult( SvnJavaScmProvider.COMMAND_LINE, handler.getFiles() );
         }
