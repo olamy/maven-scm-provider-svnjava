@@ -1,3 +1,6 @@
+== 2.0.4 :? ==
+  * fix remove command using relative path which can cause svnkit failure
+
 == 2.0.3 :Jun 22th 2012 ==
   * upgrade svnkit dependency to 1.7.5
   * fix relative path issue with status command.
