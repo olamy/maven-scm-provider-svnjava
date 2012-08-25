@@ -1,4 +1,4 @@
-== 2.0.4 :? ==
+== 2.0.4 :Aug 25th 2012 ==
   * fix remove command using relative path which can cause svnkit failure
 
 == 2.0.3 :Jun 22th 2012 ==
