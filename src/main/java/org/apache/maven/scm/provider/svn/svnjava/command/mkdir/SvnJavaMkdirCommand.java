@@ -59,7 +59,7 @@ public class SvnJavaMkdirCommand
     {
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repository;
         Iterator<File> it = fileSet.getFileList().iterator();
-        String dirPath = ( (File) it.next() ).getPath();
+        String dirPath = it.next().getPath();
         // replacing \ with / for windauze
         if ( dirPath != null && Os.isFamily( Os.FAMILY_DOS ) )
         {
