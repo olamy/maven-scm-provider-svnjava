@@ -37,8 +37,30 @@ public class SvnJavaRemoteInfoCommandTest
             SVNURL.parseURIEncoded( "http://svn.apache.org/repos/asf/maven/scm/trunk" ),
             "http://svn.apache.org/repos/asf/maven/scm/trunk" );
         RemoteInfoScmResult r = c.executeRemoteInfoCommand( svnScmProviderRepository, null, null );
-        System.out.println( "r:"+ r.toString() );
+        System.out.println( "r:" + r.toString() );
         assertTrue( r.getTags().containsKey( "maven-scm-1.7" ) );
 
+    }
+
+    public void testExist()
+        throws Exception
+    {
+        SvnJavaRemoteInfoCommand svnRemoteInfoCommand = new SvnJavaRemoteInfoCommand();
+
+        SvnJavaScmProviderRepository svnScmProviderRepository = new SvnJavaScmProviderRepository(
+            SVNURL.parseURIEncoded( "http://svn.apache.org/repos/asf/maven/scm/trunk/" ),
+            "http://svn.apache.org/repos/asf/maven/scm/trunk/" );
+        assertTrue( svnRemoteInfoCommand.remoteUrlExist( svnScmProviderRepository, null ) );
+    }
+
+    public void testNotExist()
+        throws Exception
+    {
+        SvnJavaRemoteInfoCommand svnRemoteInfoCommand = new SvnJavaRemoteInfoCommand();
+
+        SvnJavaScmProviderRepository svnScmProviderRepository = new SvnJavaScmProviderRepository(
+            SVNURL.parseURIEncoded( "http://svn.apache.org/repos/asf/maven/scm/trunk/foo/bar/beer" ),
+            "http://svn.apache.org/repos/asf/maven/scm/trunk/foo/bar/beer" );
+        assertFalse( svnRemoteInfoCommand.remoteUrlExist( svnScmProviderRepository, null ) );
     }
 }
