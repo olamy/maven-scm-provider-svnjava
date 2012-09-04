@@ -19,7 +19,10 @@ package org.apache.maven.scm.provider.svn.svnjava;
  * under the License.
  */
 
+import org.apache.maven.scm.CommandParameters;
 import org.apache.maven.scm.ScmException;
+import org.apache.maven.scm.ScmFileSet;
+import org.apache.maven.scm.command.remoteinfo.RemoteInfoScmResult;
 import org.apache.maven.scm.provider.ScmProviderRepository;
 import org.apache.maven.scm.provider.svn.AbstractSvnScmProvider;
 import org.apache.maven.scm.provider.svn.command.SvnCommand;
@@ -33,6 +36,7 @@ import org.apache.maven.scm.provider.svn.svnjava.command.diff.SvnJavaDiffCommand
 import org.apache.maven.scm.provider.svn.svnjava.command.export.SvnJavaExportCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.info.SvnJavaInfoCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.mkdir.SvnJavaMkdirCommand;
+import org.apache.maven.scm.provider.svn.svnjava.command.remoteinfo.SvnJavaRemoteInfoCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.remove.SvnJavaRemoveCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.status.SvnJavaStatusCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.tag.SvnTagCommand;
@@ -278,4 +282,11 @@ public class SvnJavaScmProvider
     }
 
 
+    @Override
+    public RemoteInfoScmResult remoteInfo( ScmProviderRepository repository, ScmFileSet fileSet,
+                                           CommandParameters parameters )
+        throws ScmException
+    {
+        return new SvnJavaRemoteInfoCommand().executeRemoteInfoCommand( repository, fileSet, parameters );
+    }
 }
