@@ -29,9 +29,12 @@ import org.apache.maven.scm.provider.svn.command.SvnCommand;
 import org.apache.maven.scm.provider.svn.repository.SvnScmProviderRepository;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
 import org.tmatesoft.svn.core.ISVNDirEntryHandler;
+import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNDirEntry;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
+import org.tmatesoft.svn.core.wc.ISVNInfoHandler;
+import org.tmatesoft.svn.core.wc.SVNInfo;
 import org.tmatesoft.svn.core.wc.SVNRevision;
 
 import java.util.HashMap;
@@ -90,6 +93,37 @@ public class SvnJavaRemoteInfoCommand
 
         return remoteInfoScmResult;
 
+    }
+
+    public boolean remoteUrlExist( ScmProviderRepository repository, CommandParameters parameters )
+        throws ScmException
+    {
+        SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repository;
+
+        String url = ( (SvnScmProviderRepository) repository ).getUrl();
+
+        try
+        {
+
+            javaRepo.getClientManager().getWCClient().doInfo( SVNURL.parseURIEncoded( url ), SVNRevision.HEAD,
+                                                              SVNRevision.HEAD, SVNDepth.EMPTY, new ISVNInfoHandler()
+            {
+                public void handleInfo( SVNInfo svnInfo )
+                    throws SVNException
+                {
+                    svnInfo.getAuthor();
+                }
+            } );
+        }
+        catch ( SVNException e )
+        {
+            if ( e.getMessage().indexOf( "E170000" ) > -1 )
+            {
+                return false;
+            }
+            throw new ScmException( e.getMessage(), e );
+        }
+        return true;
     }
 
     public static class DirEntryHandler

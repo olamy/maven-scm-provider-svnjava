@@ -289,4 +289,11 @@ public class SvnJavaScmProvider
     {
         return new SvnJavaRemoteInfoCommand().executeRemoteInfoCommand( repository, fileSet, parameters );
     }
+
+    @Override
+    public boolean remoteUrlExist( ScmProviderRepository repository, CommandParameters parameters )
+        throws ScmException
+    {
+        return new SvnJavaRemoteInfoCommand().remoteUrlExist( repository, parameters );
+    }
 }
