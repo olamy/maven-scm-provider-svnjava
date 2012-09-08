@@ -1,3 +1,7 @@
+== 2.0.5 :Sep 8th 2012 ==
+  * upgrade to scm 1.8
+  * add method to check if remote svn path exits
+
 == 2.0.4 :Aug 25th 2012 ==
   * fix remove command using relative path which can cause svnkit failure
 
