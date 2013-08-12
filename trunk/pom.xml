@@ -20,7 +20,8 @@
   ~ under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -43,10 +44,11 @@
       <url>http://www.apache.org/licenses/LICENSE-2.0</url>
     </license>
   </licenses>
-      
+
   <scm>
     <connection>scm:svn:${svnUrl}</connection>
-    <developerConnection>scm:svn:https://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/trunk</developerConnection>
+    <developerConnection>scm:svn:https://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/trunk
+    </developerConnection>
     <url>http://code.google.com/a/apache-extras.org/p/maven-scm-provider-svnjava/source/browse/</url>
   </scm>
 
@@ -60,7 +62,7 @@
       </roles>
     </developer>
   </developers>
-  
+
   <properties>
     <scmVersion>1.8</scmVersion>
     <svnUrl>http://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/trunk</svnUrl>
@@ -74,7 +76,7 @@
      -->
     <svnkitVersion>1.7.8</svnkitVersion>
   </properties>
-  
+
   <dependencies>
     <dependency>
       <groupId>org.apache.maven.scm</groupId>
@@ -90,13 +92,13 @@
     <!--
         this allows us to use wincrypt encrypted passwords from
         %APPDATA%\Subversion on windows
-   	 -->   
+   	 -->
     <dependency>
       <groupId>net.java.dev.jna</groupId>
       <artifactId>jna</artifactId>
       <version>3.2.2</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
@@ -114,7 +116,7 @@
       <artifactId>commons-io</artifactId>
       <version>2.1</version>
     </dependency>
-     
+
     <!-- test -->
     <dependency>
       <groupId>org.apache.maven.scm</groupId>
@@ -180,8 +182,8 @@
         <dependencies>
 
           <dependency>
-            <groupId>com.google.code.maven-scm-provider-svnjava</groupId> 
-            <artifactId>maven-scm-provider-svnjava</artifactId> 
+            <groupId>com.google.code.maven-scm-provider-svnjava</groupId>
+            <artifactId>maven-scm-provider-svnjava</artifactId>
             <version>2.0.5</version>
           </dependency>
           <dependency>
@@ -195,7 +197,7 @@
 
     </plugins>
   </build>
-  
+
   <distributionManagement>
     <repository>
       <id>oss.sonatype.org</id>
@@ -213,9 +215,9 @@
       <url>${siteUrlDis}</url>
     </site>
   </distributionManagement>
-  
+
   <repositories>
-    
+
     <repository>
       <id>apache.snapshots</id>
       <url>https://repository.apache.org/content/groups/snapshots-group/</url>
@@ -239,16 +241,16 @@
      </repository-->
 
     <repository>
-       <id>maven.tmatesoft.com.snapshots</id>
-       <url>http://maven.tmatesoft.com/content/repositories/snapshots</url>
-       <releases>
-         <enabled>false</enabled>
-       </releases>
-       <snapshots>
-         <enabled>true</enabled>
-       </snapshots>
-     </repository>
-    
+      <id>maven.tmatesoft.com.snapshots</id>
+      <url>http://maven.tmatesoft.com/content/repositories/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+
   </repositories>
 
   <profiles>
@@ -274,7 +276,7 @@
         </plugins>
       </build>
     </profile>
-    
+
     <profile>
       <id>maven-3</id>
       <activation>
@@ -293,12 +295,12 @@
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-site-plugin</artifactId>
               <version>${sitePluginVersion}</version>
-            </plugin>          
+            </plugin>
           </plugins>
         </pluginManagement>
       </build>
     </profile>
-    
+
     <profile>
       <id>reporting</id>
       <reporting>
@@ -310,8 +312,8 @@
           </plugin>
         </plugins>
       </reporting>
-    </profile>    
+    </profile>
 
   </profiles>
-  
+
 </project>
