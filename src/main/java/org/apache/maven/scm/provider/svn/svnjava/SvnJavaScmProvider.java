@@ -223,6 +223,7 @@ public class SvnJavaScmProvider
 
     /**
      * {@inheritDoc}
+     * @since 2.0.6
      */
     protected SvnCommand getListCommand()
     {
