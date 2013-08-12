@@ -11,7 +11,6 @@ import org.apache.maven.scm.ScmResult;
 import org.apache.maven.scm.ScmRevision;
 import org.apache.maven.scm.ScmTag;
 import org.apache.maven.scm.ScmVersion;
-import org.apache.maven.scm.command.checkout.CheckOutScmResult;
 import org.apache.maven.scm.command.list.AbstractListCommand;
 import org.apache.maven.scm.command.list.ListScmResult;
 import org.apache.maven.scm.provider.ScmProviderRepository;
@@ -33,6 +32,7 @@ import java.util.List;
 
 /**
  * @author Olivier Lamy
+ * @since 2.0.6
  */
 public class SvnJavaListCommand
     extends AbstractListCommand
