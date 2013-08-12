@@ -45,7 +45,7 @@
   </licenses>
       
   <scm>
-    <connection>scm:svn:http://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/trunk</connection>
+    <connection>scm:svn:${svnUrl}</connection>
     <developerConnection>scm:svn:https://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/trunk</developerConnection>
     <url>http://code.google.com/a/apache-extras.org/p/maven-scm-provider-svnjava/source/browse/</url>
   </scm>
@@ -63,6 +63,7 @@
   
   <properties>
     <scmVersion>1.8</scmVersion>
+    <svnUrl>http://svn.codespot.com/a/apache-extras.org/maven-scm-provider-svnjava/trunk</svnUrl>
     <distUrlReleaseRepo>http://oss.sonatype.org/service/local/staging/deploy/maven2/</distUrlReleaseRepo>
     <distUrlSnapshotRepo>https://oss.sonatype.org/content/repositories/snapshots</distUrlSnapshotRepo>
     <siteUrlDis>scm:svn:https://maven-scm-provider-svnjava.googlecode.com/svn/site/</siteUrlDis>
@@ -144,6 +145,7 @@
           </excludes-->
           <systemPropertyVariables>
             <scmUrlProject>${project.scm.url}</scmUrlProject>
+            <svnUrl>${svnUrl}</svnUrl>
             <!-- 
             <scmUserName>${svnUserName}</scmUserName>
             <scmPassword>${svnPassword}</scmPassword>

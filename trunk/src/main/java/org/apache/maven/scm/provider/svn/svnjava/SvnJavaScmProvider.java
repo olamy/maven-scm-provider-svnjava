@@ -22,6 +22,8 @@ package org.apache.maven.scm.provider.svn.svnjava;
 import org.apache.maven.scm.CommandParameters;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
+import org.apache.maven.scm.ScmVersion;
+import org.apache.maven.scm.command.list.ListScmResult;
 import org.apache.maven.scm.command.remoteinfo.RemoteInfoScmResult;
 import org.apache.maven.scm.provider.ScmProviderRepository;
 import org.apache.maven.scm.provider.svn.AbstractSvnScmProvider;
@@ -35,6 +37,7 @@ import org.apache.maven.scm.provider.svn.svnjava.command.checkout.SvnJavaCheckOu
 import org.apache.maven.scm.provider.svn.svnjava.command.diff.SvnJavaDiffCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.export.SvnJavaExportCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.info.SvnJavaInfoCommand;
+import org.apache.maven.scm.provider.svn.svnjava.command.list.SvnJavaListCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.mkdir.SvnJavaMkdirCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.remoteinfo.SvnJavaRemoteInfoCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.remove.SvnJavaRemoveCommand;
@@ -42,6 +45,7 @@ import org.apache.maven.scm.provider.svn.svnjava.command.status.SvnJavaStatusCom
 import org.apache.maven.scm.provider.svn.svnjava.command.tag.SvnTagCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.update.SvnJavaUpdateCommand;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
+import org.apache.maven.scm.repository.ScmRepository;
 import org.apache.maven.scm.repository.ScmRepositoryException;
 import org.codehaus.plexus.util.StringUtils;
 import org.tmatesoft.svn.core.SVNException;
@@ -222,7 +226,7 @@ public class SvnJavaScmProvider
      */
     protected SvnCommand getListCommand()
     {
-        throw new UnsupportedOperationException( "getListCommand() is not implemented" );
+        return new SvnJavaListCommand();
     }
 
     @Override
@@ -296,4 +300,6 @@ public class SvnJavaScmProvider
     {
         return new SvnJavaRemoteInfoCommand().remoteUrlExist( repository, parameters );
     }
+
+
 }
