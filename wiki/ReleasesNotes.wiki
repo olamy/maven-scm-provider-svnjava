@@ -1,4 +1,4 @@
-== 2.0.6: ? ==
+== 2.0.6: Aug 12th 2013 ==
   * suport svnlist (https://code.google.com/a/apache-extras.org/p/maven-scm-provider-svnjava/issues/detail?id=14)
 
 == 2.0.5: Sep 8th 2012 ==
