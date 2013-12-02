@@ -73,7 +73,7 @@
     <svnUserName></svnUserName>
     <svnPassword></svnPassword>
      -->
-    <svnkitVersion>1.7.8</svnkitVersion>
+    <svnkitVersion>1.8.0</svnkitVersion>
   </properties>
 
   <dependencies>
@@ -95,7 +95,7 @@
     <dependency>
       <groupId>net.java.dev.jna</groupId>
       <artifactId>jna</artifactId>
-      <version>3.2.2</version>
+      <version>3.5.2</version>
     </dependency>
 
     <dependency>
@@ -228,7 +228,7 @@
       </snapshots>
     </repository>
 
-    <!--repository>
+    <repository>
        <id>maven.tmatesoft.com.releases</id>
        <url>http://maven.tmatesoft.com/content/repositories/releases</url>
        <releases>
@@ -237,7 +237,7 @@
        <snapshots>
          <enabled>false</enabled>
        </snapshots>
-     </repository-->
+     </repository>
 
     <repository>
       <id>maven.tmatesoft.com.snapshots</id>
