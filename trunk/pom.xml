@@ -73,7 +73,7 @@
     <svnUserName></svnUserName>
     <svnPassword></svnPassword>
      -->
-    <svnkitVersion>1.8.0</svnkitVersion>
+    <svnkitVersion>1.8.1</svnkitVersion>
   </properties>
 
   <dependencies>
