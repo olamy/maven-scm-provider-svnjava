@@ -1,5 +1,8 @@
+== 2.1.1: March 05th 2014 ==
+  * support svnkit 1.8.4
+
 == 2.1.0: Jan 05th 2014 ==
-  * suport svnkit 1.8.2
+  * support svnkit 1.8.2
 
 == 2.0.6: Aug 12th 2013 ==
   * suport svnlist (https://code.google.com/a/apache-extras.org/p/maven-scm-provider-svnjava/issues/detail?id=14)
