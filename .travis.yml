@@ -21,4 +21,4 @@ branches:
 
 notifications:
     email:
-        - olamy@apache.org   
+        - olamy@apache.org
