@@ -227,29 +227,6 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-
-    <repository>
-       <id>maven.tmatesoft.com.releases</id>
-       <url>http://maven.tmatesoft.com/content/repositories/releases</url>
-       <releases>
-         <enabled>true</enabled>
-       </releases>
-       <snapshots>
-         <enabled>false</enabled>
-       </snapshots>
-     </repository>
-
-    <repository>
-      <id>maven.tmatesoft.com.snapshots</id>
-      <url>http://maven.tmatesoft.com/content/repositories/snapshots</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-
   </repositories>
 
   <profiles>
