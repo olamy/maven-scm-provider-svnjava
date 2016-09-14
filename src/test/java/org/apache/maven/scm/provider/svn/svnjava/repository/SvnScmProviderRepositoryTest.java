@@ -19,6 +19,7 @@ package org.apache.maven.scm.provider.svn.svnjava.repository;
  * under the License.
  */
 
+import org.apache.maven.scm.ScmFileSet;
 import org.apache.maven.scm.ScmTestCase;
 import org.apache.maven.scm.manager.ScmManager;
 import org.apache.maven.scm.provider.svn.repository.SvnScmProviderRepository;
@@ -27,6 +28,8 @@ import org.apache.maven.scm.repository.ScmRepository;
 import org.apache.maven.scm.repository.ScmRepositoryException;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
@@ -121,12 +124,34 @@ public class SvnScmProviderRepositoryTest
     // Testing provider from path
     // ----------------------------------------------------------------------
 
+    private Path checkoutPath = Paths.get( getBasedir(), "/target/", getClass().getName() );
+
+    public void prepareCopy()
+        throws Exception
+    {
+
+        if (checkoutPath.toFile().exists()){
+            return;
+        }
+
+        ScmManager scmManager = (ScmManager) lookup( ScmManager.ROLE );
+        String url = System.getProperty( "svnUrl" );
+        String scmUrl = "scm:javasvn:" + url;
+
+        SvnJavaScmProvider provider = (SvnJavaScmProvider) scmManager.getProviderByUrl( scmUrl );
+
+        provider.checkOut( scmManager.makeScmRepository( scmUrl ), //
+                           new ScmFileSet( checkoutPath.toFile() ) );
+    }
+
     public void testSvnFromPath()
         throws Exception
     {
+        prepareCopy();
+
         SvnJavaScmProvider provider = new SvnJavaScmProvider();
 
-        provider.makeProviderScmRepository( new File( getBasedir() ) );
+        provider.makeProviderScmRepository( checkoutPath.toFile() );
     }
 
     // ----------------------------------------------------------------------

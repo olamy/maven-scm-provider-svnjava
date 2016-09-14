@@ -1,7 +1,5 @@
 package org.apache.maven.scm.provider.svn.svnjava.command.info;
 
-import java.io.File;
-
 import org.apache.maven.scm.ScmFileSet;
 import org.apache.maven.scm.command.info.InfoItem;
 import org.apache.maven.scm.command.info.InfoScmResult;
@@ -9,7 +7,13 @@ import org.apache.maven.scm.manager.ScmManager;
 import org.apache.maven.scm.provider.svn.svnjava.SvnJavaScmProvider;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
 import org.codehaus.plexus.PlexusTestCase;
+import org.junit.Before;
+import org.junit.Test;
 import org.tmatesoft.svn.core.SVNURL;
+
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -36,23 +40,47 @@ import org.tmatesoft.svn.core.SVNURL;
 public class SvnJavaInfoCommandTest
     extends PlexusTestCase
 {
-    public void testInfo()
+
+    private Path checkoutPath = Paths.get( getBasedir(), "/target/", getClass().getName() );
+
+    public void prepareCopy()
         throws Exception
     {
+
+        if (checkoutPath.toFile().exists()){
+            return;
+        }
+
         ScmManager scmManager = (ScmManager) lookup( ScmManager.ROLE );
-        String url = System.getProperty( "scmUrlProject" );
+        String url = System.getProperty( "svnUrl" );
         String scmUrl = "scm:javasvn:" + url;
-        SvnJavaScmProviderRepository repository = new SvnJavaScmProviderRepository( SVNURL.parseURIEncoded( url ),
-                                                                                    scmUrl );
 
         SvnJavaScmProvider provider = (SvnJavaScmProvider) scmManager.getProviderByUrl( scmUrl );
 
-        InfoScmResult result = provider.info( repository, new ScmFileSet( new File( getBasedir() ) ), null );
+        provider.checkOut( scmManager.makeScmRepository( scmUrl ), //
+                           new ScmFileSet( checkoutPath.toFile() ) );
+    }
+
+    @Test
+    public void testInfo()
+        throws Exception
+    {
+        prepareCopy();
+        ScmManager scmManager = (ScmManager) lookup( ScmManager.ROLE );
+
+        String url = System.getProperty( "scmUrlProject" );
+        String scmUrl = "scm:javasvn:" + url;
+        SvnJavaScmProviderRepository repository =
+            new SvnJavaScmProviderRepository( SVNURL.parseURIEncoded( url ), scmUrl );
+
+        SvnJavaScmProvider provider = (SvnJavaScmProvider) scmManager.getProviderByUrl( scmUrl );
+
+        InfoScmResult result = provider.info( repository, new ScmFileSet( checkoutPath.toFile() ), null );
         InfoItem item = result.getInfoItems().get( 0 );
         assertTrue( item.getRevision() != null );
 
         SvnJavaInfoCommand command = new SvnJavaInfoCommand();
-        result = command.executeInfoCommand( repository, new ScmFileSet( new File( getBasedir() ) ), null, true, null );
+        result = command.executeInfoCommand( repository, new ScmFileSet( checkoutPath.toFile() ), null, true, null );
         item = result.getInfoItems().get( 0 );
         assertTrue( item.getRevision() != null );
         System.out.println( item.getRevision() );
@@ -61,22 +89,24 @@ public class SvnJavaInfoCommandTest
     public void testInfoLocale()
         throws Exception
     {
+
+        prepareCopy();
         ScmManager scmManager = (ScmManager) lookup( ScmManager.ROLE );
         String url = getBasedir();
         String scmUrl = "scm:javasvn:" + url;
-        SvnJavaScmProviderRepository repository = new SvnJavaScmProviderRepository( SVNURL
-            .fromFile( new File( getBasedir() ) ), scmUrl );
+        SvnJavaScmProviderRepository repository =
+            new SvnJavaScmProviderRepository( SVNURL.fromFile( checkoutPath.toFile() ), scmUrl );
 
         SvnJavaScmProvider provider = (SvnJavaScmProvider) scmManager.getProviderByUrl( scmUrl );
 
-        InfoScmResult result = provider.info( repository, new ScmFileSet( new File( getBasedir() ) ), null );
+        InfoScmResult result = provider.info( repository, new ScmFileSet( checkoutPath.toFile() ), null );
         InfoItem item = result.getInfoItems().get( 0 );
         assertTrue( item.getRevision() != null );
 
         SvnJavaInfoCommand command = new SvnJavaInfoCommand();
-        result = command.executeInfoCommand( repository, new ScmFileSet( new File( getBasedir() ) ), null, true, null );
+        result = command.executeInfoCommand( repository, new ScmFileSet( checkoutPath.toFile() ), null, true, null );
         item = result.getInfoItems().get( 0 );
         assertTrue( item.getRevision() != null );
         System.out.println( item.getRevision() );
-    }    
+    }
 }

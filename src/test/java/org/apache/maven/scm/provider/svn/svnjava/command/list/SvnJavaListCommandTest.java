@@ -8,6 +8,8 @@ import org.apache.maven.scm.manager.ScmManager;
 import org.apache.maven.scm.provider.svn.svnjava.SvnJavaScmProvider;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
 import org.codehaus.plexus.PlexusTestCase;
+import org.junit.Before;
+import org.junit.Test;
 import org.tmatesoft.svn.core.SVNURL;
 
 import java.io.File;
@@ -37,6 +39,8 @@ import java.io.File;
 public class SvnJavaListCommandTest
     extends PlexusTestCase
 {
+
+    @Test
     public void testList()
         throws Exception
     {
