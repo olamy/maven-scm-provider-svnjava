@@ -11,8 +11,10 @@ import org.apache.maven.scm.provider.ScmProviderRepository;
 import org.apache.maven.scm.provider.svn.command.SvnCommand;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
 import org.tmatesoft.svn.core.SVNException;
+import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.wc.SVNInfo;
 import org.tmatesoft.svn.core.wc.SVNRevision;
+import org.tmatesoft.svn.core.wc2.SvnOperationFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -85,7 +87,21 @@ public class SvnJavaInfoCommand
                 svnRev = SVNRevision.parse( revision );
             }
 
-            SVNInfo svnInfo = javaRepo.getClientManager().getWCClient().doInfo( f, svnRev );
+            SVNInfo svnInfo = null;
+            
+        	boolean isVersionedDirectory = SvnOperationFactory.isVersionedDirectory(f);
+        	getLogger().debug("Get info, isVersionedDirectory: " + isVersionedDirectory );
+        	
+        	if (isVersionedDirectory) 
+        	{
+            	getLogger().info("Get info from versioned directory: " + f );
+        		svnInfo = javaRepo.getClientManager().getWCClient().doInfo( f, svnRev );
+        	}
+        	else {
+        		SVNURL svnUrl = javaRepo.getSvnUrl();
+            	getLogger().info("Get info from svnUrl: " + svnUrl );
+            	svnInfo = javaRepo.getClientManager().getWCClient().doInfo( svnUrl, SVNRevision.UNDEFINED, svnRev );
+        	}
 
             InfoItem currentItem = new InfoItem();
 
