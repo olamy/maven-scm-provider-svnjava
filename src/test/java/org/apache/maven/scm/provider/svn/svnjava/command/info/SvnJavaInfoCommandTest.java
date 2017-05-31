@@ -3,6 +3,8 @@ package org.apache.maven.scm.provider.svn.svnjava.command.info;
 import org.apache.maven.scm.ScmFileSet;
 import org.apache.maven.scm.command.info.InfoItem;
 import org.apache.maven.scm.command.info.InfoScmResult;
+import org.apache.maven.scm.log.DefaultLog;
+import org.apache.maven.scm.log.ScmLogger;
 import org.apache.maven.scm.manager.ScmManager;
 import org.apache.maven.scm.provider.svn.svnjava.SvnJavaScmProvider;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
@@ -80,6 +82,8 @@ public class SvnJavaInfoCommandTest
         assertTrue( item.getRevision() != null );
 
         SvnJavaInfoCommand command = new SvnJavaInfoCommand();
+        ScmLogger logger = new DefaultLog();
+        command.setLogger(logger);
         result = command.executeInfoCommand( repository, new ScmFileSet( checkoutPath.toFile() ), null, true, null );
         item = result.getInfoItems().get( 0 );
         assertTrue( item.getRevision() != null );
@@ -104,6 +108,8 @@ public class SvnJavaInfoCommandTest
         assertTrue( item.getRevision() != null );
 
         SvnJavaInfoCommand command = new SvnJavaInfoCommand();
+        ScmLogger logger = new DefaultLog();
+        command.setLogger(logger);
         result = command.executeInfoCommand( repository, new ScmFileSet( checkoutPath.toFile() ), null, true, null );
         item = result.getInfoItems().get( 0 );
         assertTrue( item.getRevision() != null );
