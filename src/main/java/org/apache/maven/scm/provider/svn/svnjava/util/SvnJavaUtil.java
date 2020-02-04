@@ -131,19 +131,24 @@ public final class SvnJavaUtil
      * Puts directories and files under version control scheduling them for addition
      * to a repository. They will be added in a next commit. Like 'svn add PATH'
      * command. It's done by invoking
-     * <p/>
+     * <p>
      * SVNWCClient.doAdd(File path, boolean force,
      * boolean mkdir, boolean climbUnversionedParents, boolean recursive)
      * <p/>
+     * <p>
      * which takes the following parameters:
      * <p/>
+     * <p>
      * path - an entry to be scheduled for addition;
      * <p/>
+     * <p>
      * force - set to true to force an addition of an entry anyway;
      * <p/>
+     * <p>
      * mkdir - if true doAdd(..) creates an empty directory at path and schedules
      * it for addition, like 'svn mkdir PATH' command;
      * <p/>
+     * <p>
      * climbUnversionedParents - if true and the parent of the entry to be scheduled
      * for addition is not under version control, then doAdd(..) automatically schedules
      * the parent for addition, too;
@@ -162,20 +167,25 @@ public final class SvnJavaUtil
     /**
      * Checks out a working copy from a repository. Like 'svn checkout URL[@REV] PATH (-r..)'
      * command; It's done by invoking
-     * <p/>
+     * <p>
      * SVNUpdateClient.doCheckout(SVNURL url, File dstPath, SVNRevision pegRevision,
      * SVNRevision revision, boolean recursive)
      * <p/>
+     * <p>
      * which takes the following parameters:
      * <p/>
+     * <p>
      * url - a repository location from where a working copy is to be checked out;
      * <p/>
+     * <p>
      * dstPath - a local path where the working copy will be fetched into;
      * <p/>
+     * <p>
      * pegRevision - an SVNRevision representing a revision to concretize
      * url (what exactly URL a user means and is sure of being the URL he needs); in other
      * words that is the revision in which the URL is first looked up;
      * <p/>
+     * <p>
      * revision - a revision at which a working copy being checked out is to be;
      * <p/>
      * recursive - if true and url corresponds to a directory then doCheckout(..) recursively
@@ -213,15 +223,19 @@ public final class SvnJavaUtil
     /**
      * Updates a working copy to a different URL. Like 'svn switch URL' command.
      * It's done by invoking
-     * <p/>
+     * <p>
      * SVNUpdateClient.doSwitch(File file, SVNURL url, SVNRevision revision, boolean recursive)
      * <p/>
+     * <p>
      * which takes the following parameters:
      * <p/>
+     * <p>
      * file - a working copy entry that is to be switched to a new url;
      * <p/>
+     * <p>
      * url - a target URL a working copy is to be updated against;
      * <p/>
+     * <p>
      * revision - a revision to which a working copy is to be updated;
      * <p/>
      * recursive - if true and an entry (file) is a directory then doSwitch(..) recursively
@@ -247,13 +261,16 @@ public final class SvnJavaUtil
     /**
      * Updates a working copy (brings changes from the repository into the working copy).
      * Like 'svn update PATH' command; It's done by invoking
-     * <p/>
+     * <p>
      * SVNUpdateClient.doUpdate(File file, SVNRevision revision, boolean recursive)
      * <p/>
+     * <p>
      * which takes the following parameters:
      * <p/>
+     * <p>
      * file - a working copy entry that is to be updated;
      * <p/>
+     * <p>
      * revision - a revision to which a working copy is to be updated;
      * <p/>
      * recursive - if true and an entry is a directory then doUpdate(..) recursively
@@ -288,19 +305,24 @@ public final class SvnJavaUtil
     /**
      * Commits changes in a working copy to a repository. Like
      * 'svn commit PATH -m "some comment"' command. It's done by invoking
-     * <p/>
+     * <p>
      * SVNCommitClient.doCommit(File[] paths, boolean keepLocks, String commitMessage,
      * boolean force, boolean recursive)
      * <p/>
+     * <p>
      * which takes the following parameters:
      * <p/>
+     * <p>
      * paths - working copy paths which changes are to be committed;
      * <p/>
+     * <p>
      * keepLocks - if true then doCommit(..) won't unlock locked paths; otherwise they will
      * be unlocked after a successful commit;
      * <p/>
+     * <p>
      * commitMessage - a commit log message;
      * <p/>
+     * <p>
      * force - if true then a non-recursive commit will be forced anyway;
      * <p/>
      * recursive - if true and a path corresponds to a directory then doCommit(..) recursively
@@ -321,13 +343,16 @@ public final class SvnJavaUtil
     /**
      * Schedules directories and files for deletion from version control upon the next
      * commit (locally). Like 'svn delete PATH' command. It's done by invoking
-     * <p/>
+     * <p>
      * SVNWCClient.doDelete(File path, boolean force, boolean dryRun)
      * <p/>
+     * <p>
      * which takes the following parameters:
      * <p/>
+     * <p>
      * path - an entry to be scheduled for deletion;
      * <p/>
+     * <p>
      * force - a boolean flag which is set to true to force a deletion even if an entry
      * has local modifications;
      * <p/>
