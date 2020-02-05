@@ -41,7 +41,6 @@ import java.util.List;
 
 /**
  * @author <a href="mailto:olamy@apache.org">olamy</a>
- * @version $Id: SvnJavaMkdirCommand.java 490 2011-01-09 14:16:20Z oliver.lamy $
  * @since 1.11
  */
 public class SvnJavaMkdirCommand
@@ -50,7 +49,7 @@ public class SvnJavaMkdirCommand
 {
 
     /**
-     * @see org.apache.maven.scm.command.mkdir.AbstractMkdirCommand#executeMkdirCommand(org.apache.maven.scm.provider.ScmProviderRepository, org.apache.maven.scm.ScmFileSet, java.lang.String)
+     * @see org.apache.maven.scm.command.mkdir.AbstractMkdirCommand#executeMkdirCommand(ScmProviderRepository, ScmFileSet, String, boolean)
      */
     @Override
     protected MkdirScmResult executeMkdirCommand( ScmProviderRepository repository, ScmFileSet fileSet, String message,

@@ -134,25 +134,25 @@ public final class SvnJavaUtil
      * <p>
      * SVNWCClient.doAdd(File path, boolean force,
      * boolean mkdir, boolean climbUnversionedParents, boolean recursive)
-     * <p/>
+     * </p>
      * <p>
      * which takes the following parameters:
-     * <p/>
+     * </p>
      * <p>
      * path - an entry to be scheduled for addition;
-     * <p/>
+     * </p>
      * <p>
      * force - set to true to force an addition of an entry anyway;
-     * <p/>
+     * </p>
      * <p>
      * mkdir - if true doAdd(..) creates an empty directory at path and schedules
      * it for addition, like 'svn mkdir PATH' command;
-     * <p/>
+     * </p>
      * <p>
      * climbUnversionedParents - if true and the parent of the entry to be scheduled
      * for addition is not under version control, then doAdd(..) automatically schedules
      * the parent for addition, too;
-     * <p/>
+     * </p>
      * recursive - if true and an entry is a directory then doAdd(..) recursively
      * schedules all its inner dir entries for addition as well.
      */
@@ -170,24 +170,24 @@ public final class SvnJavaUtil
      * <p>
      * SVNUpdateClient.doCheckout(SVNURL url, File dstPath, SVNRevision pegRevision,
      * SVNRevision revision, boolean recursive)
-     * <p/>
+     * </p>
      * <p>
      * which takes the following parameters:
-     * <p/>
+     * </p>
      * <p>
      * url - a repository location from where a working copy is to be checked out;
-     * <p/>
+     * </p>
      * <p>
      * dstPath - a local path where the working copy will be fetched into;
-     * <p/>
+     * </p>
      * <p>
      * pegRevision - an SVNRevision representing a revision to concretize
      * url (what exactly URL a user means and is sure of being the URL he needs); in other
      * words that is the revision in which the URL is first looked up;
-     * <p/>
+     * </p>
      * <p>
      * revision - a revision at which a working copy being checked out is to be;
-     * <p/>
+     * </p>
      * recursive - if true and url corresponds to a directory then doCheckout(..) recursively
      * fetches out the entire directory, otherwise - only child entries of the directory;
      */
@@ -225,19 +225,19 @@ public final class SvnJavaUtil
      * It's done by invoking
      * <p>
      * SVNUpdateClient.doSwitch(File file, SVNURL url, SVNRevision revision, boolean recursive)
-     * <p/>
+     * </p>
      * <p>
      * which takes the following parameters:
-     * <p/>
+     * </p>
      * <p>
      * file - a working copy entry that is to be switched to a new url;
-     * <p/>
+     * </p>
      * <p>
      * url - a target URL a working copy is to be updated against;
-     * <p/>
+     * </p>
      * <p>
      * revision - a revision to which a working copy is to be updated;
-     * <p/>
+     * </p>
      * recursive - if true and an entry (file) is a directory then doSwitch(..) recursively
      * switches the entire directory, otherwise - only child entries of the directory;
      */
@@ -263,16 +263,16 @@ public final class SvnJavaUtil
      * Like 'svn update PATH' command; It's done by invoking
      * <p>
      * SVNUpdateClient.doUpdate(File file, SVNRevision revision, boolean recursive)
-     * <p/>
+     * </p>
      * <p>
      * which takes the following parameters:
-     * <p/>
+     * </p>
      * <p>
      * file - a working copy entry that is to be updated;
-     * <p/>
+     * </p>
      * <p>
      * revision - a revision to which a working copy is to be updated;
-     * <p/>
+     * </p>
      * recursive - if true and an entry is a directory then doUpdate(..) recursively
      * updates the entire directory, otherwise - only child entries of the directory;
      */
@@ -308,23 +308,23 @@ public final class SvnJavaUtil
      * <p>
      * SVNCommitClient.doCommit(File[] paths, boolean keepLocks, String commitMessage,
      * boolean force, boolean recursive)
-     * <p/>
+     * </p>
      * <p>
      * which takes the following parameters:
-     * <p/>
+     * </p>
      * <p>
      * paths - working copy paths which changes are to be committed;
-     * <p/>
+     * </p>
      * <p>
      * keepLocks - if true then doCommit(..) won't unlock locked paths; otherwise they will
      * be unlocked after a successful commit;
-     * <p/>
+     * </p>
      * <p>
      * commitMessage - a commit log message;
-     * <p/>
+     * </p>
      * <p>
      * force - if true then a non-recursive commit will be forced anyway;
-     * <p/>
+     * </p>
      * recursive - if true and a path corresponds to a directory then doCommit(..) recursively
      * commits changes for the entire directory, otherwise - only for child entries of the
      * directory;
@@ -345,17 +345,17 @@ public final class SvnJavaUtil
      * commit (locally). Like 'svn delete PATH' command. It's done by invoking
      * <p>
      * SVNWCClient.doDelete(File path, boolean force, boolean dryRun)
-     * <p/>
+     * </p>
      * <p>
      * which takes the following parameters:
-     * <p/>
+     * </p>
      * <p>
      * path - an entry to be scheduled for deletion;
-     * <p/>
+     * </p>
      * <p>
      * force - a boolean flag which is set to true to force a deletion even if an entry
      * has local modifications;
-     * <p/>
+     * </p>
      * dryRun - set to true not to delete an entry but to check if it can be deleted;
      * if false - then it's a deletion itself.
      */
@@ -379,27 +379,34 @@ public final class SvnJavaUtil
     /**
      * Collects status information on local path(s). Like 'svn status (-u) (-N)'
      * command. It's done by invoking
-     * <p/>
+     * <p>
      * SVNStatusClient.doStatus(File path, boolean recursive,
      * boolean remote, boolean reportAll, boolean includeIgnored,
      * boolean collectParentExternals, ISVNStatusHandler handler)
-     * <p/>
+     * </p>
+     * <p>
      * which takes the following parameters:
-     * <p/>
+     * </p>
+     * <p>
      * path - an entry which status info to be gathered;
-     * <p/>
+     * </p>
+     * <p>
      * recursive - if true and an entry is a directory then doStatus(..) collects status
      * info not only for that directory but for each item inside stepping down recursively;
-     * <p/>
+     * </p>
+     * <p>
      * remote - if true then doStatus(..) will cover the repository (not only the working copy)
      * as well to find out what entries are out of date;
-     * <p/>
+     * </p>
+     * <p>
      * reportAll - if true then doStatus(..) will also include unmodified entries;
-     * <p/>
+     * </p>
+     * <p>
      * includeIgnored - if true then doStatus(..) will also include entries being ignored;
-     * <p/>
+     * </p>
+     * <p>
      * collectParentExternals - if true then externals definitions won't be ignored;
-     * <p/>
+     * </p>
      * handler - an implementation of ISVNStatusHandler to process status info per each entry
      * doStatus(..) traverses; such info is collected in an SVNStatus object and
      * is passed to a handler's handleStatus(SVNStatus status) method where an implementor
@@ -554,7 +561,7 @@ public final class SvnJavaUtil
     public static class GenericEventHandler
         implements ISVNEventHandler
     {
-        private List<SVNEvent> events = new ArrayList<SVNEvent>();
+        private List<SVNEvent> events = new ArrayList<>();
 
         public GenericEventHandler()
         {
@@ -578,7 +585,7 @@ public final class SvnJavaUtil
 
         public void clearEvents()
         {
-            events = new ArrayList<SVNEvent>();
+            events = new ArrayList<>();
         }
     }
 

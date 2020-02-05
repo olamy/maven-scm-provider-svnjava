@@ -39,19 +39,18 @@ import java.util.List;
  * {@link org.tmatesoft.svn.core.wc.ISVNStatusHandler} implementation for status
  * events.  Converts the {@link org.tmatesoft.svn.core.wc.SVNStatus} file status to a
  * {@link org.apache.maven.scm.ScmFileStatus}
- * <p/>
+ * <p>
  * The structure and comments in this method were taken from the
  * tmate.org example file:
  * <a href="http://svn.tmate.org/repos/jsvn/trunk/doc/examples/src/org/tmatesoft/svn/examples/wc/StatusHandler.java">
  * org.tmatesoft.svn.examples.wc.StatusHandler</a>
- *
+ * </p>
  * @author <a href="mailto:dh-maven@famhq.com">David Hawkins</a>
- * @version $Id: SvnStatusHandler.java 493 2011-01-09 18:03:05Z oliver.lamy $
  */
 public class SvnStatusHandler
     implements ISVNStatusHandler, ISVNEventHandler
 {
-    private List<ScmFile> files = new ArrayList<ScmFile>();
+    private List<ScmFile> files = new ArrayList<>();
 
     private File baseDir;
 
@@ -60,15 +59,12 @@ public class SvnStatusHandler
         this.baseDir = baseDir;
     }
 
-    /**
-     * This is  an  implementation  of {@link ISVNStatusHandler#handleStatus(org.tmatesoft.svn.core.wc.SVNStatus)
-     */
+
     public void handleStatus( SVNStatus status )
     {
-        /* Gets  the  status  of  file/directory/symbolic link  text  contents.
-         * It is  SVNStatusType  who  contains  information on the state of  an
-         * item.
-         */
+//         Gets  the  status  of  file/directory/symbolic link  text  contents.
+//         It is  SVNStatusType  who  contains  information on the state of  an item.
+
         SVNStatusType contentsStatus = status.getCombinedNodeAndContentsStatus();
         //status.getContentsStatus();
 
@@ -84,10 +80,8 @@ public class SvnStatusHandler
         }
         else if ( contentsStatus == SVNStatusType.STATUS_MERGED )
         {
-            /* The file item was merGed (changes that came from the  repository
-             * did not overlap local changes and were merged into the file).
-             * "G"
-             */
+//             The file item was merGed (changes that came from the  repository
+//             did not overlap local changes and were merged into the file).  "G"
             scmStatus = ScmFileStatus.PATCHED;
         }
         else if ( contentsStatus == SVNStatusType.STATUS_DELETED )

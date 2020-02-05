@@ -50,8 +50,7 @@ import java.util.List;
 /**
  * @author <a href="mailto:brett@apache.org">Brett Porter</a>
  * @author Olivier Lamy
- * @version $Id: SvnTagCommand.java 492 2011-01-09 17:13:07Z oliver.lamy $
- * @todo since this is just a copy, use that instead.
+ * TODO since this is just a copy, use that instead.
  */
 public class SvnTagCommand
     extends AbstractTagCommand
