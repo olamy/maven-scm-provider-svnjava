@@ -44,4 +44,9 @@ public class SvnJavaDiffCommandTckTest
     {
         return SvnJavaScmTestUtils.getScmUrl( new File( getRepositoryRoot(), "trunk" ) );
     }
+
+    @Override
+    protected File getWorkingDirectory() {
+        return super.getWorkingDirectory();
+    }
 }

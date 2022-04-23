@@ -48,7 +48,7 @@ public class ScmFileEventHandler
 {
     private final ScmLogger logger;
 
-    private final List<ScmFile> files = new ArrayList<ScmFile>();
+    private final List<ScmFile> files = new ArrayList<>();
 
     private final File baseDirectory;
 

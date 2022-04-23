@@ -35,6 +35,7 @@ import org.tmatesoft.svn.core.wc.ISVNEventHandler;
 import org.tmatesoft.svn.core.wc.SVNClientManager;
 import org.tmatesoft.svn.core.wc.SVNCommitClient;
 import org.tmatesoft.svn.core.wc.SVNCopySource;
+import org.tmatesoft.svn.core.wc.SVNDiffClient;
 import org.tmatesoft.svn.core.wc.SVNEvent;
 import org.tmatesoft.svn.core.wc.SVNEventAction;
 import org.tmatesoft.svn.core.wc.SVNLogClient;
@@ -44,6 +45,7 @@ import org.tmatesoft.svn.core.wc.SVNUpdateClient;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -485,7 +487,6 @@ public final class SvnJavaUtil
 
         return clientManager.getCopyClient().doCopy( svnCopySources, dstURL, false, true, true, commitMessage,
                                                      new SVNProperties() );
-        //return clientManager.getCopyClient().doCopy( srcURL, svnRevision, dstURL, isMove, commitMessage, new SVNProperties() );
     }
 
     /*
@@ -519,8 +520,8 @@ public final class SvnJavaUtil
                                                      new SVNProperties() );
     }
 
-    public static ByteArrayOutputStream diff( SVNClientManager clientManager, File baseDir, SVNRevision startRevision,
-                                              SVNRevision endRevision )
+    public static ByteArrayOutputStream diff(SVNDiffClient diffClient, File baseDir, SVNRevision startRevision,
+                                             SVNRevision endRevision, SVNDepth depth, Collection<String> changeLists )
         throws SVNException
     {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
@@ -530,7 +531,7 @@ public final class SvnJavaUtil
          * Returns SVNCommitInfo containing information on the new revision committed
          * (revision number, etc.)
          */
-        clientManager.getDiffClient().doDiff( baseDir, startRevision, startRevision, endRevision, true, true, result );
+        diffClient.doDiff( baseDir, startRevision, startRevision, endRevision, depth, true, result, changeLists );
 
         return result;
     }

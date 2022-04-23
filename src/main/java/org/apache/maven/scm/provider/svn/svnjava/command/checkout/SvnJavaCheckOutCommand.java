@@ -51,6 +51,13 @@ public class SvnJavaCheckOutCommand
     extends AbstractCheckOutCommand
     implements SvnCommand
 {
+
+    @Override
+    protected CheckOutScmResult executeCheckOutCommand(ScmProviderRepository scmProviderRepository, ScmFileSet scmFileSet,
+                                                       ScmVersion scmVersion, boolean recursive, boolean shallow) throws ScmException {
+        return executeCheckOutCommand(scmProviderRepository, scmFileSet, scmVersion, recursive);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -83,7 +90,7 @@ public class SvnJavaCheckOutCommand
             {
                 try
                 {
-                    revision = SVNRevision.create( Long.parseLong( ( (ScmRevision) version ).getName() ) );
+                    revision = SVNRevision.create( Long.parseLong( (version ).getName() ) );
                 }
                 catch ( NumberFormatException exc )
                 {
@@ -104,7 +111,7 @@ public class SvnJavaCheckOutCommand
 
         try
         {
-            SvnJavaUtil.checkout( updateClient, SVNURL.parseURIEncoded( url ), revision, fileSet.getBasedir(), true );
+            SvnJavaUtil.checkout( updateClient, SVNURL.parseURIEncoded( url ), revision, fileSet.getBasedir(), recursive );
 
             return new CheckOutScmResult( SvnJavaScmProvider.COMMAND_LINE, handler.getFiles() );
         }
@@ -118,4 +125,5 @@ public class SvnJavaCheckOutCommand
             javaRepo.getClientManager().getUpdateClient().setEventHandler( null );
         }
     }
+
 }
