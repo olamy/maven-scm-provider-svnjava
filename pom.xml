@@ -73,7 +73,7 @@
     <svnUserName></svnUserName>
     <svnPassword></svnPassword>
      -->
-    <svnkitVersion>1.8.11</svnkitVersion>
+    <svnkitVersion>1.10.5</svnkitVersion>
   </properties>
 
   <dependencies>
@@ -158,8 +158,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.5.1</version>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>

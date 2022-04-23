@@ -189,6 +189,11 @@ public class SvnJavaScmProvider
         return new SvnTagCommand();
     }
 
+    @Override
+    protected SvnCommand getUntagCommand() {
+        return null;
+    }
+
     /**
      * {@inheritDoc}
      */

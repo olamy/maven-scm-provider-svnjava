@@ -20,6 +20,7 @@ package org.apache.maven.scm.provider.svn.svnjava.command.diff;
  */
 
 import org.apache.maven.scm.ScmException;
+import org.apache.maven.scm.ScmFile;
 import org.apache.maven.scm.ScmFileSet;
 import org.apache.maven.scm.ScmVersion;
 import org.apache.maven.scm.command.diff.AbstractDiffCommand;
@@ -31,14 +32,25 @@ import org.apache.maven.scm.provider.svn.svnjava.SvnJavaScmProvider;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
 import org.apache.maven.scm.provider.svn.svnjava.util.ScmFileEventHandler;
 import org.apache.maven.scm.provider.svn.svnjava.util.SvnJavaUtil;
+import org.apache.commons.lang.StringUtils;
+import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNException;
+import org.tmatesoft.svn.core.wc.SVNDiffClient;
 import org.tmatesoft.svn.core.wc.SVNRevision;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author <a href="mailto:brett@apache.org">Brett Porter</a>
@@ -62,25 +74,28 @@ public class SvnJavaDiffCommand
 
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repo;
 
-        ScmFileEventHandler handler = new ScmFileEventHandler( getLogger(), fileSet.getBasedir() );
-
-        try
-        {
-            javaRepo.getClientManager().getDiffClient().setEventHandler( handler );
-
-            SVNRevision start =
+        SVNRevision start =
                 ( startRevision == null ) ? SVNRevision.COMMITTED : SVNRevision.parse( startRevision.getName() );
-            SVNRevision end =
+        SVNRevision end =
                 ( endRevision == null ) ? SVNRevision.WORKING : SVNRevision.parse( endRevision.getName() );
 
-            ByteArrayOutputStream out =
-                SvnJavaUtil.diff( javaRepo.getClientManager(), fileSet.getBasedir(), start, end );
+        List<String> changeLists = new ArrayList<>();
+
+        ScmFileEventHandler handler = new ScmFileEventHandler( getLogger(), fileSet.getBasedir() );
+
+        SVNDiffClient diffClient = javaRepo.getClientManager().getDiffClient();
+        diffClient.setEventHandler( handler );
+        
+        try (ByteArrayOutputStream out =
+                     SvnJavaUtil.diff(diffClient, fileSet.getBasedir(), start, end, SVNDepth.INFINITY, changeLists);
+             ByteArrayInputStream bis = new ByteArrayInputStream( out.toByteArray() );
+             BufferedReader in = new BufferedReader( new InputStreamReader( bis ) ))
+        {
+
+
+            Map<String, CharSequence> differences = new HashMap<>();
 
             SvnDiffConsumer consumer = new SvnDiffConsumer( getLogger(), fileSet.getBasedir() );
-
-            ByteArrayInputStream bis = new ByteArrayInputStream( out.toByteArray() );
-
-            BufferedReader in = new BufferedReader( new InputStreamReader( bis ) );
 
             String line = in.readLine();
             while ( line != null )
@@ -90,20 +105,35 @@ public class SvnJavaDiffCommand
                 line = in.readLine();
             }
 
+            String userdir = System.getProperty("basedir", System.getProperty("user.dir"));
+
+            if (StringUtils.isNotEmpty(userdir)) {
+                String userDirAbs = new File(userdir).getAbsolutePath();
+                String baseDirAbs = fileSet.getBasedir().getAbsolutePath();
+                // the diff is executed from the current directory so it include the path to fileSet.getBasedir()
+                List<ScmFile> changedFiles = consumer.getChangedFiles().stream().map(scmFile -> {
+                    String fullPathAbs = Paths.get(userDirAbs, scmFile.getPath()).toFile().getAbsolutePath();
+                    String fileRelative = StringUtils.removeStart(fullPathAbs, baseDirAbs);
+                    fileRelative = StringUtils.startsWith(fileRelative, "/") ?
+                            StringUtils.removeStart(fileRelative,"/"):fileRelative;
+                    // update differences as well
+                    CharSequence charSequence = consumer.getDifferences().get(scmFile.getPath());
+                    consumer.getDifferences().put(fileRelative, charSequence);
+                    consumer.getDifferences().remove(scmFile.getPath());
+
+                    return new ScmFile(fileRelative, scmFile.getStatus());
+
+                }).collect(Collectors.toList());
+                return new DiffScmResult( SvnJavaScmProvider.COMMAND_LINE, changedFiles,
+                        consumer.getDifferences(), consumer.getPatch() );
+            }
+
             return new DiffScmResult( SvnJavaScmProvider.COMMAND_LINE, consumer.getChangedFiles(),
                                       consumer.getDifferences(), consumer.getPatch() );
         }
-        catch ( IOException e )
+        catch ( IOException | SVNException e )
         {
             return new DiffScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN diff failed.", e.getMessage(), false );
-        }
-        catch ( SVNException e )
-        {
-            return new DiffScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN diff failed.", e.getMessage(), false );
-        }
-        finally
-        {
-            javaRepo.getClientManager().getDiffClient().setEventHandler( null );
         }
     }
 }
