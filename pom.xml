@@ -288,7 +288,7 @@
         </file>
       </activation>
       <properties>
-        <sitePluginVersion>3.3</sitePluginVersion>
+        <sitePluginVersion>3.12.0</sitePluginVersion>
       </properties>
       <build>
         <pluginManagement>
