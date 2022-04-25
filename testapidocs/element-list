@@ -1,0 +1,11 @@
+org.apache.maven.scm.provider.svn.svnjava
+org.apache.maven.scm.provider.svn.svnjava.command.checkin
+org.apache.maven.scm.provider.svn.svnjava.command.checkout
+org.apache.maven.scm.provider.svn.svnjava.command.diff
+org.apache.maven.scm.provider.svn.svnjava.command.info
+org.apache.maven.scm.provider.svn.svnjava.command.list
+org.apache.maven.scm.provider.svn.svnjava.command.remoteinfo
+org.apache.maven.scm.provider.svn.svnjava.command.status
+org.apache.maven.scm.provider.svn.svnjava.command.tag
+org.apache.maven.scm.provider.svn.svnjava.command.update
+org.apache.maven.scm.provider.svn.svnjava.repository
