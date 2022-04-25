@@ -28,12 +28,6 @@
     <version>2.0.0-SNAPSHOT</version>
   </skin>
 
-<!--  <skin>-->
-<!--    <groupId>org.apache.maven.skins</groupId>-->
-<!--    <artifactId>maven-fluido-skin</artifactId>-->
-<!--    <version>1.11.0-SNAPSHOT</version>-->
-<!--  </skin>-->
-
   <body>
     <head>
     </head>
@@ -47,6 +41,10 @@
   <custom>
     <reflowSkin>
       <theme>default</theme>
+      <brand>
+        <name>Maven SCM Subversion Provider - Java Impl.</name>
+        <href>https://olamy.github.io/maven-scm-provider-svnjava/</href>
+      </brand>
       <localResources>false</localResources>
       <highlightJs>false</highlightJs>
       <pages>
