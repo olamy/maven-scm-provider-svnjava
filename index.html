@@ -9,7 +9,7 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>Maven SCM Subversion Provider - Java Impl. &#x2013; About</title>
+		<title>Maven SCM Subversion Provider - Java Impl. &#x2013; Apache Maven SCM Subversion Provider - Java Impl.</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="" />
 		<meta http-equiv="content-language" content="en" />
@@ -97,10 +97,30 @@
 			<div class="body-content">
 				<section> 
  <div class="page-header">
-  <h2 id="About_Maven_SCM_Subversion_Provider_-_Java_Impl.">About Maven SCM Subversion Provider - Java Impl.</h2>
+  <h2 id="Apache_Maven_SCM_Subversion_Provider_-_Java_Impl.">Apache Maven SCM Subversion Provider - Java Impl.</h2>
  </div> 
- <a name="About_Maven_SCM_Subversion_Provider_-_Java_Impl."></a> 
- <p>This provider use a non ASL license compatible library (svnkit http://svnkit.com/).</p> 
+ <p>The <a class="externalLink" href="https://maven.apache.org/scm">Apache Maven SCM</a> Provider Impl is based on svnkit and so use Java process to run <a class="externalLink" href="https://subversion.apache.org/"><code>subversion</code></a> operations.</p> 
+ <section> 
+  <h3 id="Maven_Dependency">Maven Dependency</h3> 
+  <div class="source"> 
+   <pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;com.google.code.maven-scm-provider-svnjava&lt;/groupId&gt;
+  &lt;artifactId&gt;maven-scm-provider-svnjava&lt;/artifactId&gt;
+  &lt;version&gt;${project.version}&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre> 
+  </div> 
+ </section> 
+ <section> 
+  <h3 id="Building">Building</h3> 
+  <p>Requirements: JDK 1.8+, Maven 3.6.3+</p> 
+  <div class="source"> 
+   <pre><code>git clone https://github.com/olamy/maven-scm-provider-svnjava.git
+cd maven-scm-provider-svnjava
+mvn install
+</code></pre> 
+  </div> 
+ </section> 
 </section>
 			</div>
 		</div>
