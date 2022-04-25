@@ -111,6 +111,22 @@
   &lt;version&gt;2.1.5-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre></div>
+<p>You can use snapshot build of the project by adding the repository:</p>
+
+<div class="source">
+<pre><code class="language-xml">  &lt;repositories&gt;
+    &lt;repository&gt;
+      &lt;id&gt;oss.sonatype.snapshots&lt;/id&gt;
+      &lt;url&gt;https://oss.sonatype.org/content/repositories/snapshots&lt;/url&gt;
+      &lt;releases&gt;
+        &lt;enabled&gt;false&lt;/enabled&gt;
+      &lt;/releases&gt;
+      &lt;snapshots&gt;
+        &lt;enabled&gt;true&lt;/enabled&gt;
+      &lt;/snapshots&gt;
+    &lt;/repository&gt;
+  &lt;/repositories&gt;
+</code></pre></div>
 <p>Requirements: JDK 1.8+, Maven 3.6.3+</p>
 
 <div class="source">
