@@ -65,7 +65,7 @@
   <properties>
     <scmVersion>1.12.2</scmVersion>
     <svnUrl>https://github.com/olamy/maven-scm-provider-svnjava.git/trunk</svnUrl>
-    <distUrlReleaseRepo>http://oss.sonatype.org/service/local/staging/deploy/maven2/</distUrlReleaseRepo>
+    <distUrlReleaseRepo>https://oss.sonatype.org/service/local/staging/deploy/maven2/</distUrlReleaseRepo>
     <distUrlSnapshotRepo>https://oss.sonatype.org/content/repositories/snapshots</distUrlSnapshotRepo>
     <siteUrlDis>scm:git:https://github.com/olamy/maven-scm-provider-svnjava.git</siteUrlDis>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
