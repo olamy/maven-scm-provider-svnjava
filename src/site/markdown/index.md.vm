@@ -1,6 +1,8 @@
 ## Apache Maven SCM Subversion Provider - Java Impl.
 
-The [Apache Maven SCM](https://maven.apache.org/scm) Provider Impl is based on svnkit and so use Java process to run [`svn` subversion][subversion] operations.
+The [Apache Maven SCM](https://maven.apache.org/scm) Provider Impl is based on svnkit and so use Java process to run [`svn` subversion][subversion] operations instead of forking a command line as the default Apache Maven SCM svn implementation
+
+[Check releases](https://github.com/olamy/maven-scm-provider-svnjava/releases)
 
 
 ### Maven Dependency
