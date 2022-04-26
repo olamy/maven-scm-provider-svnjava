@@ -44,6 +44,7 @@ import org.tmatesoft.svn.core.wc.SVNRevision;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
@@ -113,7 +114,7 @@ public class SvnJavaChangeLogCommand
     {
         private ChangeLogSet changeLogSet;
 
-        private List<ChangeSet> changeSets = new ArrayList<ChangeSet>();
+        private List<ChangeSet> changeSets = new ArrayList<>();
 
         public ChangeLogHandler( Date startDate, Date endDate )
         {
@@ -123,12 +124,10 @@ public class SvnJavaChangeLogCommand
         public void handleLogEntry( SVNLogEntry logEntry )
             throws SVNException
         {
-            List<ChangeFile> changedFiles = new ArrayList<ChangeFile>();
+            List<ChangeFile> changedFiles = logEntry.getChangedPaths().keySet().stream()
+                    .map(changedPath -> new ChangeFile( changedPath, Long.toString( logEntry.getRevision() ) ))
+                    .collect(Collectors.toList());
 
-            for ( String changedPath : logEntry.getChangedPaths().keySet() )
-            {
-                changedFiles.add( new ChangeFile( changedPath, Long.toString( logEntry.getRevision() ) ) );
-            }
 
             SvnChangeSet changeSet =
                 new SvnChangeSet( logEntry.getDate(), logEntry.getMessage(), logEntry.getAuthor(), changedFiles );

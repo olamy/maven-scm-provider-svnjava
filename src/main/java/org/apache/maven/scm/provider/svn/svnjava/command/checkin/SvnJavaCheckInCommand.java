@@ -79,12 +79,12 @@ public class SvnJavaCheckInCommand
             List<File> paths;
             if ( tmpPaths == null || tmpPaths.isEmpty() )
             {
-                paths = new ArrayList<File>( 1 );
+                paths = new ArrayList<>( 1 );
                 paths.add( fileSet.getBasedir() );
             }
             else
             {
-                paths = new ArrayList<File>( tmpPaths.size() );
+                paths = new ArrayList<>( tmpPaths.size() );
                 for ( File f : tmpPaths )
                 {
                     if ( f.isAbsolute() )
@@ -99,9 +99,9 @@ public class SvnJavaCheckInCommand
             }
 
             SVNCommitInfo svnCommitInfo =
-                SvnJavaUtil.commit( svnCommitClient, paths.toArray( new File[paths.size()] ), false, message, true );
+                SvnJavaUtil.commit( svnCommitClient, paths.toArray(new File[0]), false, message, true );
 
-            List<ScmFile> files = new ArrayList<ScmFile>();
+            List<ScmFile> files = new ArrayList<>();
             for ( String filePath : handler.getFiles() )
             {
                 files.add( new ScmFile( filePath, ScmFileStatus.CHECKED_IN ) );
@@ -123,7 +123,7 @@ public class SvnJavaCheckInCommand
     public static class CommitHandler
         implements ISVNCommitHandler
     {
-        private List<String> files = new ArrayList<String>();
+        private List<String> files = new ArrayList<>();
 
         private String baseDirectory;
 

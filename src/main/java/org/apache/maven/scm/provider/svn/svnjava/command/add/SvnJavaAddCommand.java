@@ -64,7 +64,7 @@ public class SvnJavaAddCommand
             throw new ScmException( "You must provide at least one file/directory to add" );
         }
 
-        final List<ScmFile> filesAdded = new ArrayList<ScmFile>();
+        final List<ScmFile> filesAdded = new ArrayList<>();
 
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repository;
 

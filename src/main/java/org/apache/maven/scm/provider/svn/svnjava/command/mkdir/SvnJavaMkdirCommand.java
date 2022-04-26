@@ -69,13 +69,13 @@ public class SvnJavaMkdirCommand
         {
             url = dirPath;
         }
-        List<SVNURL> svnurls = new ArrayList<SVNURL>( 1 );
+        List<SVNURL> svnurls = new ArrayList<>( 1 );
         try
         {
             svnurls.add( SVNURL.parseURIEncoded( url ) );
 
             SVNCommitInfo commitInfo =
-                SvnJavaUtil.mkdir( javaRepo.getClientManager(), svnurls.toArray( new SVNURL[svnurls.size()] ),
+                SvnJavaUtil.mkdir( javaRepo.getClientManager(), svnurls.toArray(new SVNURL[0]),
                                    message );
             ScmResult scmResult = new ScmResult( null, null, null, true );
 

@@ -27,8 +27,6 @@ import org.apache.maven.scm.ScmResult;
 import org.apache.maven.scm.ScmTag;
 import org.apache.maven.scm.ScmTagParameters;
 import org.apache.maven.scm.ScmUntagParameters;
-import org.apache.maven.scm.command.remove.RemoveScmResult;
-import org.apache.maven.scm.command.tag.AbstractTagCommand;
 import org.apache.maven.scm.command.tag.TagScmResult;
 import org.apache.maven.scm.command.untag.AbstractUntagCommand;
 import org.apache.maven.scm.command.untag.UntagScmResult;
@@ -45,13 +43,11 @@ import org.codehaus.plexus.util.StringUtils;
 import org.tmatesoft.svn.core.SVNCommitInfo;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
-import org.tmatesoft.svn.core.wc2.SvnOperationFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Olivier Lamy
@@ -150,24 +146,19 @@ public class SvnUnTagCommand extends AbstractUntagCommand implements SvnCommand
 
             // The copy command doesn't return a list of files that were tagged,
             // so manually build the list from the contents of the fileSet.getBaseDir.
-            List<ScmFile> fileList = new ArrayList<ScmFile>();
-            List<File> files = null;
+
+            List<File> files ;
             try
             {
-                @SuppressWarnings( "unchecked" ) List<File> list =
-                    FileUtils.getFiles( fileSet.getBasedir(), "**", "**/.svn/**", false );
-                files = list;
+                files = FileUtils.getFiles( fileSet.getBasedir(), "**", "**/.svn/**", false );
             }
             catch ( IOException e )
             {
                 throw new ScmException( "Error while building list of tagged files.", e );
             }
 
-            for ( Iterator<File> i = files.iterator(); i.hasNext(); )
-            {
-                File f = i.next();
-                fileList.add( new ScmFile( f.getPath(), ScmFileStatus.TAGGED ) );
-            }
+            List<ScmFile> fileList = files.stream().map( f -> new ScmFile( f.getPath(), ScmFileStatus.TAGGED ))
+                    .collect(Collectors.toList());
 
             return new TagScmResult( SvnJavaScmProvider.COMMAND_LINE, fileList );
         }

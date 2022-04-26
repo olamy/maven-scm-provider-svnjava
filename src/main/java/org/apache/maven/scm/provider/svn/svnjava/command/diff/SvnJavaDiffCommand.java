@@ -46,10 +46,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -92,8 +89,6 @@ public class SvnJavaDiffCommand
              BufferedReader in = new BufferedReader( new InputStreamReader( bis ) ))
         {
 
-
-            Map<String, CharSequence> differences = new HashMap<>();
 
             SvnDiffConsumer consumer = new SvnDiffConsumer( getLogger(), fileSet.getBasedir() );
 

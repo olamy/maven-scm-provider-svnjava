@@ -73,7 +73,7 @@ public class SvnJavaBlameCommand
         implements ISVNAnnotateHandler
     {
 
-        private List<BlameLine> lines = new ArrayList<BlameLine>();
+        private List<BlameLine> lines = new ArrayList<>();
 
         public void handleEOF()
         {

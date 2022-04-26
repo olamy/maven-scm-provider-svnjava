@@ -22,8 +22,6 @@ package org.apache.maven.scm.provider.svn.svnjava;
 import org.apache.maven.scm.CommandParameters;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
-import org.apache.maven.scm.ScmVersion;
-import org.apache.maven.scm.command.list.ListScmResult;
 import org.apache.maven.scm.command.remoteinfo.RemoteInfoScmResult;
 import org.apache.maven.scm.provider.ScmProviderRepository;
 import org.apache.maven.scm.provider.svn.AbstractSvnScmProvider;
@@ -45,7 +43,6 @@ import org.apache.maven.scm.provider.svn.svnjava.command.status.SvnJavaStatusCom
 import org.apache.maven.scm.provider.svn.svnjava.command.tag.SvnTagCommand;
 import org.apache.maven.scm.provider.svn.svnjava.command.update.SvnJavaUpdateCommand;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
-import org.apache.maven.scm.repository.ScmRepository;
 import org.apache.maven.scm.repository.ScmRepositoryException;
 import org.codehaus.plexus.util.StringUtils;
 import org.tmatesoft.svn.core.SVNException;

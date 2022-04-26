@@ -33,7 +33,6 @@ import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNDirEntry;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
-import org.tmatesoft.svn.core.wc.ISVNInfoHandler;
 import org.tmatesoft.svn.core.wc.SVNInfo;
 import org.tmatesoft.svn.core.wc.SVNRevision;
 
@@ -106,18 +105,11 @@ public class SvnJavaRemoteInfoCommand
         {
 
             javaRepo.getClientManager().getWCClient().doInfo( SVNURL.parseURIEncoded( url ), SVNRevision.HEAD,
-                                                              SVNRevision.HEAD, SVNDepth.EMPTY, new ISVNInfoHandler()
-            {
-                public void handleInfo( SVNInfo svnInfo )
-                    throws SVNException
-                {
-                    svnInfo.getAuthor();
-                }
-            } );
+                                                              SVNRevision.HEAD, SVNDepth.EMPTY, SVNInfo::getAuthor);
         }
         catch ( SVNException e )
         {
-            if ( e.getMessage().indexOf( "E170000" ) > -1 )
+            if (e.getMessage().contains("E170000"))
             {
                 return false;
             }
@@ -131,7 +123,7 @@ public class SvnJavaRemoteInfoCommand
     {
         String url;
 
-        Map<String, String> infos = new HashMap<String, String>();
+        Map<String, String> infos = new HashMap<>();
 
         DirEntryHandler( String url )
         {

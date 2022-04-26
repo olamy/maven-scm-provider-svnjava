@@ -55,7 +55,7 @@ public class SvnJavaInfoCommand
         throws ScmException
     {
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repository;
-        List<InfoItem> infoItems = new ArrayList<InfoItem>();
+        List<InfoItem> infoItems = new ArrayList<>();
         InfoScmResult svnInfoScmResult = new InfoScmResult( null, infoItems );
 
         @SuppressWarnings( "rawtypes" ) Iterator i = fileSet.getFileList().iterator();

@@ -43,9 +43,8 @@ import org.tmatesoft.svn.core.SVNURL;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author <a href="mailto:brett@apache.org">Brett Porter</a>
@@ -119,24 +118,18 @@ public class SvnTagCommand
 
             // The copy command doesn't return a list of files that were tagged,
             // so manually build the list from the contents of the fileSet.getBaseDir.
-            List<ScmFile> fileList = new ArrayList<ScmFile>();
-            List<File> files = null;
+
+            List<File> files;
             try
             {
-                @SuppressWarnings( "unchecked" ) List<File> list =
-                    FileUtils.getFiles( fileSet.getBasedir(), "**", "**/.svn/**", false );
-                files = list;
+                files = FileUtils.getFiles( fileSet.getBasedir(), "**", "**/.svn/**", false );
             }
             catch ( IOException e )
             {
                 throw new ScmException( "Error while building list of tagged files.", e );
             }
-
-            for ( Iterator<File> i = files.iterator(); i.hasNext(); )
-            {
-                File f = i.next();
-                fileList.add( new ScmFile( f.getPath(), ScmFileStatus.TAGGED ) );
-            }
+            List<ScmFile> fileList = files.stream().map(f -> new ScmFile(f.getPath(), ScmFileStatus.TAGGED))
+                    .collect(Collectors.toList());
 
             return new TagScmResult( SvnJavaScmProvider.COMMAND_LINE, fileList );
         }

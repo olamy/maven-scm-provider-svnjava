@@ -25,8 +25,8 @@ import org.tmatesoft.svn.core.SVNURL;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -103,25 +103,23 @@ public class SvnJavaBranchCommand
                 return new TagScmResult( SvnJavaScmProvider.COMMAND_LINE, "SVN tag failed.",
                                          info.getErrorMessage().getMessage(), false );
             }
-            List<ScmFile> fileList = new ArrayList<ScmFile>();
 
-            List<File> files = null;
+
+            List<File> files;
 
             try
             {
-                @SuppressWarnings( "unchecked" ) List<File> listFiles =
-                    FileUtils.getFiles( fileSet.getBasedir(), "**", "**/.svn/**", false );
-                files = listFiles;
+                files = FileUtils.getFiles( fileSet.getBasedir(), "**", "**/.svn/**", false );
             }
             catch ( IOException e )
             {
                 throw new ScmException( "Error while executing command.", e );
             }
 
-            for ( File f : files )
-            {
-                fileList.add( new ScmFile( f.getPath(), ScmFileStatus.TAGGED ) );
-            }
+            List<ScmFile> fileList = files.stream()
+                    .map(f -> new ScmFile( f.getPath(), ScmFileStatus.TAGGED ))
+                    .collect(Collectors.toList());
+
             return new BranchScmResult( SvnJavaScmProvider.COMMAND_LINE, fileList );
         }
         catch ( SVNException e )

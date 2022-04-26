@@ -29,6 +29,7 @@ import org.tmatesoft.svn.core.wc.SVNRevision;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Olivier Lamy
@@ -44,7 +45,7 @@ public class SvnJavaListCommand
                                      CommandParameters parameters )
         throws ScmException
     {
-        boolean recursive = parameters == null ? false : parameters.getBoolean( CommandParameter.RECURSIVE );
+        boolean recursive = parameters != null && parameters.getBoolean(CommandParameter.RECURSIVE);
         ScmVersion scmVersion =
             parameters == null ? null : parameters.getScmVersion( CommandParameter.SCM_VERSION, null );
         return executeListCommand( repository, fileSet, recursive, scmVersion );
@@ -75,7 +76,7 @@ public class SvnJavaListCommand
             {
                 try
                 {
-                    revision = SVNRevision.create( Long.parseLong( ( (ScmRevision) version ).getName() ) );
+                    revision = SVNRevision.create( Long.parseLong( ( version ).getName() ) );
                 }
                 catch ( NumberFormatException exc )
                 {
@@ -113,22 +114,18 @@ public class SvnJavaListCommand
             throw new ScmException( "Error while executing svn list.", e );
         }
 
-        List<ScmFile> scmFiles = new ArrayList<ScmFile>( listEntryHandler.relativePaths.size() );
+        List<ScmFile> scmFiles = listEntryHandler.relativePaths.stream()
+                .map(path -> new ScmFile( path, ScmFileStatus.CHECKED_IN ))
+                .collect(Collectors.toList());
 
-        for ( String path : listEntryHandler.relativePaths )
-        {
-            scmFiles.add( new ScmFile( path, ScmFileStatus.CHECKED_IN ) );
-        }
-
-        ListScmResult listScmResult = new ListScmResult( scmFiles, new ScmResult( null, null, null, false ) );
-        return listScmResult;
+        return new ListScmResult( scmFiles, new ScmResult( null, null, null, false ) );
 
     }
 
     private static class ListEntryHandler
         implements ISVNDirEntryHandler
     {
-        private List<String> relativePaths = new ArrayList<String>();
+        private List<String> relativePaths = new ArrayList<>();
 
         public void handleDirEntry( SVNDirEntry svnDirEntry )
             throws SVNException
