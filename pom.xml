@@ -172,6 +172,11 @@
             <skipDeploy>true</skipDeploy>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>3.0.1</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -221,7 +226,7 @@
         <configuration>
           <useReleaseProfile>true</useReleaseProfile>
           <goals>deploy</goals>
-          <releaseProfiles>sonatype-release-profile</releaseProfiles>
+          <releaseProfiles>sonatype-oss-release</releaseProfiles>
         </configuration>
       </plugin>
 
@@ -260,29 +265,6 @@
 <!--  </repositories>-->
 
   <profiles>
-    <profile>
-      <id>sign</id>
-      <build>
-        <plugins>
-          <!-- We want to sign the artifact, the POM, and all attached artifacts -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <configuration>
-              <passphrase>${gpg.passphrase}</passphrase>
-            </configuration>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
     <profile>
       <id>reporting</id>
       <reporting>
