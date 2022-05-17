@@ -69,7 +69,7 @@
     <distUrlSnapshotRepo>https://oss.sonatype.org/content/repositories/snapshots</distUrlSnapshotRepo>
     <siteUrlDis>scm:git:https://github.com/olamy/maven-scm-provider-svnjava.git</siteUrlDis>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <svnkitVersion>1.10.5</svnkitVersion>
+    <svnkitVersion>1.10.6</svnkitVersion>
   </properties>
 
   <dependencies>
