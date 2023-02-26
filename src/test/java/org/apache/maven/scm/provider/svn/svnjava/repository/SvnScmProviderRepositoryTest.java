@@ -1,5 +1,13 @@
 package org.apache.maven.scm.provider.svn.svnjava.repository;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -26,10 +34,6 @@ import org.apache.maven.scm.provider.svn.repository.SvnScmProviderRepository;
 import org.apache.maven.scm.provider.svn.svnjava.SvnJavaScmProvider;
 import org.apache.maven.scm.repository.ScmRepository;
 import org.apache.maven.scm.repository.ScmRepositoryException;
-
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * @author <a href="mailto:evenisse@apache.org">Emmanuel Venisse</a>
@@ -134,7 +138,7 @@ public class SvnScmProviderRepositoryTest
             return;
         }
 
-        ScmManager scmManager = (ScmManager) lookup( ScmManager.ROLE );
+        ScmManager scmManager = (ScmManager) lookup( ScmManager.class.getName() );
         String url = System.getProperty( "svnUrl" );
         String scmUrl = "scm:javasvn:" + url;
 

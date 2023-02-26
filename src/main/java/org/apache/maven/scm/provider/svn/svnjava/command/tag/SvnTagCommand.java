@@ -78,9 +78,9 @@ public class SvnTagCommand
             throw new ScmException( "This provider doesn't support tagging subsets of a directory" );
         }
 
-        if ( getLogger().isInfoEnabled() )
+        if ( logger.isInfoEnabled() )
         {
-            getLogger().info( "SVN checkout directory: " + fileSet.getBasedir().getAbsolutePath() );
+        	logger.info( "SVN checkout directory: " + fileSet.getBasedir().getAbsolutePath() );
         }
 
         SvnScmProviderRepository repository = (SvnScmProviderRepository) repo;

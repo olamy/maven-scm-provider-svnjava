@@ -90,16 +90,16 @@ public class SvnJavaInfoCommand
             SVNInfo svnInfo = null;
             
         	boolean isVersionedDirectory = SvnOperationFactory.isVersionedDirectory(f);
-        	getLogger().debug("Get info, isVersionedDirectory: " + isVersionedDirectory );
+        	logger.debug("Get info, isVersionedDirectory: " + isVersionedDirectory );
         	
         	if (isVersionedDirectory) 
         	{
-            	getLogger().info("Get info from versioned directory: " + f );
+        		logger.info("Get info from versioned directory: " + f );
         		svnInfo = javaRepo.getClientManager().getWCClient().doInfo( f, svnRev );
         	}
         	else {
         		SVNURL svnUrl = javaRepo.getSvnUrl();
-            	getLogger().info("Get info from svnUrl: " + svnUrl );
+        		logger.info("Get info from svnUrl: " + svnUrl );
             	svnInfo = javaRepo.getClientManager().getWCClient().doInfo( svnUrl, SVNRevision.UNDEFINED, svnRev );
         	}
 

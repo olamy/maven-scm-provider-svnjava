@@ -1,18 +1,18 @@
 package org.apache.maven.scm.provider.svn.svnjava.command.list;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.scm.ScmFile;
 import org.apache.maven.scm.ScmFileSet;
+import org.apache.maven.scm.ScmTestCase;
 import org.apache.maven.scm.command.list.ListScmResult;
-import org.apache.maven.scm.manager.ScmManager;
 import org.apache.maven.scm.provider.svn.svnjava.SvnJavaScmProvider;
 import org.apache.maven.scm.provider.svn.svnjava.repository.SvnJavaScmProviderRepository;
-import org.codehaus.plexus.PlexusTestCase;
-import org.junit.Before;
 import org.junit.Test;
 import org.tmatesoft.svn.core.SVNURL;
-
-import java.io.File;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -37,20 +37,19 @@ import java.io.File;
  * @author <a href="mailto:olamy@apache.org">olamy</a>
  */
 public class SvnJavaListCommandTest
-    extends PlexusTestCase
+	  extends ScmTestCase
 {
 
     @Test
     public void testList()
         throws Exception
     {
-        ScmManager scmManager = (ScmManager) lookup( ScmManager.ROLE );
         String url = System.getProperty( "svnUrl" );
         String scmUrl = "scm:javasvn:" + url;
         SvnJavaScmProviderRepository repository =
             new SvnJavaScmProviderRepository( SVNURL.parseURIEncoded( url ), scmUrl );
 
-        SvnJavaScmProvider provider = (SvnJavaScmProvider) scmManager.getProviderByUrl( scmUrl );
+        SvnJavaScmProvider provider = (SvnJavaScmProvider) getScmManager().getProviderByUrl( scmUrl );
 
         ScmFileSet fileSet = new ScmFileSet( new File( "." ), new File( "." ) );
 

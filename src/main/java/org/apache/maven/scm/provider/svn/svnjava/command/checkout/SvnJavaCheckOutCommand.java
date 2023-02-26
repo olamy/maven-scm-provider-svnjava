@@ -65,9 +65,9 @@ public class SvnJavaCheckOutCommand
                                                         ScmVersion version, boolean recursive )
         throws ScmException
     {
-        if ( getLogger().isInfoEnabled() )
+        if ( logger.isInfoEnabled() )
         {
-            getLogger().info( "SVN checkout directory: " + fileSet.getBasedir().getAbsolutePath() );
+        	logger.info( "SVN checkout directory: " + fileSet.getBasedir().getAbsolutePath() );
         }
 
         SvnScmProviderRepository repository = (SvnScmProviderRepository) repo;
@@ -105,7 +105,7 @@ public class SvnJavaCheckOutCommand
 
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repo;
 
-        ScmFileEventHandler handler = new ScmFileEventHandler( getLogger(), fileSet.getBasedir() );
+        ScmFileEventHandler handler = new ScmFileEventHandler( logger, fileSet.getBasedir() );
         SVNUpdateClient updateClient = javaRepo.getClientManager().getUpdateClient();
         updateClient.setEventHandler( handler );
 

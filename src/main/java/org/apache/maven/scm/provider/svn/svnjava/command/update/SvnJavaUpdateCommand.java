@@ -57,16 +57,16 @@ public class SvnJavaUpdateCommand
     {
         SvnScmProviderRepository repository = (SvnScmProviderRepository) repo;
 
-        if ( getLogger().isInfoEnabled() )
+        if ( logger.isInfoEnabled() )
         {
-            getLogger().info( "SVN update directory: " + fileSet.getBasedir().getAbsolutePath() );
+        	logger.info( "SVN update directory: " + fileSet.getBasedir().getAbsolutePath() );
         }
 
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repo;
 
         try
         {
-            ScmFileEventHandler handler = new ScmFileEventHandler( getLogger(), fileSet.getBasedir() );
+            ScmFileEventHandler handler = new ScmFileEventHandler( logger, fileSet.getBasedir() );
 
             SVNUpdateClient updateClient = javaRepo.getClientManager().getUpdateClient();
 
@@ -110,8 +110,8 @@ public class SvnJavaUpdateCommand
     protected ChangeLogCommand getChangeLogCommand()
     {
         SvnJavaChangeLogCommand command = new SvnJavaChangeLogCommand();
-
-        command.setLogger( getLogger() );
+        // CF : What to do here ?
+        //command.setLogger( logger );
 
         return command;
     }

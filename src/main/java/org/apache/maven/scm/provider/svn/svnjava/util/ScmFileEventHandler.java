@@ -1,5 +1,9 @@
 package org.apache.maven.scm.provider.svn.svnjava.util;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -21,17 +25,13 @@ package org.apache.maven.scm.provider.svn.svnjava.util;
 
 import org.apache.maven.scm.ScmFile;
 import org.apache.maven.scm.ScmFileStatus;
-import org.apache.maven.scm.log.ScmLogger;
 import org.codehaus.plexus.util.StringUtils;
+import org.slf4j.Logger;
 import org.tmatesoft.svn.core.SVNCancelException;
 import org.tmatesoft.svn.core.SVNNodeKind;
 import org.tmatesoft.svn.core.wc.ISVNEventHandler;
 import org.tmatesoft.svn.core.wc.SVNEvent;
 import org.tmatesoft.svn.core.wc.SVNEventAction;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * {@link org.tmatesoft.svn.core.wc.ISVNStatusHandler} implementation for most
@@ -46,7 +46,7 @@ import java.util.List;
 public class ScmFileEventHandler
     implements ISVNEventHandler
 {
-    private final ScmLogger logger;
+    private final Logger logger;
 
     private final List<ScmFile> files = new ArrayList<>();
 
@@ -55,7 +55,7 @@ public class ScmFileEventHandler
     /**
      * The logger is used in alerting the user to unknown file statuses.
      */
-    public ScmFileEventHandler( ScmLogger logger, File baseDirectory )
+    public ScmFileEventHandler( Logger logger, File baseDirectory )
     {
         this.logger = logger;
 

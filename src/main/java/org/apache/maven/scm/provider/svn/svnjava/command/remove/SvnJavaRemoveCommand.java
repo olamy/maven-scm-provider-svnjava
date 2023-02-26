@@ -52,14 +52,14 @@ public class SvnJavaRemoveCommand
             throw new ScmException( "You must provide at least one file/directory to remove" );
         }
 
-        if ( getLogger().isInfoEnabled() )
+        if ( logger.isInfoEnabled() )
         {
-            getLogger().info( "SVN remove working directory: " + fileSet.getBasedir().getAbsolutePath() );
+        	logger.info( "SVN remove working directory: " + fileSet.getBasedir().getAbsolutePath() );
         }
 
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repo;
 
-        ScmFileEventHandler handler = new ScmFileEventHandler( getLogger(), fileSet.getBasedir() );
+        ScmFileEventHandler handler = new ScmFileEventHandler( logger, fileSet.getBasedir() );
 
         javaRepo.getClientManager().getWCClient().setEventHandler( handler );
 

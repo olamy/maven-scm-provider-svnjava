@@ -60,9 +60,9 @@ public class SvnJavaCheckInCommand
                                                       ScmVersion tag )
         throws ScmException
     {
-        if ( getLogger().isInfoEnabled() )
+        if ( logger.isInfoEnabled() )
         {
-            getLogger().info( "SVN commit directory: " + fileSet.getBasedir().getAbsolutePath() );
+        	logger.info( "SVN commit directory: " + fileSet.getBasedir().getAbsolutePath() );
         }
 
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repo;
