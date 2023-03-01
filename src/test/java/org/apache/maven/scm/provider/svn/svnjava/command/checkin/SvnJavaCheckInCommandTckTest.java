@@ -106,8 +106,8 @@ public class SvnJavaCheckInCommandTckTest extends SvnCheckInCommandTckTest {
 		assertEquals(ScmFileStatus.CHECKED_IN, file1.getStatus());
 
 		String file1WithoutPathUnixStyle = createFilePathWithoutCompletePath(getWorkingCopy().toString(),
-				file1.getPath());
-		assertPath("/src/main/java/Foo.java", file1WithoutPathUnixStyle);
+				file1.getPath());		
+		assertPath("main/java/Foo.java", file1WithoutPathUnixStyle);
 
 		CheckOutScmResult checkoutResult = getScmManager().checkOut(getScmRepository(),
 				new ScmFileSet(getAssertionCopy()));
@@ -161,7 +161,7 @@ public class SvnJavaCheckInCommandTckTest extends SvnCheckInCommandTckTest {
 
 		String file1WithoutPathUnixStyle = createFilePathWithoutCompletePath(getWorkingCopy().toString(),
 				file1.getPath());
-		assertPath("/src/main/java/Foo.java", file1WithoutPathUnixStyle);
+		assertPath("src/main/java/Foo.java", file1WithoutPathUnixStyle);
 
 		CheckOutScmResult checkoutResult = getScmManager().checkOut(getScmRepository(),
 				new ScmFileSet(getAssertionCopy()));
@@ -228,12 +228,12 @@ public class SvnJavaCheckInCommandTckTest extends SvnCheckInCommandTckTest {
 		assertEquals(2, files.size());
 
 		Map<String, ScmFile> fileMap = mapFilesByPath(files);
-		
-		ScmFile file1 = fileMap.get(StringUtils.replace(getWorkingCopy() + "/src/main/java/Foo.java", "\\", "/"));		
+				
+		ScmFile file1 = fileMap.get("src/main/java/Foo.java");
 		assertNotNull(file1);
 		assertEquals(ScmFileStatus.CHECKED_IN, file1.getStatus());
 
-		ScmFile file2 = fileMap.get(StringUtils.replace(getWorkingCopy() + "/readme.txt", "\\", "/"));
+		ScmFile file2 = fileMap.get("readme.txt");
 		assertNotNull(file2);
 		assertEquals(ScmFileStatus.CHECKED_IN, file2.getStatus());
 

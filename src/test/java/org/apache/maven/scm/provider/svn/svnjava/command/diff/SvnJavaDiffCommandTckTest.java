@@ -140,7 +140,7 @@ public class SvnJavaDiffCommandTckTest
         String fileWithoutPathUnixStyle = createFilePathWithoutCompletePath(getWorkingCopy().toString(),
         		file.getPath());
         
-        assertPath( "/src/main/java/org/Foo.java", fileWithoutPathUnixStyle );
+        assertPath( "src/main/java/org/Foo.java", fileWithoutPathUnixStyle );
 
         assertTrue( file.getStatus().isDiff() );
 
@@ -151,7 +151,7 @@ public class SvnJavaDiffCommandTckTest
         //Check readme.txt
         file = files.next();
 
-        assertPath( "/readme.txt", file.getPath() );
+        assertPath( "readme.txt", file.getPath() );
 
         assertTrue( file.getStatus().isDiff() );
 
@@ -163,7 +163,7 @@ public class SvnJavaDiffCommandTckTest
         //Check project.xml
         file = files.next();
 
-        assertPath( "/project.xml", file.getPath() );
+        assertPath( "project.xml", file.getPath() );
 
         postRangeStr = "+changed project.xml\n\\ No newline at end of file\n";
         actualStr = differences.get( file.getPath() ).toString();
