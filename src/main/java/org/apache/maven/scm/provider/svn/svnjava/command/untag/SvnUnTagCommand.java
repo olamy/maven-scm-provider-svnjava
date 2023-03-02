@@ -68,7 +68,7 @@ public class SvnUnTagCommand extends AbstractUntagCommand implements SvnCommand
 
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repo;
 
-        ScmFileEventHandler handler = new ScmFileEventHandler( getLogger(), scmFileSet.getBasedir() );
+        ScmFileEventHandler handler = new ScmFileEventHandler( logger, scmFileSet.getBasedir() );
 
         javaRepo.getClientManager().getWCClient().setEventHandler( handler );
 
@@ -106,9 +106,9 @@ public class SvnUnTagCommand extends AbstractUntagCommand implements SvnCommand
             throw new ScmException( "This provider doesn't support tagging subsets of a directory" );
         }
 
-        if ( getLogger().isInfoEnabled() )
+        if ( logger.isInfoEnabled() )
         {
-            getLogger().info( "SVN checkout directory: " + fileSet.getBasedir().getAbsolutePath() );
+        	logger.info( "SVN checkout directory: " + fileSet.getBasedir().getAbsolutePath() );
         }
 
         SvnScmProviderRepository repository = (SvnScmProviderRepository) repo;

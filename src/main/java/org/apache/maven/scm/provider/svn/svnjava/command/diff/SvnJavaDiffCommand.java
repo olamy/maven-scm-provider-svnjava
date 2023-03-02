@@ -64,9 +64,9 @@ public class SvnJavaDiffCommand
                                                 ScmVersion startRevision, ScmVersion endRevision )
         throws ScmException
     {
-        if ( getLogger().isInfoEnabled() )
+        if ( logger.isInfoEnabled() )
         {
-            getLogger().info( "SVN diff directory: " + fileSet.getBasedir().getAbsolutePath() );
+        	logger.info( "SVN diff directory: " + fileSet.getBasedir().getAbsolutePath() );
         }
 
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repo;
@@ -78,7 +78,7 @@ public class SvnJavaDiffCommand
 
         List<String> changeLists = new ArrayList<>();
 
-        ScmFileEventHandler handler = new ScmFileEventHandler( getLogger(), fileSet.getBasedir() );
+        ScmFileEventHandler handler = new ScmFileEventHandler( logger, fileSet.getBasedir() );
 
         SVNDiffClient diffClient = javaRepo.getClientManager().getDiffClient();
         diffClient.setEventHandler( handler );
@@ -90,7 +90,7 @@ public class SvnJavaDiffCommand
         {
 
 
-            SvnDiffConsumer consumer = new SvnDiffConsumer( getLogger(), fileSet.getBasedir() );
+            SvnDiffConsumer consumer = new SvnDiffConsumer( fileSet.getBasedir() );
 
             String line = in.readLine();
             while ( line != null )

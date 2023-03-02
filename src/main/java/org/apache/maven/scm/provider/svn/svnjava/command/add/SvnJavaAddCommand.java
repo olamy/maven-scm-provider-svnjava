@@ -94,9 +94,9 @@ public class SvnJavaAddCommand
             {
                 File fileToAdd = new File( fileSet.getBasedir(), file.toString() );
 
-                if ( getLogger().isDebugEnabled() )
+                if ( logger.isDebugEnabled() )
                 {
-                    getLogger().debug( "SVN adding file: " + fileToAdd.getAbsolutePath() );
+                	logger.debug( "SVN adding file: " + fileToAdd.getAbsolutePath() );
                 }
 
                 boolean forceAdd = parameters.getBoolean( CommandParameter.FORCE_ADD, false );

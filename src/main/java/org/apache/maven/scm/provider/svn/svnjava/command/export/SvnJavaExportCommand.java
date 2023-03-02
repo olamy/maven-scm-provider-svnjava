@@ -56,7 +56,7 @@ public class SvnJavaExportCommand
     {
         SvnJavaScmProviderRepository javaRepo = (SvnJavaScmProviderRepository) repo;
 
-        ScmFileEventHandler handler = new ScmFileEventHandler( getLogger(), fileSet.getBasedir() );
+        ScmFileEventHandler handler = new ScmFileEventHandler(logger, fileSet.getBasedir() );
 
         javaRepo.getClientManager().getUpdateClient().setEventHandler( handler );
         String url = javaRepo.getUrl();
