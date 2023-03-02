@@ -15,33 +15,17 @@
 # specific language governing permissions and limitations
 # under the License.
 
-name: GitHub CI
+name: Verify
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
 
 jobs:
   build:
-
-    strategy:
-      matrix:
-        # windows-latest
-        os: [ubuntu-latest, macOS-latest]
-        java: [8,11]
-        jdk: [temurin, zulu]
-      fail-fast: false
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: ${{ matrix.jdk }}
-          java-version: ${{ matrix.java }}
-          cache: 'maven'
-
-      - name: Build with Maven
-        run: mvn verify -e -B -V -P run-its
+    name: Verify
+    uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v3
+    with:
+      jdk-matrix: '[ "8", "11", "17", "19"]'
+      maven-matrix: '["3.9.0", "3.8.7", "4.0.0-alpha-4"]'
+      verify-fail-fast: false
