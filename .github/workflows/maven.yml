@@ -27,7 +27,8 @@ jobs:
     uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v3
     with:
       jdk-matrix: '[ "8", "11", "17", "19"]'
-      maven-matrix: '["3.9.0", "3.8.7", "4.0.0-alpha-4"]'
+      maven-matrix: '["3.9.0", "3.8.7"]'
+      os-matrix: '[ "ubuntu-latest", "macOS-latest" ]'
       verify-fail-fast: false
       ff-goal: "verify"
       verify-goal: "verify"
