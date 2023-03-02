@@ -29,3 +29,5 @@ jobs:
       jdk-matrix: '[ "8", "11", "17", "19"]'
       maven-matrix: '["3.9.0", "3.8.7", "4.0.0-alpha-4"]'
       verify-fail-fast: false
+      ff-goal: "verify"
+      verify-goal: "verify"
